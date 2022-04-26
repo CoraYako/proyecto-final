@@ -1,10 +1,10 @@
-package com.login;
+package com.notlify;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LoginApplicationTests {
+class NotlifyApplicationTests {
 
 	@Test
 	void contextLoads() {
