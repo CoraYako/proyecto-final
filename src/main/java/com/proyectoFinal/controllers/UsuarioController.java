@@ -21,9 +21,7 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     public String registrar(@RequestParam String email, @RequestParam String password, @RequestParam String confirmarPassword) {
-
         usuarioService.save(email, password, confirmarPassword);
-
         return "index.html";
     }
 
@@ -32,8 +30,6 @@ public class UsuarioController {
     public String lista(ModelMap modelo) {
         List<Usuario> usuarios = usuarioService.getAll();
         modelo.put("usuarios", usuarios);
-
         return "list-usuarios.html";
     }
-
 }

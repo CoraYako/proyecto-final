@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/authenticated")
 @PreAuthorize("isAuthenticated()")
 public class AuthenticatedController {
-    
+
     @GetMapping
     public String index() {
         return "index.html";
     }
-    
 }
