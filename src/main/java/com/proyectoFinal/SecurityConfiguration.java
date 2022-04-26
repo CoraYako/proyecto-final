@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.proyectoFinal;
 
 import com.proyectoFinal.servicios.UsuarioService;
@@ -17,41 +12,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	public UsuarioService usuarioService;
-	
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(usuarioService).
-		passwordEncoder(new BCryptPasswordEncoder());
-	}
-	
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
+    @Autowired
+    public UsuarioService usuarioService;
 
-				.antMatchers("/css/*", "/js/*", "/img/*", "/**","/main/**","/usuario/**","/actividad/**","/login/**", "/glosario/**").permitAll()
-				.and().formLogin()
-					.loginPage("/login")
-						.loginProcessingUrl("/logincheck")
-						.usernameParameter("email")
-						.passwordParameter("password")
-						.defaultSuccessUrl("/")
-						.failureUrl("/login?error=error")
-						.permitAll()
-				.and().logout()
-					.logoutUrl("/logout")
-					.logoutSuccessUrl("/login?logout=logout")
-					.permitAll()
-				.and().csrf()
-					.disable();
-	}
-	
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(usuarioService).passwordEncoder(new BCryptPasswordEncoder());
+    }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/css/*", "/js/*", "/img/*", "/**", "/main/**", "/usuario/**", "/actividad/**", "/login/**", "/glosario/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/logincheck").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/").failureUrl("/login?error=error").permitAll().and().logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout=logout").permitAll().and().csrf().disable();
+    }
 }
-
