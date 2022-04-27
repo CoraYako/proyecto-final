@@ -36,6 +36,9 @@ public class EspacioTrabajo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaFinalizacion;
+
     @OneToMany
     @JoinColumn(name = "usuarios", nullable = false)
     private List<Usuario> usuarios;
@@ -43,14 +46,24 @@ public class EspacioTrabajo {
     @Column(name = "activo", nullable = false)
     private Boolean activo;
 
-    public EspacioTrabajo(String id, String nombre, List<Tarea> tareas, Imagen fondo, Date fechaCreacion, List<Usuario> usuarios, Boolean activo) {
+    public EspacioTrabajo(String id, String nombre, List<Tarea> tareas, Imagen fondo, Date fechaCreacion, Date fechaFinalizacion,
+            List<Usuario> usuarios, Boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.tareas = tareas;
         this.fondo = fondo;
         this.fechaCreacion = fechaCreacion;
+        this.fechaFinalizacion = fechaFinalizacion;
         this.usuarios = usuarios;
         this.activo = activo;
+    }
+
+    public Date getFechaFinalizacion() {
+        return fechaFinalizacion;
+    }
+
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
+        this.fechaFinalizacion = fechaFinalizacion;
     }
 
     public EspacioTrabajo() {
@@ -156,7 +169,7 @@ public class EspacioTrabajo {
 
     @Override
     public String toString() {
-        return "EspacioTrabajo{" + "id=" + id + ", nombre=" + nombre + ", tareas=" + tareas + ", fondo=" + fondo + ", fechaCreacion=" + fechaCreacion + ", usuarios=" + usuarios + ", activo=" + activo + '}';
+        return "EspacioTrabajo{" + "id=" + id + ", nombre=" + nombre + ", tareas=" + tareas + ", fondo=" + fondo + ", fechaCreacion=" + fechaCreacion + ", fechaFinalizacion=" + fechaFinalizacion + ", usuarios=" + usuarios + ", activo=" + activo + '}';
     }
 
 }
