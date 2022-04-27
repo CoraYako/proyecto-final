@@ -2,7 +2,7 @@
 
 <ClassDiagram name="main.java.com.proyectoFinal.entidades">
   <ClassDiagramComponents>
-    <Class name="Imagen" package="com.proyectoFinal.entidades" visibility="public" xPosition="595.0" yPosition="13.0">
+    <Class name="Imagen" package="com.proyectoFinal.entidades" visibility="public" xPosition="984.0" yPosition="10.0">
       <Fields>
         <Field name="id" type="String" visibility="private"/>
         <Field name="mime" type="String" visibility="private"/>
@@ -38,7 +38,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Usuario" package="com.proyectoFinal.entidades" visibility="public" xPosition="1143.0" yPosition="232.0">
+    <Class name="Usuario" package="com.proyectoFinal.entidades" visibility="public" xPosition="1468.0" yPosition="72.0">
       <Fields>
         <Field name="id" type="String" visibility="private"/>
         <Field name="email" type="String" visibility="private"/>
@@ -116,7 +116,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Tarea" package="com.proyectoFinal.entidades" visibility="public" xPosition="227.0" yPosition="644.0">
+    <Class name="Tarea" package="com.proyectoFinal.entidades" visibility="public" xPosition="853.0" yPosition="606.0">
       <Fields>
         <Field name="id" type="String" visibility="private"/>
         <Field name="titulo" type="String" visibility="private"/>
@@ -164,7 +164,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="EspacioTrabajo" package="com.proyectoFinal.entidades" visibility="public" xPosition="48.0" yPosition="21.0">
+    <Class name="EspacioTrabajo" package="com.proyectoFinal.entidades" visibility="public" xPosition="49.0" yPosition="176.0">
       <Fields>
         <Field name="id" type="String" visibility="private"/>
         <Field name="nombre" type="String" visibility="private"/>
@@ -220,15 +220,15 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="usuarios" source="com.proyectoFinal.entidades.Tarea" target="com.proyectoFinal.entidades.Usuario" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Usuario&gt;"/>
-    <UseRelation source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Tarea" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Imagen" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.proyectoFinal.entidades.Tarea" target="com.proyectoFinal.entidades.Usuario" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="fondo" source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Imagen" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="tareas" source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Tarea" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Tarea&gt;"/>
+    <HasRelation name="usuarios" source="com.proyectoFinal.entidades.Tarea" target="com.proyectoFinal.entidades.Usuario" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Usuario&gt;"/>
+    <HasRelation name="usuarios" source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Usuario" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Usuario&gt;"/>
+    <UseRelation source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Tarea" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="fotoPerfil" source="com.proyectoFinal.entidades.Usuario" target="com.proyectoFinal.entidades.Imagen" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="com.proyectoFinal.entidades.Usuario" target="com.proyectoFinal.entidades.Imagen" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Usuario" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Imagen" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="fondo" source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Imagen" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="usuarios" source="com.proyectoFinal.entidades.EspacioTrabajo" target="com.proyectoFinal.entidades.Usuario" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Usuario&gt;"/>
-    <HasRelation name="fotoPerfil" source="com.proyectoFinal.entidades.Usuario" target="com.proyectoFinal.entidades.Imagen" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.proyectoFinal.entidades.Tarea" target="com.proyectoFinal.entidades.Usuario" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
