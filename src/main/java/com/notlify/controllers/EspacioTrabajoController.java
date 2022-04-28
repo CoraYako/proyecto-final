@@ -1,7 +1,6 @@
+package com.notlify.controllers;
 
-package com.proyectoFinal.controllers;
-
-import com.proyectoFinal.servicios.EspacioTrabajoService;
+import com.notlify.servicios.EspacioTrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

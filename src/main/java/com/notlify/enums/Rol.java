@@ -1,4 +1,4 @@
-package com.proyectoFinal.enums;
+package com.notlify.enums;
 
 public enum Rol {
  
