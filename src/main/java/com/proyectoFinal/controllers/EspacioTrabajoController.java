@@ -27,11 +27,11 @@ public class EspacioTrabajoController {
     }
     
     @PostMapping("/espacioTrabajo")
-    public String crear(RedirectAttributes attr, @RequestParam String nombre 
-    /*String idTarea, String idImagen, String idUsuarios*/) {
+    public String crear(RedirectAttributes attr, @RequestParam String nombre, 
+    String idUsuario) {
         
         try{
-            espacioTrabajoService.cargar(nombre, true);
+            espacioTrabajoService.cargar(nombre, idUsuario, true);
             attr.addFlashAttribute("exito", "El espacio de trabajo con el nombre '" +nombre+"' se inició exitosamente.");
         }catch (Exception e) {
             attr.addFlashAttribute("error", e.getMessage());

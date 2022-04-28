@@ -1,6 +1,7 @@
 package com.proyectoFinal.servicios;
 
 import com.proyectoFinal.entidades.EspacioTrabajo;
+import com.proyectoFinal.entidades.Usuario;
 import com.proyectoFinal.repositorios.EspacioTrabajoRepository;
 import java.util.Date;
 import java.util.List;
@@ -15,23 +16,26 @@ public class EspacioTrabajoService {
 
     @Autowired
     private EspacioTrabajoRepository espacioTrabajoRepository;
+    
+    @Autowired
+    private TareaService tareaService;
+    
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public EspacioTrabajo cargar(String nombre,/*String idTarea, String idImagen, String idUsuarios, */Boolean activo) throws Exception{
+    public EspacioTrabajo cargar(String nombre,String idUsuario, Boolean activo) throws Exception{
 
-        validar(nombre);
+        validar(nombre, idUsuario);
         
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
 
         espacioTrabajo.setNombre(nombre);
-        espacioTrabajo.setActivo(true);
         espacioTrabajo.setFechaCreacion(new Date());
-
-        //ESTAS TRES ENTIDADES DEBO ESPERAR A QUE REALICEN SUS RESPECTIVOS SERVICIO PARA PODER
-        //IMPORTARLAS Y CARGARLAS EN LA CREACION DEL ESPACIO DE TRABAJO
-        //Tarea tarea = 
-        //Imagen imagen
-        //Usuario usuario
+ /*         FALTA EL MEDTODO BUSCAR POR ID EN USUARIOSERVICE
+        Usuario usuario = usuarioService.findById(idUsuario);
+        espacioTrabajo.setUsuarios((List<Usuario>) usuario);
+        */
         return espacioTrabajoRepository.save(espacioTrabajo);
 
     }
@@ -105,8 +109,11 @@ public class EspacioTrabajoService {
         return espacioTrabajoRepository.buscarActivos();
     }
     
-    public void validar(String nombre) throws Exception{
+    public void validar(String nombre, String idUsuario) throws Exception{
         if (nombre == null || nombre.isEmpty() || nombre.contains("  ")){
+            throw new Exception("EL nombre no puede estar nulo o vacío");
+        }
+        if (idUsuario == null || idUsuario.isEmpty() || idUsuario.contains("  ")){
             throw new Exception("EL nombre no puede estar nulo o vacío");
         }
     }
