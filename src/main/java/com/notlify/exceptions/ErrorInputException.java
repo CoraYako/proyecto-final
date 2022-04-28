@@ -1,5 +1,5 @@
 
-package com.proyectoFinal.exceptions;
+package com.notlify.exceptions;
 
 
 public class ErrorInputException extends Exception {

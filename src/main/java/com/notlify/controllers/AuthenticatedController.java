@@ -1,4 +1,4 @@
-package com.proyectoFinal.controllers;
+package com.notlify.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

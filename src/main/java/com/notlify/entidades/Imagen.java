@@ -1,5 +1,6 @@
-package com.proyectoFinal.entidades;
+package com.notlify.entidades;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,8 +13,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "imagen")
-public class Imagen {
+@Table(name = "imagenes")
+public class Imagen implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")

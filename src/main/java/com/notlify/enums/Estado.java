@@ -1,4 +1,4 @@
-package com.proyectoFinal.enums;
+package com.notlify.enums;
 
 /*
     Definición de estados por los que pasarán las tareas.

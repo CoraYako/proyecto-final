@@ -1,7 +1,7 @@
-package com.proyectoFinal.controllers;
+package com.notlify.controllers;
 
-import com.proyectoFinal.entidades.Usuario;
-import com.proyectoFinal.servicios.UsuarioService;
+import com.notlify.entidades.Usuario;
+import com.notlify.servicios.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +21,7 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     public String registrar(@RequestParam String email, @RequestParam String password, @RequestParam String confirmarPassword) {
-        usuarioService.save(email, password, confirmarPassword);
+        //Antes de hacer el controlador, finalizar los servicios correspondientes.
         return "index.html";
     }
 
