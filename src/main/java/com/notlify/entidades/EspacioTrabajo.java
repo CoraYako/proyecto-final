@@ -1,5 +1,6 @@
-package com.proyectoFinal.entidades;
+package com.notlify.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -15,8 +16,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "espacio_de_trabajo")
-public class EspacioTrabajo {
+@Table(name = "espacios_de_trabajo")
+public class EspacioTrabajo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -27,34 +28,38 @@ public class EspacioTrabajo {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    private List<Tarea> tareas;
+    @OneToMany
+    @JoinColumn(name = "tareas")
+    private List<Tarea> listaTareas;
 
     @OneToOne
-    @Column(name = "imagen_fondo")
+    @JoinColumn(name = "fondo")
     private Imagen fondo;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion")
     private Date fechaCreacion;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_finalizacion")
     private Date fechaFinalizacion;
 
     @OneToMany
-    @JoinColumn(name = "usuarios", nullable = false)
-    private List<Usuario> usuarios;
+    @JoinColumn(name = "lista_usuarios", nullable = false)
+    private List<Usuario> listaUsuarios;
 
-    @Column(name = "activo", nullable = false)
+    @Column(name = "activo")
     private Boolean activo;
 
-    public EspacioTrabajo(String id, String nombre, List<Tarea> tareas, Imagen fondo, Date fechaCreacion, Date fechaFinalizacion,
-            List<Usuario> usuarios, Boolean activo) {
+    public EspacioTrabajo(String id, String nombre, List<Tarea> listaTareas, Imagen fondo, Date fechaCreacion, Date fechaFinalizacion,
+            List<Usuario> listaUsuarios, Boolean activo) {
         this.id = id;
         this.nombre = nombre;
-        this.tareas = tareas;
+        this.listaTareas = listaTareas;
         this.fondo = fondo;
         this.fechaCreacion = fechaCreacion;
         this.fechaFinalizacion = fechaFinalizacion;
-        this.usuarios = usuarios;
+        this.listaUsuarios = listaUsuarios;
         this.activo = activo;
     }
 
@@ -98,17 +103,17 @@ public class EspacioTrabajo {
     }
 
     /**
-     * @return the tareas
+     * @return the listaTareas
      */
-    public List<Tarea> getTareas() {
-        return tareas;
+    public List<Tarea> getListaTareas() {
+        return listaTareas;
     }
 
     /**
-     * @param tareas the tareas to set
+     * @param listaTareas the tareas to set
      */
-    public void setTareas(List<Tarea> tareas) {
-        this.tareas = tareas;
+    public void setListaTareas(List<Tarea> listaTareas) {
+        this.listaTareas = listaTareas;
     }
 
     /**
@@ -140,17 +145,17 @@ public class EspacioTrabajo {
     }
 
     /**
-     * @return the usuarios
+     * @return the listaUsuarios
      */
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
     }
 
     /**
-     * @param usuarios the usuarios to set
+     * @param listaUsuarios the usuarios to set
      */
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 
     /**
@@ -169,7 +174,7 @@ public class EspacioTrabajo {
 
     @Override
     public String toString() {
-        return "EspacioTrabajo{" + "id=" + id + ", nombre=" + nombre + ", tareas=" + tareas + ", fondo=" + fondo + ", fechaCreacion=" + fechaCreacion + ", fechaFinalizacion=" + fechaFinalizacion + ", usuarios=" + usuarios + ", activo=" + activo + '}';
+        return "EspacioTrabajo{" + "id=" + id + ", nombre=" + nombre + ", listaTareas=" + listaTareas + ", fondo=" + fondo + ", fechaCreacion=" + fechaCreacion + ", fechaFinalizacion=" + fechaFinalizacion + ", listaUsuarios=" + listaUsuarios + ", activo=" + activo + '}';
     }
 
 }

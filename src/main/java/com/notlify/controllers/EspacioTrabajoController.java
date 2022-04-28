@@ -1,7 +1,6 @@
+package com.notlify.controllers;
 
-package com.proyectoFinal.controllers;
-
-import com.proyectoFinal.servicios.EspacioTrabajoService;
+import com.notlify.servicios.EspacioTrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,11 +26,11 @@ public class EspacioTrabajoController {
     }
     
     @PostMapping("/espacioTrabajo")
-    public String crear(RedirectAttributes attr, @RequestParam String nombre 
-    /*String idTarea, String idImagen, String idUsuarios*/) {
+    public String crear(RedirectAttributes attr, @RequestParam String nombre, 
+    String idUsuario) {
         
         try{
-            espacioTrabajoService.cargar(nombre, true);
+            espacioTrabajoService.cargar(nombre, idUsuario, true);
             attr.addFlashAttribute("exito", "El espacio de trabajo con el nombre '" +nombre+"' se inició exitosamente.");
         }catch (Exception e) {
             attr.addFlashAttribute("error", e.getMessage());

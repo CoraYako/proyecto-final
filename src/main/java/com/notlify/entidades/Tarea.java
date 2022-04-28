@@ -1,6 +1,7 @@
-package com.proyectoFinal.entidades;
+package com.notlify.entidades;
 
-import com.proyectoFinal.enums.Estado;
+import com.notlify.enums.Estado;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,13 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "tarea")
-public class Tarea {
+@Table(name = "tareas")
+public class Tarea implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -30,9 +30,8 @@ public class Tarea {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToOne
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado")
+    @JoinColumn(name = "estado")
     private Estado estado;
 
     @OneToMany

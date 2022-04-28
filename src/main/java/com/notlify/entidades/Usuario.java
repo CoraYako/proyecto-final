@@ -1,6 +1,7 @@
-package com.proyectoFinal.entidades;
+package com.notlify.entidades;
 
-import com.proyectoFinal.enums.Rol;
+import com.notlify.enums.Rol;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +17,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "usuarios")
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -31,7 +32,6 @@ public class Usuario {
     @Column(name = "clave", nullable = false)
     private String password;
 
-    @OneToOne
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
     private Rol rol;
@@ -58,7 +58,7 @@ public class Usuario {
     @Column(name = "fecha_baja", nullable = false)
     private Date fechaBaja;
 
-    @Column(name = "activo", nullable = false)
+    @Column(name = "activo")
     private Boolean activo;
 
     public Usuario(String id, String email, String password, Rol rol, String nombre, String apellido, Date fechaNacimiento, Imagen fotoPerfil, Date fechaAlta, Date fechaBaja, Boolean activo) {

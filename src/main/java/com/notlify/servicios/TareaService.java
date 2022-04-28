@@ -1,9 +1,9 @@
-package com.proyectoFinal.servicios;
+package com.notlify.servicios;
 
-import com.proyectoFinal.entidades.Tarea;
-import com.proyectoFinal.entidades.Usuario;
-import com.proyectoFinal.enums.Estado;
-import com.proyectoFinal.repositorios.TareaRepository;
+import com.notlify.entidades.Tarea;
+import com.notlify.entidades.Usuario;
+import com.notlify.enums.Estado;
+import com.notlify.repositorios.TareaRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -51,27 +51,27 @@ public class TareaService {
         }
 
     }
-    
+
     public void update(String id, String titulo, String descripcion, Estado estado) throws Exception {
-        
+
         Tarea tarea = findById(id);
-        
+
         tarea.setTitulo(titulo);
         tarea.setDescripcion(descripcion);
         tarea.setEstado(estado);
-        
+
         tareaRepository.save(tarea);
-        
+
     }
-    
+
     public void delete(String id) throws Exception {
-        
+
         Tarea tarea = findById(id);
-        
+
         tarea.setActivo(Boolean.FALSE);
-        
+
         tareaRepository.save(tarea);
-        
+
     }
 
 }

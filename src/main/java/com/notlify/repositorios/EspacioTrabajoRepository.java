@@ -1,7 +1,6 @@
+package com.notlify.repositorios;
 
-package com.proyectoFinal.repositorios;
-
-import com.proyectoFinal.entidades.EspacioTrabajo;
+import com.notlify.entidades.EspacioTrabajo;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +13,7 @@ public interface EspacioTrabajoRepository extends JpaRepository<EspacioTrabajo, 
     @Query("SELECT e FROM  EspacioTrabajo e WHERE e.id LIKE  :id ")
     public EspacioTrabajo buscarPorId(@Param("id")String id);
     
-    @Query("SELECT e FROM EspacioTrabajo e WHERE e.alta = true")
+    @Query("SELECT e FROM EspacioTrabajo e WHERE e.activo = true")
     public List<EspacioTrabajo> buscarActivos();
     
 }
