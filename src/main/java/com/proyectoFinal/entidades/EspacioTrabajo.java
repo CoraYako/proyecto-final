@@ -27,17 +27,18 @@ public class EspacioTrabajo {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
+    @OneToMany
     private List<Tarea> tareas;
 
     @OneToOne
-    @Column(name = "imagen_fondo")
+//    @Column(name = "imagen_fondo")
     private Imagen fondo;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
     @OneToMany
-    @JoinColumn(name = "usuarios", nullable = false)
+//    @JoinColumn(name = "usuarios", nullable = false)
     private List<Usuario> usuarios;
 
     @Column(name = "activo", nullable = false)

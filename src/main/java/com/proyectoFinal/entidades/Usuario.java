@@ -16,13 +16,13 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "usuario")
+//@Table(name = "usuarios")
 public class Usuario {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id_usuario")
+//    @Column(name = "id_usuario")
     private String id;
 
     @Column(name = "correo", nullable = false, unique = true)
@@ -31,9 +31,9 @@ public class Usuario {
     @Column(name = "clave", nullable = false)
     private String password;
 
-    @OneToOne
+//    @OneToOne
     @Enumerated(EnumType.STRING)
-    @Column(name = "rol", nullable = false)
+//    @Column(name = "rol", nullable = false)
     private Rol rol;
 
     @Column(name = "nombre", nullable = false)

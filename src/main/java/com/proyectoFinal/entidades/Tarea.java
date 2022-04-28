@@ -30,13 +30,13 @@ public class Tarea {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToOne
+//    @OneToOne
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado")
+//    @Column(name = "estado")
     private Estado estado;
 
     @OneToMany
-    @JoinColumn(name = "usuarios", nullable = false)
+//    @JoinColumn(name = "usuarios", nullable = false)
     private List<Usuario> usuarios;
 
     @Column(name = "activo")
