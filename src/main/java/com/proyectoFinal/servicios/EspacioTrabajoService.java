@@ -53,13 +53,12 @@ public class EspacioTrabajoService {
 
             espacioTrabajo.setNombre(nombre);
             espacioTrabajo.setActivo(true);
-            espacioTrabajo.setFechaCreacion(new Date());
+            
 
-            //ESTAS TRES ENTIDADES DEBO ESPERAR A QUE REALICEN SUS RESPECTIVOS SERVICIO PARA PODER
-            //IMPORTARLAS Y CARGARLAS EN LA CREACION DEL ESPACIO DE TRABAJO
-            //Tarea tarea = 
-            //Imagen imagen =
-            //Usuario usuario =
+            /*         FALTA EL MEDTODO BUSCAR POR ID EN USUARIOSERVICE
+        Usuario usuario = usuarioService.findById(idUsuario);
+        espacioTrabajo.setUsuarios((List<Usuario>) usuario);
+        */
             return espacioTrabajoRepository.save(espacioTrabajo);
         } else {
             throw new Exception("No existe la tarea solicitada");
