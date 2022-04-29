@@ -46,7 +46,7 @@ public class UsuarioService implements UserDetailsService {
         //Validador de rol nulidad
         if (rol == null) {
 
-            System.out.println("El rol no puede ser nulo");
+            throw new ErrorInputException("El rol no debe ser nulo."); 
 
         } else {
          
@@ -110,7 +110,7 @@ public class UsuarioService implements UserDetailsService {
 
     //Buscar por ID
     @Transactional(readOnly=true)
-    public Usuario BuscarPorId(String id) throws Exception {
+    public Usuario buscarPorId(String id) throws Exception {
 
         Optional<Usuario> respuesta = usuarioRepository.findById(id);
 
@@ -137,7 +137,7 @@ public class UsuarioService implements UserDetailsService {
 
         } else {
 
-                Usuario u = BuscarPorId(id);
+                Usuario u = buscarPorId(id);
                 u.setEmail(email);
                 String passwordEncriptado = new BCryptPasswordEncoder().encode(password);
                 u.setPassword(passwordEncriptado);
@@ -161,7 +161,7 @@ public class UsuarioService implements UserDetailsService {
      @Transactional(rollbackFor = Exception.class)
     public void delete(String id) throws Exception {
 
-        Usuario u = BuscarPorId(id);
+        Usuario u = buscarPorId(id);
 
         u.setActivo(Boolean.FALSE);
  
@@ -185,7 +185,7 @@ public class UsuarioService implements UserDetailsService {
         
          Usuario u = usuarioRepository.getOne(id);
         
-       u.setActivo(false);
+        u.setActivo(false);
         u.setFechaBaja(new Date());
         return usuarioRepository.save(u);
         
