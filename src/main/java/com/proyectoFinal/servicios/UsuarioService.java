@@ -40,17 +40,11 @@ public class UsuarioService implements UserDetailsService {
     @Transactional(rollbackFor = Exception.class)
     public void save(String email, String password, String confirmarPassword, Rol rol, String nombre, String apellido, Date fechaNacimiento,/*Imagen fotoPerfil,*/ Date fechaAlta, Date fechaBaja, Boolean activo) throws ErrorInputException {
 
-       validacion(nombre,apellido,email,password,confirmarPassword,fechaAlta,fechaBaja,activo);
+        validacion(nombre,apellido,email,password,confirmarPassword,rol,fechaAlta,fechaBaja,activo);
         
         
         //Validador de rol nulidad
-        if (rol == null) {
-
-            throw new ErrorInputException("El rol no debe ser nulo."); 
-
-        } else {
          
-
                 Usuario u = new Usuario();
                 u.setEmail(email);
                 String passwordEncriptado = new BCryptPasswordEncoder().encode(password);
@@ -67,7 +61,7 @@ public class UsuarioService implements UserDetailsService {
 
                 usuarioRepository.save(u);
            
-        }
+        
     }
     
     
@@ -128,14 +122,9 @@ public class UsuarioService implements UserDetailsService {
     public void update(String id, String email, String password, String confirmarPassword, Rol rol, String nombre, String apellido, Date fechaNacimiento,/*Imagen fotoPerfil,*/ Date fechaAlta, Date fechaBaja, Boolean activo) throws Exception {
 
         
-        validacion(nombre,apellido,email,password,confirmarPassword,fechaAlta,fechaBaja,activo);
+        validacion(nombre,apellido,email,password,confirmarPassword,rol,fechaAlta,fechaBaja,activo);
         
-        // Condicion de nulidad
-        if (rol == null) {
-
-            System.out.println("El rol no puede ser nulo");
-
-        } else {
+       
 
                 Usuario u = buscarPorId(id);
                 u.setEmail(email);
@@ -152,7 +141,7 @@ public class UsuarioService implements UserDetailsService {
                 u.setActivo(activo);
                
                 usuarioRepository.save(u);
-         }
+         
     
     }
 
@@ -212,7 +201,7 @@ public class UsuarioService implements UserDetailsService {
     
     // Metodos de validacion
     
-     public void validacion(String nombre, String apellido, String email, String password, String confirmarPassword, Date fechaAlta, Date fechaBaja, Boolean activo) throws ErrorInputException {
+     public void validacion(String nombre, String apellido, String email, String password, String confirmarPassword,Rol rol, Date fechaAlta, Date fechaBaja, Boolean activo) throws ErrorInputException {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new ErrorInputException("El nombre del usuario no puede ser nulo.");
         }
@@ -241,6 +230,13 @@ public class UsuarioService implements UserDetailsService {
         if (activo==null ){
         throw new ErrorInputException("Debe seleccionar si está activo o no.");
         }
+        
+        if (rol == null) {
+
+            throw new ErrorInputException("El rol no debe ser nulo."); 
+
+        }
+        
         
     }
     
