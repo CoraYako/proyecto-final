@@ -1,6 +1,7 @@
 package com.proyectoFinal.repositorios;
 
 import com.proyectoFinal.entidades.Usuario;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String> {
     
     // Buscar por Rol
     @Query("SELECT u FROM Usuario u WHERE u.rol like :rol")
-    public Usuario buscarPorRol(@Param("rol") String rol);
+    public List<Usuario> buscarPorRol(@Param("rol") String rol);
     
     // Buscar por Nombre 
     @Query("SELECT u FROM Usuario u WHERE u.rol like :rol")
