@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -26,11 +27,11 @@ public class EspacioTrabajoController {
     }
     
     @PostMapping("/espacioTrabajo")
-    public String crear(RedirectAttributes attr, @RequestParam String nombre, 
+    public String crear(RedirectAttributes attr, @RequestParam MultipartFile archivo, @RequestParam String nombre, 
     String idUsuario) {
         
         try{
-            espacioTrabajoService.cargar(nombre, idUsuario, true);
+            espacioTrabajoService.cargar(archivo, nombre, idUsuario);
             attr.addFlashAttribute("exito", "El espacio de trabajo con el nombre '" +nombre+"' se inició exitosamente.");
         }catch (Exception e) {
             attr.addFlashAttribute("error", e.getMessage());

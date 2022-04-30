@@ -1,6 +1,10 @@
 package com.notlify.servicios;
 
 import com.notlify.entidades.EspacioTrabajo;
+import com.notlify.entidades.Imagen;
+import com.notlify.entidades.Usuario;
+import com.notlify.exceptions.ElementoNoEncontradoException;
+import com.notlify.exceptions.ErrorInputException;
 import com.notlify.repositorios.EspacioTrabajoRepository;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class EspacioTrabajoService {
@@ -22,8 +27,13 @@ public class EspacioTrabajoService {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private ImagenService imagenService;
+
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public EspacioTrabajo cargar(String nombre, String idUsuario, Boolean activo) throws Exception {
+    public EspacioTrabajo cargar(MultipartFile archivo, String nombre, String idUsuario) throws Exception {
+
+        Imagen imagen = imagenService.guardar(archivo);
 
         validar(nombre, idUsuario);
 
@@ -31,35 +41,33 @@ public class EspacioTrabajoService {
 
         espacioTrabajo.setNombre(nombre);
         espacioTrabajo.setFechaCreacion(new Date());
-        /*         FALTA EL MEDTODO BUSCAR POR ID EN USUARIOSERVICE
-        Usuario usuario = usuarioService.findById(idUsuario);
-        espacioTrabajo.setUsuarios((List<Usuario>) usuario);
-         */
+        espacioTrabajo.setActivo(true);
+/*
+        List<Usuario> lista;
+        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+        lista.add(usuario);
+        espacioTrabajo.setListaUsuarios(lista);*/
         return espacioTrabajoRepository.save(espacioTrabajo);
 
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public EspacioTrabajo modificar(String id, String nombre, String idTarea, String idImagen,
+    public EspacioTrabajo modificar(String id, String nombre,
             String idUsuarios, Boolean activo) throws Exception {
 
-        Optional<EspacioTrabajo> respuesta = espacioTrabajoRepository.findById(id);
-
-        if (respuesta.isPresent()) {
-
-            EspacioTrabajo espacioTrabajo = respuesta.get();
-
+        try {
+            EspacioTrabajo espacioTrabajo = buscarPorId(id);
             espacioTrabajo.setNombre(nombre);
+            espacioTrabajo.setFechaCreacion(new Date());
             espacioTrabajo.setActivo(true);
-            
-
-            /*         FALTA EL MEDTODO BUSCAR POR ID EN USUARIOSERVICE
-        Usuario usuario = usuarioService.findById(idUsuario);
-        espacioTrabajo.setUsuarios((List<Usuario>) usuario);
-        */
+/*
+            List<Usuario> lista;
+            Usuario usuario = usuarioService.buscarPorId(idUsuario);
+            lista.add(usuario);
+            espacioTrabajo.setListaUsuarios(lista);*/
             return espacioTrabajoRepository.save(espacioTrabajo);
-        } else {
-            throw new Exception("No existe la tarea solicitada");
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -87,13 +95,20 @@ public class EspacioTrabajoService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public EspacioTrabajo baja(String id) {
+    public EspacioTrabajo baja(String id) throws ErrorInputException, ElementoNoEncontradoException {
 
-        EspacioTrabajo espacioTrabajo = espacioTrabajoRepository.getOne(id);
-
-        espacioTrabajo.setActivo(false);
-        espacioTrabajo.setFechaFinalizacion(new Date());
-        return espacioTrabajoRepository.save(espacioTrabajo);
+        if(id == null || id.trim().isEmpty()){
+            throw new ErrorInputException("El Id no puede estar vacío");
+        }
+        try {
+            EspacioTrabajo espacioTrabajo = buscarPorId(id);
+            espacioTrabajo.setActivo(false);
+            
+            return espacioTrabajoRepository.save(espacioTrabajo);
+        } catch (Exception e) {
+            throw new ElementoNoEncontradoException(e.getMessage());
+        }
+        
 
     }
 
