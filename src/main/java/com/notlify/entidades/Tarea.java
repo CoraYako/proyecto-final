@@ -35,8 +35,8 @@ public class Tarea implements Serializable {
     private Estado estado;
 
     @OneToMany
-    @JoinColumn(name = "usuarios", nullable = false)
-    private List<Usuario> usuarios;
+    @JoinColumn(name = "lista_usuarios", nullable = false)
+    private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")
     private Boolean activo;
@@ -46,7 +46,7 @@ public class Tarea implements Serializable {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
-        this.usuarios = usuarios;
+        this.listaUsuarios = usuarios;
         this.activo = activo;
     }
 
@@ -113,14 +113,14 @@ public class Tarea implements Serializable {
      * @return the usuarios
      */
     public List<Usuario> getUsuarios() {
-        return usuarios;
+        return listaUsuarios;
     }
 
     /**
      * @param usuarios the usuarios to set
      */
     public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+        this.listaUsuarios = usuarios;
     }
 
     /**
@@ -139,7 +139,7 @@ public class Tarea implements Serializable {
 
     @Override
     public String toString() {
-        return "Tarea{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", estado=" + estado + ", usuarios=" + usuarios + '}';
+        return "Tarea{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", estado=" + estado + ", listaUsuarios=" + listaUsuarios + '}';
     }
 
 }
