@@ -1,9 +1,8 @@
 package com.notlify.controllers;
 
-import com.notlify.entidades.Usuario;
-import com.notlify.enums.Estado;
+import com.notlify.exceptions.ElementoNoEncontradoException;
+import com.notlify.exceptions.ErrorInputException;
 import com.notlify.servicios.TareaService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +17,14 @@ public class TareaController {
     private TareaService tareaService;
 
     @PostMapping("/crear")
-    public String crearTarea(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam Estado estado, List<Usuario> usuarios) {
+    public String crearTarea(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam String idUsuario) {
 
-        tareaService.save(titulo, descripcion, estado, usuarios);
+        try {
+            tareaService.crearYPersistir(titulo, descripcion, idUsuario);
+        } catch (ErrorInputException | ElementoNoEncontradoException ex) {
+            //TODO
+            // tratar la excepción enviándola a la vista correspondiente.
+        }
 
         return "index.html";
 

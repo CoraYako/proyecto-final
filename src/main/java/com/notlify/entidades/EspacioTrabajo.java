@@ -1,6 +1,7 @@
 package com.notlify.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public class EspacioTrabajo implements Serializable {
     private Date fechaFinalizacion;
 
     @OneToMany
-    @JoinColumn(name = "lista_usuarios", nullable = false)
+    @JoinColumn(name = "usuarios_lista", nullable = false)
     private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")
@@ -63,15 +64,9 @@ public class EspacioTrabajo implements Serializable {
         this.activo = activo;
     }
 
-    public Date getFechaFinalizacion() {
-        return fechaFinalizacion;
-    }
-
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
-        this.fechaFinalizacion = fechaFinalizacion;
-    }
-
     public EspacioTrabajo() {
+        listaUsuarios = new ArrayList<>();
+        listaTareas = new ArrayList<>();
     }
 
     /**
@@ -159,6 +154,20 @@ public class EspacioTrabajo implements Serializable {
     }
 
     /**
+     * @return the fechaFinalizacion
+     */
+    public Date getFechaFinalizacion() {
+        return fechaFinalizacion;
+    }
+
+    /**
+     * @param fechaFinalizacion the fechaFinalizacion to set
+     */
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
+        this.fechaFinalizacion = fechaFinalizacion;
+    }
+
+    /**
      * @return the activo
      */
     public Boolean getActivo() {
@@ -174,7 +183,6 @@ public class EspacioTrabajo implements Serializable {
 
     @Override
     public String toString() {
-        return "EspacioTrabajo{" + "id=" + id + ", nombre=" + nombre + ", listaTareas=" + listaTareas + ", fondo=" + fondo + ", fechaCreacion=" + fechaCreacion + ", fechaFinalizacion=" + fechaFinalizacion + ", listaUsuarios=" + listaUsuarios + ", activo=" + activo + '}';
+        return "EspacioTrabajo{" + "id=" + id + ", nombre=" + nombre + ", listaTareas=" + listaTareas + ", fondo=" + fondo + ", fechaCreacion=" + fechaCreacion + ", fechaFinalizacion=" + getFechaFinalizacion() + ", listaUsuarios=" + listaUsuarios + ", activo=" + activo + '}';
     }
-
 }

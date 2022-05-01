@@ -1,5 +1,7 @@
 package com.notlify.controllers;
 
+import com.notlify.exceptions.ElementoNoEncontradoException;
+import com.notlify.exceptions.ErrorInputException;
 import com.notlify.servicios.EspacioTrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,13 +29,12 @@ public class EspacioTrabajoController {
     }
     
     @PostMapping("/espacioTrabajo")
-    public String crear(RedirectAttributes attr, @RequestParam MultipartFile archivo, @RequestParam String nombre, 
-    String idUsuario) {
+    public String crear(RedirectAttributes attr, @RequestParam MultipartFile archivo, @RequestParam String nombre, String idUsuario) {
         
         try{
-            espacioTrabajoService.cargar(archivo, nombre, idUsuario);
+            espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
             attr.addFlashAttribute("exito", "El espacio de trabajo con el nombre '" +nombre+"' se inició exitosamente.");
-        }catch (Exception e) {
+        }catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
         
