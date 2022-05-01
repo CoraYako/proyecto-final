@@ -20,15 +20,16 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/registrar")
-    public String registrar(@RequestParam String email, @RequestParam String password, @RequestParam String confirmarPassword) {
-        //Antes de hacer el controlador, finalizar los servicios correspondientes.
+    public String registrar(@RequestParam String email, @RequestParam String clave, @RequestParam String confirmarClave) {
+        //TODO
+        //terminar el llamado del método correspondiente y solicitar los parámetros necesarios.
         return "index.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/lista")
     public String lista(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioService.getAll();
+        List<Usuario> usuarios = usuarioService.listarTodos();
         modelo.put("usuarios", usuarios);
         return "list-usuarios.html";
     }

@@ -6,13 +6,10 @@ import com.notlify.enums.Rol;
 import com.notlify.exceptions.ElementoNoEncontradoException;
 import com.notlify.exceptions.ErrorInputException;
 import com.notlify.repositorios.UsuarioRepository;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,7 +38,8 @@ public class UsuarioService implements UserDetailsService {
      *
      * Método que crea y persiste un objeto Usuario en la DDBB. A su vez
      * verifica que el Rol no venga como objeto nulo. Dentro se utiliza el
-     * método validar(). Se hace uso de imagenService.guardar(objeto); ver @
+     * método validar(). Se hace uso del método
+     * {@link ImagenService#guardar(org.springframework.web.multipart.MultipartFile)}.
      *
      * @param correo
      * @param clave1
@@ -86,8 +84,9 @@ public class UsuarioService implements UserDetailsService {
 
     /**
      * Modifica al objeto Usuario pidiendo los nuevos datos. Dentro se utiliza
-     * el método validar().
+     * el método validar() y el método actualizar() de ImagenService.
      *
+     * @see ImagenService
      * @param archivo
      * @param id
      * @param nombre
@@ -96,46 +95,43 @@ public class UsuarioService implements UserDetailsService {
      * @param clave1
      * @param clave2
      * @param fechaNacimiento
-     * @return el objeto Usuario ya modificado y persistido.
-     * @throws ErrorInputException
-     * @throws ElementoNoEncontradoException
+     * @return el objeto Usuario modificado y persistido.
+     * @throws ErrorInputException cuando los argumentos vienen nulos o vacíos.
+     * @throws ElementoNoEncontradoException cuando el elemento solicitado no se
+     * encontró.
      */
     @Transactional(rollbackFor = Exception.class)
     public Usuario modificarYPersistir(MultipartFile archivo, String id, String nombre, String apellido, String correo,
             String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException, ElementoNoEncontradoException {
-        if (id == null || id.trim().isEmpty()) {
-            throw new ErrorInputException("El id del usuario no puede ser nulo.");
-        }
-
         validar(nombre, apellido, clave2, clave1, clave2, fechaNacimiento);
 
-        try {
-            Usuario usuario = buscarPorId(id);
-            Imagen imagen = imagenService.actualizar(id, archivo);
+        Usuario usuario = buscarPorId(id);
 
-            usuario.setNombre(nombre);
-            usuario.setApellido(apellido);
-            usuario.setCorreo(correo);
-
-            String claveEncriptada = encriptacion(clave1);
-            usuario.setClave(claveEncriptada);
-
-            usuario.setFechaNacimiento(fechaNacimiento);
-            usuario.setFotoPerfil(imagen);
-
-            return usuarioRepository.save(usuario);
-        } catch (ElementoNoEncontradoException | ErrorInputException e) {
-            throw e;
-        } catch (IOException ex) {
-            Logger.getLogger(ImagenService.class.getName()).log(Level.SEVERE, null, ex);
+        String idFotoPerfil = null;
+        if (usuario.getFotoPerfil().getId() != null) {
+            idFotoPerfil = usuario.getFotoPerfil().getId();
         }
+
+        Imagen imagen = imagenService.actualizar(idFotoPerfil, archivo);
+
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setCorreo(correo);
+
+        String claveEncriptada = encriptacion(clave1);
+        usuario.setClave(claveEncriptada);
+
+        usuario.setFechaNacimiento(fechaNacimiento);
+        usuario.setFotoPerfil(imagen);
+
+        return usuarioRepository.save(usuario);
     }
 
     /**
      *
-     * Deshabilita el Usuario haciendo un setActivo a falso y dejando registro
-     * de la fecha de baja a la fecha en la que se ejecutó el método. Este
-     * método no elimina al Usuario.
+     * Deshabilita el Usuario estableciendo el atributo boolean a falso y
+     * dejando registro de la fecha de baja a la fecha en la que se ejecutó el
+     * método. Este método no elimina al Usuario.
      *
      * @param id para buscar el Usuario en la DDBB.
      * @return el Usuario modificado y persistido.
@@ -143,16 +139,11 @@ public class UsuarioService implements UserDetailsService {
      * @throws ErrorInputException cuando el argumento viene nulo o vacío.
      */
     public Usuario deshabilitar(String id) throws ElementoNoEncontradoException, ErrorInputException {
-        try {
-            Usuario usuario = buscarPorId(id);
+        Usuario usuario = buscarPorId(id);
+        usuario.setActivo(false);
+        usuario.setFechaBaja(new Date());
 
-            usuario.setActivo(false);
-            usuario.setFechaBaja(new Date());
-
-            return usuarioRepository.save(usuario);
-        } catch (ElementoNoEncontradoException | ErrorInputException e) {
-            throw e;
-        }
+        return usuarioRepository.save(usuario);
     }
 
     /**

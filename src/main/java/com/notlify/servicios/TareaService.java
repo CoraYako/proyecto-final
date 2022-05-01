@@ -3,8 +3,9 @@ package com.notlify.servicios;
 import com.notlify.entidades.Tarea;
 import com.notlify.entidades.Usuario;
 import com.notlify.enums.Estado;
+import com.notlify.exceptions.ElementoNoEncontradoException;
+import com.notlify.exceptions.ErrorInputException;
 import com.notlify.repositorios.TareaRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -21,112 +22,79 @@ public class TareaService {
     private UsuarioService usuarioService;
 
     @Transactional(rollbackFor = Exception.class)
-    public void save(String titulo, String descripcion, Estado estado, String idUsuario) throws Exception {
+    public Tarea crearYPersistir(String titulo, String descripcion, String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
+        validar(titulo, descripcion, idUsuario);
 
-        try {
+        Tarea tarea = new Tarea();
 
-            validar(titulo, descripcion, estado, idUsuario);
+        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+        tarea.getListaUsuarios().add(usuario);
 
-            Tarea tarea = new Tarea();
+        tarea.setTitulo(titulo);
+        tarea.setDescripcion(descripcion);
+        tarea.setEstado(Estado.TODO);
+        tarea.setActivo(true);
 
-            //List<Usuario> lista = new ArrayList();
-            //Usuario usuario = usuarioService.buscarPorId(idUsuario);
-            //lista.add(usuario);
-            tarea.setTitulo(titulo);
-            tarea.setDescripcion(descripcion);
-            tarea.setEstado(estado);
-            //tarea.setUsuarios(lista);
-            tarea.setActivo(Boolean.TRUE);
-
-            tareaRepository.save(tarea);
-
-        } catch (Exception e) {
-
-            e.getMessage();
-
-        }
-
+        return tareaRepository.save(tarea);
     }
 
-    public List<Tarea> getTareas() {
-
-        List<Tarea> tareas = tareaRepository.findAll();
-
-        return tareas;
-
+    @Transactional(readOnly = true)
+    public List<Tarea> listarTodas() {
+        return tareaRepository.findAll();
     }
 
-    public Tarea findById(String id) throws Exception {
+    @Transactional(rollbackFor = {Exception.class})
+    public Tarea modificar(String id, String titulo, String descripcion, Estado estado) throws ErrorInputException, ElementoNoEncontradoException {
+        validar(titulo, descripcion, id);
 
-        Optional<Tarea> respuesta = tareaRepository.findById(id);
+        Tarea tarea = buscarPorId(id);
+        tarea.setTitulo(titulo);
+        tarea.setDescripcion(descripcion);
+        tarea.setEstado(estado);
 
-        if (respuesta.isPresent()) {
-            Tarea tarea = respuesta.get();
-            return tarea;
-        } else {
-            throw new Exception("No existe esta tarea");
-        }
-
+        return tareaRepository.save(tarea);
     }
 
-    public void update(String titulo, String descripcion, Estado estado, String id) throws Exception {
-
-        try {
-
-            Tarea tarea = findById(id);
-
-            validar(titulo, descripcion, estado, id);
-
-            tarea.setTitulo(titulo);
-            tarea.setDescripcion(descripcion);
-            tarea.setEstado(estado);
-
-            tareaRepository.save(tarea);
-
-        } catch (Exception e) {
-
-            e.getMessage();
-
-        }
-
-    }
-
-    public void delete(String id) throws Exception {
-
-        try {
-
-            Tarea tarea = findById(id);
-
-            tarea.setActivo(Boolean.FALSE);
-
-            tareaRepository.save(tarea);
-
-        } catch (Exception e) {
-
-            e.getMessage();
-
-        }
-
-    }
-
-    public void validar(String titulo, String descripcion, Estado estado, String id) throws Exception {
-
-        if (titulo == null || titulo.trim().isEmpty()) {
-            throw new Exception("El título de la tarea no puede estar vacío");
-        }
-
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new Exception("La descripción de la tarea no puede estar vacía");
-        }
-
+    @Transactional(rollbackFor = {Exception.class})
+    public Tarea moverDeEstado(String id, Estado estado) throws ElementoNoEncontradoException, ErrorInputException {
         if (estado == null) {
-            throw new Exception("Seleccione un estado para la tarea");
+            throw new ErrorInputException("Debe declarar el estado al que moverá la tarea actual.");
         }
+        Tarea tarea = buscarPorId(id);
+        tarea.setEstado(estado);
 
-        if (id == null) {
-            throw new Exception("No se encuentra el ID");
-        }
-
+        return tareaRepository.save(tarea);
     }
 
+    @Transactional(rollbackFor = {Exception.class})
+    public Tarea deshabilitar(String id) throws ElementoNoEncontradoException, ErrorInputException {
+        Tarea tarea = buscarPorId(id);
+        tarea.setActivo(false);
+        return tareaRepository.save(tarea);
+    }
+
+    @Transactional(readOnly = true)
+    public Tarea buscarPorId(String id) throws ElementoNoEncontradoException, ErrorInputException {
+        if (id == null || id.trim().isEmpty()) {
+            throw new ErrorInputException("El id de la tarea no es el correcto.");
+        }
+        Optional<Tarea> respuesta = tareaRepository.findById(id);
+        if (respuesta.isPresent()) {
+            return respuesta.get();
+        } else {
+            throw new ElementoNoEncontradoException("No existe la tarea solicitada.");
+        }
+    }
+
+    public void validar(String titulo, String descripcion, String idUsuario) throws ErrorInputException {
+        if (titulo == null || titulo.trim().isEmpty()) {
+            throw new ErrorInputException("Debe proporcionar un título.");
+        }
+        if (descripcion == null || descripcion.trim().isEmpty()) {
+            throw new ErrorInputException("Debe proporcionar una descripción.");
+        }
+        if (idUsuario == null || idUsuario.trim().isEmpty()) {
+            throw new ErrorInputException("Debe proporcionar un id válido.");
+        }
+    }
 }

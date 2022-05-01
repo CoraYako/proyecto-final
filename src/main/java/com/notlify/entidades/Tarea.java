@@ -2,6 +2,7 @@ package com.notlify.entidades;
 
 import com.notlify.enums.Estado;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,16 +42,17 @@ public class Tarea implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
-    public Tarea(String id, String titulo, String descripcion, Estado estado, List<Usuario> usuarios, Boolean activo) {
+    public Tarea(String id, String titulo, String descripcion, Estado estado, List<Usuario> listaUsuarios, Boolean activo) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
-        this.listaUsuarios = usuarios;
+        this.listaUsuarios = listaUsuarios;
         this.activo = activo;
     }
 
     public Tarea() {
+        listaUsuarios = new ArrayList<>();
     }
 
     /**
@@ -110,17 +112,17 @@ public class Tarea implements Serializable {
     }
 
     /**
-     * @return the usuarios
+     * @return the listaUsuarios
      */
-    public List<Usuario> getUsuarios() {
+    public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
     /**
-     * @param usuarios the usuarios to set
+     * @param listaUsuarios the listaUsuarios to set
      */
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.listaUsuarios = usuarios;
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 
     /**
