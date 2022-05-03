@@ -44,13 +44,12 @@ public class TareaService {
     }
 
     @Transactional(rollbackFor = {Exception.class})
-    public Tarea modificar(String id, String titulo, String descripcion, Estado estado) throws ErrorInputException, ElementoNoEncontradoException {
+    public Tarea modificar(String id, String titulo, String descripcion) throws ErrorInputException, ElementoNoEncontradoException {
         validar(titulo, descripcion, id);
 
         Tarea tarea = buscarPorId(id);
         tarea.setTitulo(titulo);
         tarea.setDescripcion(descripcion);
-        tarea.setEstado(estado);
 
         return tareaRepository.save(tarea);
     }
