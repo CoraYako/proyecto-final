@@ -25,7 +25,7 @@ public class EspacioTrabajoController {
         
         /*FALTAN AGREGAR LAS LISTAS DE OTRAS ENTIDADES*/
         
-        return "/*HTML CORRORRESPONDIENTE AL ESPACIO TRABAJO*/";
+        return "espacioTarea.html";
     }
     
     @PostMapping("/espacioTrabajo")
