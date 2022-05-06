@@ -1,6 +1,8 @@
-package com.proyectoFinal.entidades;
+package com.notlify.entidades;
 
-import com.proyectoFinal.enums.Estado;
+import com.notlify.enums.Estado;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,13 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "tarea")
-public class Tarea {
+@Table(name = "tareas")
+public class Tarea implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -30,28 +31,28 @@ public class Tarea {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToOne
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado")
+    @JoinColumn(name = "estado")
     private Estado estado;
 
     @OneToMany
-    @JoinColumn(name = "usuarios", nullable = false)
-    private List<Usuario> usuarios;
+    @JoinColumn(name = "lista_usuarios", nullable = false)
+    private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")
     private Boolean activo;
 
-    public Tarea(String id, String titulo, String descripcion, Estado estado, List<Usuario> usuarios, Boolean activo) {
+    public Tarea(String id, String titulo, String descripcion, Estado estado, List<Usuario> listaUsuarios, Boolean activo) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
-        this.usuarios = usuarios;
+        this.listaUsuarios = listaUsuarios;
         this.activo = activo;
     }
 
     public Tarea() {
+        listaUsuarios = new ArrayList<>();
     }
 
     /**
@@ -111,17 +112,17 @@ public class Tarea {
     }
 
     /**
-     * @return the usuarios
+     * @return the listaUsuarios
      */
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
     }
 
     /**
-     * @param usuarios the usuarios to set
+     * @param listaUsuarios the listaUsuarios to set
      */
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 
     /**
@@ -140,7 +141,7 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return "Tarea{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", estado=" + estado + ", usuarios=" + usuarios + '}';
+        return "Tarea{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", estado=" + estado + ", listaUsuarios=" + listaUsuarios + '}';
     }
 
 }

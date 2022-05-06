@@ -1,7 +1,8 @@
+package com.notlify.controllers;
 
-package com.proyectoFinal.controllers;
-
-import com.proyectoFinal.servicios.EspacioTrabajoService;
+import com.notlify.exceptions.ElementoNoEncontradoException;
+import com.notlify.exceptions.ErrorInputException;
+import com.notlify.servicios.EspacioTrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -27,13 +29,12 @@ public class EspacioTrabajoController {
     }
     
     @PostMapping("/espacioTrabajo")
-    public String crear(RedirectAttributes attr, @RequestParam String nombre 
-    /*String idTarea, String idImagen, String idUsuarios*/) {
+    public String crear(RedirectAttributes attr, @RequestParam MultipartFile archivo, @RequestParam String nombre, String idUsuario) {
         
         try{
-            espacioTrabajoService.cargar(nombre, true);
+            espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
             attr.addFlashAttribute("exito", "El espacio de trabajo con el nombre '" +nombre+"' se inició exitosamente.");
-        }catch (Exception e) {
+        }catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
         

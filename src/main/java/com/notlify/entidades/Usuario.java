@@ -1,6 +1,8 @@
-package com.proyectoFinal.entidades;
+package com.notlify.entidades;
 
-import com.proyectoFinal.enums.Rol;
+
+import com.notlify.enums.Rol;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +18,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "usuarios")
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -26,24 +28,23 @@ public class Usuario {
     private String id;
 
     @Column(name = "correo", nullable = false, unique = true)
-    private String email;
+    private String correo;
 
     @Column(name = "clave", nullable = false)
-    private String password;
+    private String clave;
 
-    @OneToOne
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
     private Rol rol;
 
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "apellido", nullable = false)
+    @Column(name = "apellido")
     private String apellido;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
     @OneToOne
@@ -55,16 +56,16 @@ public class Usuario {
     private Date fechaAlta;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_baja", nullable = false)
+    @Column(name = "fecha_baja")
     private Date fechaBaja;
 
-    @Column(name = "activo", nullable = false)
+    @Column(name = "activo")
     private Boolean activo;
 
-    public Usuario(String id, String email, String password, Rol rol, String nombre, String apellido, Date fechaNacimiento, Imagen fotoPerfil, Date fechaAlta, Date fechaBaja, Boolean activo) {
+    public Usuario(String id, String correo, String clave, Rol rol, String nombre, String apellido, Date fechaNacimiento, Imagen fotoPerfil, Date fechaAlta, Date fechaBaja, Boolean activo) {
         this.id = id;
-        this.email = email;
-        this.password = password;
+        this.correo = correo;
+        this.clave = clave;
         this.rol = rol;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -93,31 +94,31 @@ public class Usuario {
     }
 
     /**
-     * @return the email
+     * @return the correo
      */
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
     /**
-     * @param email the email to set
+     * @param correo the correo to set
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     /**
-     * @return the password
+     * @return the clave
      */
-    public String getPassword() {
-        return password;
+    public String getClave() {
+        return clave;
     }
 
     /**
-     * @param password the password to set
+     * @param clave the clave to set
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     /**
@@ -234,7 +235,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + getId() + ", email=" + getEmail() + ", password=" + getPassword() + ", rol=" + getRol() + ", nombre=" + getNombre() + ", apellido=" + getApellido() + ", fechaNacimiento=" + getFechaNacimiento() + ", fotoPerfil=" + getFotoPerfil() + ", fechaAlta=" + getFechaAlta() + ", fechaBaja=" + getFechaBaja() + ", activo=" + getActivo() + '}';
+        return "Usuario{" + "id=" + getId() + ", correo=" + getCorreo() + ", clave=" + getClave() + ", rol=" + getRol() + ", nombre=" + getNombre() + ", apellido=" + getApellido() + ", fechaNacimiento=" + getFechaNacimiento() + ", fotoPerfil=" + getFotoPerfil() + ", fechaAlta=" + getFechaAlta() + ", fechaBaja=" + getFechaBaja() + ", activo=" + getActivo() + '}';
     }
 
 }

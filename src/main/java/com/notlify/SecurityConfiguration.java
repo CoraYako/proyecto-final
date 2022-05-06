@@ -1,6 +1,6 @@
-package com.proyectoFinal;
+package com.notlify;
 
-import com.proyectoFinal.servicios.UsuarioService;
+import com.notlify.servicios.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,11 +20,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(usuarioService).passwordEncoder(new BCryptPasswordEncoder());
+        auth
+            .userDetailsService(usuarioService)
+            .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/css/*", "/js/*", "/img/*", "/**", "/main/**", "/usuario/**", "/actividad/**", "/login/**", "/glosario/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/logincheck").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/").failureUrl("/login?error=error").permitAll().and().logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout=logout").permitAll().and().csrf().disable();
+        http.headers().frameOptions().sameOrigin().and()
+                .authorizeRequests()
+                    .antMatchers("/css/*", "/js/*", "/img/*", "/**", "/main/**", "/usuario/**", "/actividad/**", "/login/**", "/glosario/**")
+                    .permitAll()
+                .and().formLogin()
+                    .loginPage("/login")
+                        .loginProcessingUrl("/logincheck")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/inicio")
+                        .failureUrl("/login?error=error")
+                        .permitAll()
+                .and().logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout=logout")
+                    .permitAll()
+                    .and().csrf()
+                    .disable();
     }
+
 }
