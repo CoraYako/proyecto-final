@@ -56,7 +56,7 @@ public class UsuarioService implements UserDetailsService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public Usuario crearYPersistir(String correo, String clave1, String clave2,
-            Rol rol, String nombre, String apellido, Date fechaNacimiento,
+            Rol rol, String nombre, String apellido, String fechaNacimiento,
             MultipartFile archivo) throws ErrorInputException {
         validar(nombre, apellido, correo, clave1, clave2, fechaNacimiento);
 
@@ -71,7 +71,20 @@ public class UsuarioService implements UserDetailsService {
         usuario.setClave(claveEncriptada);
 
         usuario.setCorreo(correo);
-        usuario.setFechaNacimiento(fechaNacimiento);
+        
+//        int anio ;
+//        int mes ;
+//        int dia ;
+//        
+//        Date fechaEntrante = new Date(fechaNacimiento);
+//        anio = fechaEntrante.getYear();
+//        mes = fechaEntrante.getMonth();
+//        dia = fechaEntrante.getDate();
+        
+        
+       // Date nacimiento = new Date(anio-1900, mes-1, dia);
+        
+        usuario.setFechaNacimiento(new Date());
         usuario.setApellido(apellido);
         usuario.setNombre(nombre);
         usuario.setRol(rol);
@@ -102,7 +115,7 @@ public class UsuarioService implements UserDetailsService {
      */
     @Transactional(rollbackFor = Exception.class)
     public Usuario modificarYPersistir(MultipartFile archivo, String id, String nombre, String apellido, String correo,
-            String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException, ElementoNoEncontradoException {
+            String clave1, String clave2, String fechaNacimiento) throws ErrorInputException, ElementoNoEncontradoException {
         validar(nombre, apellido, clave2, clave1, clave2, fechaNacimiento);
 
         Usuario usuario = buscarPorId(id);
@@ -121,7 +134,19 @@ public class UsuarioService implements UserDetailsService {
         String claveEncriptada = encriptacion(clave1);
         usuario.setClave(claveEncriptada);
 
-        usuario.setFechaNacimiento(fechaNacimiento);
+//         int anio ;
+//        int mes ;
+//        int dia ;
+//        
+//        Date fechaEntrante = new Date(fechaNacimiento);
+//        anio = fechaEntrante.getYear();
+//        mes = fechaEntrante.getMonth();
+//        dia = fechaEntrante.getDate();
+//        
+//        
+//        Date nacimiento = new Date(anio-1900, mes-1, dia);
+         usuario.setFechaNacimiento(new Date());
+       // usuario.setFechaNacimiento(nacimiento);
         usuario.setFotoPerfil(imagen);
 
         return usuarioRepository.save(usuario);
@@ -246,7 +271,7 @@ public class UsuarioService implements UserDetailsService {
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
      */
-    private void validar(String nombre, String apellido, String correo, String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException {
+    private void validar(String nombre, String apellido, String correo, String clave1, String clave2, String fechaNacimiento) throws ErrorInputException {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new ErrorInputException("El nombre no puede ser nulo.");
         }
@@ -263,7 +288,7 @@ public class UsuarioService implements UserDetailsService {
             throw new ErrorInputException("Las contraseñas deben ser idénticas.");
         }
         if (fechaNacimiento == null) {
-            throw new ErrorInputException("Debe indicar su fecha de nacimiento.");
+            throw new ErrorInputException("Debe indicar su fecha de fechaEntrante.");
         }
     }
 }
