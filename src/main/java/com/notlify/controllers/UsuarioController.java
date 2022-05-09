@@ -2,8 +2,13 @@ package com.notlify.controllers;
 
 import com.notlify.entidades.Usuario;
 import com.notlify.enums.Rol;
+
 import com.notlify.exceptions.ElementoNoEncontradoException;
 import com.notlify.exceptions.ErrorInputException;
+
+import com.notlify.exceptions.ErrorInputException;
+import com.notlify.servicios.ImagenService;
+
 import com.notlify.servicios.UsuarioService;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -25,6 +33,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     
+
      /**
      *
      * Controlador para registrar el usuario.
@@ -67,6 +76,7 @@ public class UsuarioController {
                 
         
         return "index.html";
+
     }
 
    

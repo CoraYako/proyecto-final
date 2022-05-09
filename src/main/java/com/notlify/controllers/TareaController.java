@@ -16,23 +16,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/tareas")
+@RequestMapping("/tarea")
 public class TareaController {
 
     @Autowired
     private TareaService tareaService;
 
+    @GetMapping("/crear/{idUsuario}")
+    public String tarea(@PathVariable String idUsuario) {
+
+        return "crearTarea.html";
+
+    }
+
     @PostMapping("/crear")
-    public String crearTarea(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam String idUsuario) {
+    public String crearTarea(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam String idUsuario, RedirectAttributes attr) {
 
         try {
+            
             tareaService.crearYPersistir(titulo, descripcion, idUsuario);
-        } catch (ErrorInputException | ElementoNoEncontradoException ex) {
-            //TODO
-            // tratar la excepción enviándola a la vista correspondiente.
+            
+        } catch (ErrorInputException | ElementoNoEncontradoException e) {
+
+            attr.addFlashAttribute("error", e.getMessage());
+            return "redirect:/espacioTrabajo";
+
         }
 
-        return "index.html";
+        return "redirect:/espacioTrabajo.html";
 
     }
 
@@ -51,7 +62,7 @@ public class TareaController {
 
         }
 
-        return "//VISTA PARA MODIFICAR LA TAREA";
+        return "editarTarea.html";
 
     }
 
@@ -71,41 +82,41 @@ public class TareaController {
         return "redirect:/espacioTrabajo";
 
     }
-    
+
     @GetMapping("/eliminar/{id}")
     public String deshabilitar(@PathVariable String id, ModelMap model) {
-        
+
         try {
-            
+
             Tarea tarea = tareaService.buscarPorId(id);
-            
+
             model.put("tarea", tarea);
-            
-        } catch (Exception e) {
-            
+
+        } catch (ElementoNoEncontradoException | ErrorInputException e) {
+
             e.printStackTrace();
         }
-        
+
         return "//VISTA PARA CONFIRMAR LA DESHABILITACIÓN DE LA TAREA";
-        
+
     }
-    
+
     @PostMapping("/eliminar")
     public String deshabilitarTarea(@RequestParam String id, RedirectAttributes attr) {
-        
+
         try {
-            
+
             tareaService.deshabilitar(id);
-            
-        } catch (Exception e) {
-            
+
+        } catch (ElementoNoEncontradoException | ErrorInputException e) {
+
             attr.addFlashAttribute("error", e.getMessage());
             return "redirect:/tareas/eliminar/" + id;
-            
+
         }
-        
+
         return "redirect:/espacioTrabajo";
-        
+
     }
 
 }
