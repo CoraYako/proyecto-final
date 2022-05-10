@@ -1,0 +1,158 @@
+:root {
+    font-size: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+html {
+    background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1403/mountain_river_snow_winter-scenery_HD_Wallpaper_1366x768.jpg);
+
+	background-size: 100% 100%; /*estandar css3*/
+}
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+   
+    
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: inherit;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+
+
+
+
+/*Espacio Tarea*/
+
+
+.lists-container::-webkit-scrollbar {
+    height: 2.4rem;
+}
+
+.lists-container::-webkit-scrollbar-thumb {
+    background-color: #81e492;
+    border: 0.8rem solid #10912c;
+    border-top-width: 0;
+}
+
+.lists-container {
+    display: flex;
+    align-items: start;
+    padding: 0 0.8rem 0.8rem;
+    overflow-x: auto;
+    height: calc(100vh - 8.6rem);
+}
+
+.list {
+    flex: 0 0 27rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #e2e4e6;
+    max-height: calc(100vh - 11.8rem);
+    border-radius: 0.3rem;
+    margin-right: 1rem;
+}
+
+.list:last-of-type {
+    margin-right: 0;
+}
+
+.list-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    padding: 1rem;
+}
+
+.list-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+    padding: 0 0.6rem 0.5rem;
+    overflow-y: auto;
+}
+
+.list-items::-webkit-scrollbar {
+    width: 1.6rem;
+}
+
+.list-items::-webkit-scrollbar-thumb {
+    background-color: #c4c9cc;
+    border-right: 0.6rem solid #e2e4e6;
+}
+
+.list-items li {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.3;
+    background-color: #fff;
+    padding: 0.65rem 0.6rem;
+    color: #4d4d4d;
+    border-bottom: 0.1rem solid #ccc;
+    border-radius: 0.3rem;
+    margin-bottom: 0.6rem;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+.list-items li:last-of-type {
+    margin-bottom: 0;
+}
+
+.list-items li:hover {
+    background-color: #eee;
+}
+
+.add-card-btn {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #838c91;
+    padding: 1rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.add-card-btn:hover {
+    background-color: #cdd2d4;
+    color: #4d4d4d;
+    text-decoration: underline;
+}
+
+.add-list-btn {
+    flex: 0 0 27rem;
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 400;
+    background-color: #0e8532;
+    color: #ace0a5;
+    padding: 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 150ms;
+    text-align: left;
+}
+
+.add-list-btn:hover {
+    background-color: #82c788;
+}
+
+.add-card-btn::after,
+.add-list-btn::after {
+    content: '...';
+}

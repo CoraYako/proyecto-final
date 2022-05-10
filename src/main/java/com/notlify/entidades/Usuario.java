@@ -1,5 +1,6 @@
 package com.notlify.entidades;
 
+
 import com.notlify.enums.Rol;
 import java.io.Serializable;
 import java.util.Date;
