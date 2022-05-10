@@ -10,7 +10,6 @@ import com.notlify.exceptions.ErrorInputException;
 import com.notlify.servicios.ImagenService;
 
 import com.notlify.servicios.UsuarioService;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,8 +57,8 @@ public class UsuarioController {
     @PostMapping("/registro")
     public String registrar(ModelMap modelo,MultipartFile archivo,@RequestParam Date fechaNacimiento, @RequestParam String nombre,@RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2){
     
-        modelo.put("roles", Rol.values());
-        
+    @GetMapping("/registrar")
+    public String form() {
         try {
             usuarioService.crearYPersistir( correo,  clave1,  clave2,
              rol,  nombre,  apellido,  fechaNacimiento,
@@ -101,7 +100,6 @@ public class UsuarioController {
 
         modelo.put("roles", Rol.values());
         
-
         try {
             if (id != null && !id.trim().isEmpty()) {
                 usuario = usuarioService.buscarPorId(id);
@@ -112,8 +110,7 @@ public class UsuarioController {
             
             modelo.put("error", ex.getMessage());
         }
-
-        return "usuario-registro.html";
+        return "registro.html";
     }
 
     
@@ -124,7 +121,5 @@ public class UsuarioController {
         modelo.put("usuarios", usuarios);
         return "list-usuarios.html";
     }
-    
-    
-    
+
 }
