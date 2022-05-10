@@ -56,7 +56,7 @@ public class UsuarioController {
      */
     
     @PostMapping("/registro")
-    public String registrar(ModelMap modelo,MultipartFile archivo,@RequestParam Date fechaNacimiento, @RequestParam String nombre,@RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2){
+    public String registrar(ModelMap modelo,MultipartFile archivo,@RequestParam String fechaNacimiento, @RequestParam String nombre,@RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2){
     
         modelo.put("roles", Rol.values());
         
