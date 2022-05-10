@@ -9,27 +9,27 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Bootstrap CSS -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'>
-    <!-- Font Awesome CSS -->
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'>
-    <title>Netlify - Iniciar Sesión</title>
+    <title>Netlify - Inicio Sesión</title>
 </head>
 
 <body>
-    <div class="container">
-        <form class="px-4 py-3">
-            <div class="mb-3">
-                <label for="exampleDropdownFormEmail1" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="ejemplo@email.com">
-            </div>
-            <div class="mb-3">
-                <label for="exampleDropdownFormPassword1" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="exampleDropdownFormPassword1"
-                    placeholder="Tu contraseña">
-            </div>
-            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        </form>
-    </div>
-
+    <h1 class="container">Iniciar Sesión</h1>
+    <br>
+    <form class="container" th:action="@{/logincheck}" method="POST">
+        <div>
+            <p class="text-danger" th:if="${error != null}" th:text="${error}"></p>
+            <p class="text-success" th:if="${logout != null}" th:text="${logout}"></p>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" name="username" placeholder="Su correo">
+            <label for="floatingInput">Tu correo</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Su clave">
+            <label for="floatingPassword">Tu contraseña</label>
+        </div>
+        <button type="submit" class="btn btn-dark">Ingresar</button>
+    </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
