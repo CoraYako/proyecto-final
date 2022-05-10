@@ -33,7 +33,6 @@ public class EspacioTrabajoController {
 
     @GetMapping("/espacioTrabajo")
     public String espacioTrabajo(ModelMap modelo) {
-
         List<Tarea> listaTareas = tareaService.listarTodas();
         modelo.put("tareas", listaTareas);
 
