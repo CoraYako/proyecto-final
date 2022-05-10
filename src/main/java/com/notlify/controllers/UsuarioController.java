@@ -5,7 +5,6 @@ import com.notlify.enums.Rol;
 import com.notlify.exceptions.ErrorInputException;
 import com.notlify.servicios.ImagenService;
 import com.notlify.servicios.UsuarioService;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,9 +28,9 @@ public class UsuarioController {
     private ImagenService imagenService;
     
     @GetMapping("/registrar")
-    public String form(ModelMap modelo) {
+    public String form() {
         
-        modelo.put("roles", Rol.values());
+
         
         return "registro.html";
     }
@@ -50,7 +49,7 @@ public class UsuarioController {
         }
         
         
-        return "redirect:index.html";
+        return "registro.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

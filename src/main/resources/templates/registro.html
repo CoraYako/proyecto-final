@@ -20,6 +20,7 @@
 
                     </div>
                     <div>
+                         <h3 th:text="${exito}"></h3>
                         <form th:action="@{/usuario/registro}" method="POST" >
                             <div class="SignUp-Form-Fiels">
                                 <label for="nombre">Nombre</label>
@@ -33,7 +34,7 @@
                                     <option selected disabled>
                                         Seleccione un rol
                                     </option>
-                                    <option th:each="rol:${roles}" th:value="${rol}" th:text="${rol}"></option>
+                                    <option  th:each="rol : ${T(com.notlify.enums.Rol).values()}" th:value="${rol}" th:text="${rol}"></option>
 
                                 </select>
                                 <label for="email">Correo</label>
@@ -46,7 +47,7 @@
                             <button type="submit" class="SignUp-Form-SubmitButton">Registrarse</button>
                             <br>
                             <br>
-                            <p>¿Ya tienés cuenta? <a href="/login">Inicia sesión aquí</a></p>
+                            <p>¿Ya tienés cuenta? <a href="/login" class="btn btn-outline-primary">Inicia sesión aquí</a></p>
                         </form>
                     </div>
                 </div>

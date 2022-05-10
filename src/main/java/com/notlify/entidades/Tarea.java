@@ -36,7 +36,6 @@ public class Tarea implements Serializable {
     private Estado estado;
 
     @OneToMany
-    @JoinColumn(name = "lista_usuarios", nullable = false)
     private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")
