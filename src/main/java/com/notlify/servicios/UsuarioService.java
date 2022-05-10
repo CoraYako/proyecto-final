@@ -56,7 +56,7 @@ public class UsuarioService implements UserDetailsService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public Usuario crearYPersistir(String correo, String clave1, String clave2,
-            Rol rol, String nombre, String apellido, String fechaNacimiento,
+            Rol rol, String nombre, String apellido, Date fechaNacimiento,
             MultipartFile archivo) throws ErrorInputException {
         validar(nombre, apellido, correo, clave1, clave2, fechaNacimiento);
 
