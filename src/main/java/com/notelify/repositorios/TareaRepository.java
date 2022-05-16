@@ -1,6 +1,6 @@
-package com.notlify.repositorios;
+package com.notelify.repositorios;
 
-import com.notlify.entidades.Tarea;
+import com.notelify.entidades.Tarea;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,12 +1,12 @@
-package com.notlify;
+package com.notelify;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NetlifyApplication {
+public class NotelifyApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NetlifyApplication.class, args);
+        SpringApplication.run(NotelifyApplication.class, args);
     }
 }

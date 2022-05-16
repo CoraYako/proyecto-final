@@ -1,6 +1,6 @@
-package com.notlify.entidades;
+package com.notelify.entidades;
 
-import com.notlify.enums.Estado;
+import com.notelify.enums.Estado;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,6 @@ public class Tarea implements Serializable {
     private Estado estado;
 
     @OneToMany
-    @JoinColumn(name = "lista_usuarios", nullable = false)
     private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")

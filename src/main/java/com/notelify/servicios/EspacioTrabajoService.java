@@ -1,12 +1,12 @@
-package com.notlify.servicios;
+package com.notelify.servicios;
 
-import com.notlify.entidades.EspacioTrabajo;
-import com.notlify.entidades.Imagen;
-import com.notlify.entidades.Tarea;
-import com.notlify.entidades.Usuario;
-import com.notlify.exceptions.ElementoNoEncontradoException;
-import com.notlify.exceptions.ErrorInputException;
-import com.notlify.repositorios.EspacioTrabajoRepository;
+import com.notelify.entidades.EspacioTrabajo;
+import com.notelify.entidades.Imagen;
+import com.notelify.entidades.Tarea;
+import com.notelify.entidades.Usuario;
+import com.notelify.exceptions.ElementoNoEncontradoException;
+import com.notelify.exceptions.ErrorInputException;
+import com.notelify.repositorios.EspacioTrabajoRepository;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

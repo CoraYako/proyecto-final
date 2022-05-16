@@ -1,12 +1,12 @@
-package com.notlify.controllers;
+package com.notelify.controllers;
 
-import com.notlify.entidades.Tarea;
-import com.notlify.entidades.Usuario;
-import com.notlify.exceptions.ElementoNoEncontradoException;
-import com.notlify.exceptions.ErrorInputException;
-import com.notlify.servicios.EspacioTrabajoService;
-import com.notlify.servicios.TareaService;
-import com.notlify.servicios.UsuarioService;
+import com.notelify.entidades.Tarea;
+import com.notelify.entidades.Usuario;
+import com.notelify.exceptions.ElementoNoEncontradoException;
+import com.notelify.exceptions.ErrorInputException;
+import com.notelify.servicios.EspacioTrabajoService;
+import com.notelify.servicios.TareaService;
+import com.notelify.servicios.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

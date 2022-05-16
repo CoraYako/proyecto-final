@@ -1,6 +1,7 @@
-package com.notlify.entidades;
+package com.notelify.entidades;
 
-import com.notlify.enums.Rol;
+
+import com.notelify.enums.Rol;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class Usuario implements Serializable {
     @Column(name = "apellido")
     private String apellido;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 

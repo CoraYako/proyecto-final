@@ -1,6 +1,6 @@
-package com.notlify.repositorios;
+package com.notelify.repositorios;
 
-import com.notlify.entidades.Imagen;
+import com.notelify.entidades.Imagen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

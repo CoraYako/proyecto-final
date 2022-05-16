@@ -1,5 +1,5 @@
 
-package com.notlify.exceptions;
+package com.notelify.exceptions;
 
 
 public class ErrorInputException extends Exception {

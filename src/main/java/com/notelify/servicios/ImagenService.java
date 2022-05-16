@@ -1,9 +1,9 @@
-package com.notlify.servicios;
+package com.notelify.servicios;
 
-import com.notlify.entidades.Imagen;
-import com.notlify.exceptions.ElementoNoEncontradoException;
-import com.notlify.exceptions.ErrorInputException;
-import com.notlify.repositorios.ImagenRepository;
+import com.notelify.entidades.Imagen;
+import com.notelify.exceptions.ElementoNoEncontradoException;
+import com.notelify.exceptions.ErrorInputException;
+import com.notelify.repositorios.ImagenRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;

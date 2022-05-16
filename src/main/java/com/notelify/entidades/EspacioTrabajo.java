@@ -1,4 +1,4 @@
-package com.notlify.entidades;
+package com.notelify.entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,7 +46,6 @@ public class EspacioTrabajo implements Serializable {
     private Date fechaFinalizacion;
 
     @OneToMany
-    @JoinColumn(name = "usuarios_lista", nullable = false)
     private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")

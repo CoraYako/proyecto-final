@@ -1,4 +1,4 @@
-package com.notlify.entidades;
+package com.notelify.entidades;
 
 import java.io.Serializable;
 import java.util.Arrays;

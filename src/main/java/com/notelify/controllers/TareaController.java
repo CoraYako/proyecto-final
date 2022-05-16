@@ -1,10 +1,10 @@
-package com.notlify.controllers;
+package com.notelify.controllers;
 
-import com.notlify.entidades.Tarea;
-import com.notlify.enums.Estado;
-import com.notlify.exceptions.ElementoNoEncontradoException;
-import com.notlify.exceptions.ErrorInputException;
-import com.notlify.servicios.TareaService;
+import com.notelify.entidades.Tarea;
+import com.notelify.enums.Estado;
+import com.notelify.exceptions.ElementoNoEncontradoException;
+import com.notelify.exceptions.ErrorInputException;
+import com.notelify.servicios.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
