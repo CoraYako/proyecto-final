@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="../espacio-tarea.css" rel="stylesheet">
+        <title>Notlify - Espacio Tarea</title>
+    </head>
+
+    <body>
+
+
+        <section class="lists-container">
+
+            <div class="list">
+
+                <h3 class="list-title">Cosas por hacer</h3>
+
+                <ul class="list-items">
+                    <li>Barra de navegacion</li>
+                    <li>Titulo e introduccion</li>
+                    <li>Secciones</li>
+                    <li>Informacion detallada del sitio</li>
+                    <li>Footer</li>
+                    <li>Index</li>
+                    <li>Seccion de espacio de trabajo</li>
+                    <li>Botones</li>
+                    <li>Login (Styles)</li>
+                    <li>Creaciond e cuenta(styles)</li>
+                    <li>Enlazar controladores con los archivos html</li>
+                    <li>Pruebas</li>
+
+                </ul>
+
+                <!--                <a class="add-card-btn btn" th:href="@{/tarea/crear/idUsuario}">Agregar tarea</a>-->
+
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="add-card-btn btn" data-toggle="modal" data-target="#exampleModalScrollable">
+                    Agregar tarea
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Email address</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Example select</label>
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Example multiple select</label>
+                                        <select multiple class="form-control" id="exampleFormControlSelect2">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Example textarea</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list">
+
+                <h3 class="list-title">Tareas finalizadas</h3>
+
+                <ul class="list-items">
+                    <li>Entidades</li>
+                    <li>Repositorios</li>
+                    <li>Servicios</li>
+                    <li>Enums</li>
+                    <li>Excepciones</li>
+                    <li>Servicios</li>
+                    <li>Servicios</li>
+
+                </ul>
+
+                <button class="add-card-btn btn">Agregar tarea</button>
+
+            </div>
+            <div class="list">
+
+                <h3 class="list-title">Tareas Pausadas</h3>
+
+                <ul class="list-items">
+                    <li>Curso de Oracle</li>
+
+                </ul>
+
+                <button class="add-card-btn btn">Agregar tarea</button>
+
+            </div>
+
+            <div class="list">
+
+                <h3 class="list-title">Cosas a mejorar</h3>
+
+                <ul class="list-items">
+                    <li>Experiencia de usuario</li>
+
+                </ul>
+
+                <button class="add-card-btn btn">Agregar tarea</button>
+
+            </div>
+
+            <button class="add-list-btn btn">Agregar Espacio de Tareas</button>
+
+
+        </section>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+
+</html>
