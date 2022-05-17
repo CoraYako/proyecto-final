@@ -30,11 +30,12 @@ public class TareaController {
     }
 
     @PostMapping("/crear")
-    public String crearTarea(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam String idUsuario, RedirectAttributes attr) {
+    public String crearTarea(@RequestParam String titulo, @RequestParam(required = false) String descripcion, @RequestParam(required = false) String idUsuario, RedirectAttributes attr) {
 
         try {
             
-            tareaService.crearYPersistir(titulo, descripcion, idUsuario);
+            tareaService.crearYPersistir(titulo, descripcion);
+                    
             
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
 
@@ -43,7 +44,7 @@ public class TareaController {
 
         }
 
-        return "redirect:/espacioTrabajo.html";
+        return "espacioTrabajo.html";
 
     }
 
