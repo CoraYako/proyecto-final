@@ -12,13 +12,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <div class="container-fluid">
-            <a class="navbar-brand ms-3 link-light" th:href="@{/}">Notelify</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand ms-3 link-light fw-bolder" th:href="@{/}">Notelify</a>
             <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -28,13 +24,16 @@
             </div>
         </div>
     </nav>
+
     <div class="divMadre">
         <div id="root">
             <div data-reactroot="" class="SignUp">
                 <div class="SignUp-Form">
                     <div class="SignUp-Form-Header">
                         <span class="SignUp-Form-Header-Title">Crea una cuenta en Notelify</span>
-
+                    </div>
+                    <div>
+                        <span class="text-success mb-2" th:if="${exito != null}" th:text="${exito}"></span>
                     </div>
                     <div>
                         <p class="text-danger" th:if="${error != null}" th:text="${error}"></p>
@@ -64,7 +63,7 @@
                             <button type="submit" class="SignUp-Form-SubmitButton">Registrarse</button>
                             <br>
                             <br>
-                            <p>¿Ya tienés cuenta? <a th:href="@{/login}" class="btn btn-outline-primary">Inicia sesión
+                            <p>¿Ya tienés cuenta? <a th:href="@{/login}">Inicia sesión
                                     aquí</a>
                             </p>
                         </form>
@@ -73,37 +72,42 @@
             </div>
         </div>
     </div>
+
     <footer class="text-center text-lg-start bg-light text-muted pt-3">
-        <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3">
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4 text-reset">Notelify</h6>
-                    <p>Hecho con cariño y dedicación por los estudiantes de Egg Cooperación. Gracias por el apollo y las
-                        enseñanzas.</p>
+        <div class="container text-center text-md-start py-4">
+            <div class="row my-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto">
+                    <h6 class="fw-bold mb-2 text-reset">Notelify</h6>
+                    <span>Hecho con cariño y dedicación por los estudiantes de Egg Cooperación. Gracias por el
+                        apollo y las
+                        enseñanzas.</span>
                 </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Tecnologías Usadas</h6>
-                    <p>Java</p>
-                    <p>Bootstrap 5</p>
-                    <p>HTML 5</p>
-                    <p>Spring Boot</p>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+                    <h6 class="fw-bold mb-2">Tecnologías Usadas</h6>
+                    <ul class="ps-3">
+                        <li>Java</li>
+                        <li>Bootstrap 5</li>
+                        <li>HTML 5</li>
+                        <li>Spring Boot</li>
+                    </ul>
                 </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Links Utiles</h6>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                    <h6 class="fw-bold mb-2">LinkedIn</h6>
                     <a href="#!" class="text-reset">Github:CoraYako</a>
                 </div>
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-                    <p>Usuario Github: currusu</p>
-                    <p>Correo:natachagreco1@hotmail.com</p>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto">
+                    <h6 class="fw-bold mb-2">GitHub</h6>
+                    <span>Usuario Github: currusu</span>
+                    <span>Correo:natachagreco1@hotmail.com</span>
                 </div>
             </div>
         </div>
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2022 EGG Tech Programación 8
-            <a class="text-reset fw-bold" href="https://mdbootstrap.com/"></a>
+            <span>© 2022 <a class="text-decoration-none text-reset"
+                    th:href="@{https://carreras.eggeducacion.com/es/}">EGG Tech Programación</a></span>
         </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
