@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuario")
@@ -37,7 +38,7 @@ public class UsuarioController {
      * Controlador para registrar el usuario. Recibe los atributos listados
      * abajo y llama al metodo crear y persistir del usuarioService.
      *
-     * @param modelo
+     * @param att
      * @param correo
      * @param clave1
      * @param clave2
@@ -51,19 +52,19 @@ public class UsuarioController {
      *
      */
     @PostMapping("/registro")
-    public String registrar(ModelMap modelo, MultipartFile archivo,@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
+    public String registrar(RedirectAttributes att, MultipartFile archivo,@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
         try {
             usuarioService.crearYPersistir(correo, clave1, clave2, rol, nombre, apellido, fechaNacimiento, archivo);
+            att.addFlashAttribute("exito", "Usuario registrado correctamente.");
         } catch (ErrorInputException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("roles", Rol.values());
-            modelo.put("nombre", nombre);
-            modelo.put("apellido", apellido);
-            modelo.put("correo", correo);
-            return "registro.html";
+            att.addFlashAttribute("error", ex.getMessage());
+            att.addFlashAttribute("roles", Rol.values());
+            att.addFlashAttribute("nombre", nombre);
+            att.addFlashAttribute("apellido", apellido);
+            att.addFlashAttribute("correo", correo);
         }
 
-        return "inicio.html";
+        return "redirect:/usuario/registro";
     }
 
     /**
@@ -94,7 +95,31 @@ public class UsuarioController {
             return "registro.html";
         }
 
-        return "inicio.html";
+        return "modificarDatos.html";
+    }
+
+    @PostMapping("/editar")
+    public String editar(ModelMap modelo, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
+        Usuario usuario = new Usuario();
+
+        try {
+            if (id != null && !id.trim().isEmpty()) {
+                usuario = usuarioService.modificarYPersistir(archivo, id, nombre, apellido, correo, clave1, clave2, fechaNacimiento);
+
+            }
+            modelo.put("perfil", usuario);
+            modelo.put("exito", "Perfecto!!!!");
+            modelo.put("descripcion", "El perfil fue modificado exitosamente");
+        } catch (ErrorInputException | ElementoNoEncontradoException ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("roles", Rol.values());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("correo", correo);
+            return "modificarDatos.html";
+        }
+
+        return "modificarDatos.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
