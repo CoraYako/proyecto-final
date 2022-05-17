@@ -95,7 +95,31 @@ public class UsuarioController {
             return "registro.html";
         }
 
-        return "inicio.html";
+        return "modificarDatos.html";
+    }
+
+    @PostMapping("/editar")
+    public String editar(ModelMap modelo, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
+        Usuario usuario = new Usuario();
+
+        try {
+            if (id != null && !id.trim().isEmpty()) {
+                usuario = usuarioService.modificarYPersistir(archivo, id, nombre, apellido, correo, clave1, clave2, fechaNacimiento);
+
+            }
+            modelo.put("perfil", usuario);
+            modelo.put("exito", "Perfecto!!!!");
+            modelo.put("descripcion", "El perfil fue modificado exitosamente");
+        } catch (ErrorInputException | ElementoNoEncontradoException ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("roles", Rol.values());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("correo", correo);
+            return "modificarDatos.html";
+        }
+
+        return "modificarDatos.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

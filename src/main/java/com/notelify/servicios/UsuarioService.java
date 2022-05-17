@@ -100,16 +100,16 @@ public class UsuarioService implements UserDetailsService {
     @Transactional(rollbackFor = Exception.class)
     public Usuario modificarYPersistir(MultipartFile archivo, String id, String nombre, String apellido, String correo,
             String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException, ElementoNoEncontradoException {
-//        validar(nombre, apellido, clave2, clave1, clave2);
+        validar(nombre, apellido, correo, clave1, clave2, fechaNacimiento);
 
         Usuario usuario = buscarPorId(id);
 
-        String idFotoPerfil = null;
-        if (usuario.getFotoPerfil().getId() != null) {
-            idFotoPerfil = usuario.getFotoPerfil().getId();
-        }
-
-        Imagen imagen = imagenService.actualizar(idFotoPerfil, archivo);
+//        String idFotoPerfil = null;
+//        if (usuario.getFotoPerfil().getId() != null) {
+//            idFotoPerfil = usuario.getFotoPerfil().getId();
+//        }
+//
+//        Imagen imagen = imagenService.actualizar(idFotoPerfil, archivo);
 
         String claveEncriptada = encriptacion(clave1);
         usuario.setClave(claveEncriptada);
@@ -118,7 +118,7 @@ public class UsuarioService implements UserDetailsService {
         usuario.setApellido(apellido);
         usuario.setCorreo(correo);
         usuario.setFechaNacimiento(fechaNacimiento);
-        usuario.setFotoPerfil(imagen);
+//        usuario.setFotoPerfil(imagen);
 
         return usuarioRepository.save(usuario);
     }
@@ -211,7 +211,7 @@ public class UsuarioService implements UserDetailsService {
 
         HttpSession session = attr.getRequest().getSession(true);
         session.setAttribute("usuariosession", u);
-
+        
         return new User(u.getCorreo(), u.getClave(), permisos);
     }
 
