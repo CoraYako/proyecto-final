@@ -16,7 +16,9 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-   
+   background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1403/mountain_river_snow_winter-scenery_HD_Wallpaper_1366x768.jpg);
+
+	background-size: 100% 100%; /*estandar css3*/
     
 }
 
@@ -37,6 +39,26 @@ body {
 
 
 /*Espacio Tarea*/
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
+
 
 
 .lists-container::-webkit-scrollbar {
