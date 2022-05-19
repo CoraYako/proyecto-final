@@ -10,16 +10,16 @@
 html {
     background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1403/mountain_river_snow_winter-scenery_HD_Wallpaper_1366x768.jpg);
 
-	background-size: 100% 100%; /*estandar css3*/
+    background-size: 100% 100%; /*estandar css3*/
 }
 body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-   background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1403/mountain_river_snow_winter-scenery_HD_Wallpaper_1366x768.jpg);
+    background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1403/mountain_river_snow_winter-scenery_HD_Wallpaper_1366x768.jpg);
 
-	background-size: 100% 100%; /*estandar css3*/
-    
+    background-size: 100% 100%; /*estandar css3*/
+
 }
 
 .btn {
@@ -40,15 +40,24 @@ body {
 
 /*Espacio Tarea*/
 
-.navbar-login
-{
+navbar {
+    background: #242525;
+    color: #ebebeb;
+    box-sizing: border-box;
+}
+
+.container {
+    background: #242525;
+}
+
+.navbar-login{
     width: 305px;
     padding: 10px;
     padding-bottom: 0px;
 }
 
-.navbar-login-session
-{
+.navbar-login-session{
+   
     padding: 10px;
     padding-bottom: 0px;
     padding-top: 0px;
@@ -56,7 +65,7 @@ body {
 
 .icon-size
 {
-    font-size: 87px;
+    font-size: 100px;
 }
 
 .image-perfil {
@@ -182,57 +191,57 @@ body {
 }
 
 footer {
-  background: #242525;
-  color: #ebebeb;
-  box-sizing: border-box;
- 
+    background: #242525;
+    color: #ebebeb;
+    box-sizing: border-box;
+
 }
 
 footer .content {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin: 0 auto;
-  max-width: 1550px;
-  padding: 32px 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0 auto;
+    max-width: 1550px;
+    padding: 32px 16px;
 }
 
 footer .content dl {
-  flex-grow: 1;
-  margin: 0 16px 16px;
+    flex-grow: 1;
+    margin: 0 16px 16px;
 }
 
 footer .content dl dt {
-  color: #a6a6a6;
-  font-size: 14px;
-  text-transform: uppercase;
+    color: #a6a6a6;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 footer .content dl dt.logo img {
-  width: 200px;
+    width: 200px;
 }
 
 footer .content dl dd.copy-social {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  font-size: 22px;
-  line-height: 22px;
-  margin: 16px 0 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 22px;
+    line-height: 22px;
+    margin: 16px 0 0;
 }
 
 footer .content dl dd.copy-social span {
-  border-right: 1px solid #a6a6a6;
-  font-size: 16px;
-  line-height: 22px;
-  margin: 0 8px 0 0;
-  padding: 0 16px 0 0;
+    border-right: 1px solid #a6a6a6;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0 8px 0 0;
+    padding: 0 16px 0 0;
 }
 
 footer .content dl dd.copy-social a {
-  margin: 0 8px;
+    margin: 0 8px;
     margin-top: 0px;
     margin-right: 8px;
     margin-bottom: 0px;
@@ -240,26 +249,22 @@ footer .content dl dd.copy-social a {
 }
 
 footer .content dl dd a {
-  color: #ebebeb;
-  text-decoration: none;
-  transition: color .15s cubic-bezier(1,-.115,.975,.855);
-    transition-property: color;
-    transition-duration: 0.15s;
-    transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
-    transition-delay: 0s;
+    color: #ebebeb;
+    text-decoration: none;
+
 }
 
 code, svg.icon {
-  display: inline-block;
+    display: inline-block;
 }
 svg.icon {
-  fill: currentColor;
-  height: 1em;
-  vertical-align: text-top;
+    fill: currentColor;
+    height: 1em;
+    vertical-align: text-top;
 }
 
 svg.icon {
-  fill: currentColor;
+    fill: currentColor;
 }
 
 .egg-logo{
