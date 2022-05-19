@@ -22,19 +22,13 @@ public class TareaController {
     @Autowired
     private TareaService tareaService;
 
-    @GetMapping("/crear/{idUsuario}")
-    public String tarea(@PathVariable String idUsuario) {
-
-        return "crearTarea.html";
-
-    }
-
     @PostMapping("/crear")
-    public String crearTarea(@RequestParam String titulo, @RequestParam String descripcion, @RequestParam String idUsuario, RedirectAttributes attr) {
+    public String crearTarea(@RequestParam String titulo, @RequestParam(required = false) String descripcion, @RequestParam(required = false) String idUsuario, RedirectAttributes attr) {
 
         try {
             
-            tareaService.crearYPersistir(titulo, descripcion, idUsuario);
+            tareaService.crearYPersistir(titulo, descripcion);
+                    
             
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
 
@@ -43,26 +37,7 @@ public class TareaController {
 
         }
 
-        return "redirect:/espacioTrabajo.html";
-
-    }
-
-    @GetMapping("/editar/{id}")
-    public String modificar(@PathVariable String id, ModelMap model) {
-
-        try {
-
-            Tarea tarea = tareaService.buscarPorId(id);
-
-            model.put("tarea", tarea);
-
-        } catch (ElementoNoEncontradoException | ErrorInputException e) {
-
-            e.printStackTrace();
-
-        }
-
-        return "editarTarea.html";
+        return "espacioTrabajo.html";
 
     }
 
@@ -80,24 +55,6 @@ public class TareaController {
         }
 
         return "redirect:/espacioTrabajo";
-
-    }
-
-    @GetMapping("/eliminar/{id}")
-    public String deshabilitar(@PathVariable String id, ModelMap model) {
-
-        try {
-
-            Tarea tarea = tareaService.buscarPorId(id);
-
-            model.put("tarea", tarea);
-
-        } catch (ElementoNoEncontradoException | ErrorInputException e) {
-
-            e.printStackTrace();
-        }
-
-        return "//VISTA PARA CONFIRMAR LA DESHABILITACIÓN DE LA TAREA";
 
     }
 
