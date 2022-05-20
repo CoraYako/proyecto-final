@@ -227,6 +227,20 @@ public class UsuarioService implements UserDetailsService {
         String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
         return claveEncriptada;
     }
+    
+    public void recuperarContraseña(String email, String nuevaContraseña, String contraseñaRepetida) throws ErrorInputException {
+        
+        if (nuevaContraseña.equals(contraseñaRepetida)) {
+            
+            Usuario u = buscarPorCorreo(email);
+            
+            String crypt = encriptacion(nuevaContraseña);
+            
+            u.setClave(crypt);
+            
+        }
+        
+    }
 
     /**
      *
