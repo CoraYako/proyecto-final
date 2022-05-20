@@ -110,7 +110,6 @@ public class UsuarioService implements UserDetailsService {
 //        }
 //
 //        Imagen imagen = imagenService.actualizar(idFotoPerfil, archivo);
-
         String claveEncriptada = encriptacion(clave1);
         usuario.setClave(claveEncriptada);
 
@@ -138,6 +137,18 @@ public class UsuarioService implements UserDetailsService {
         Usuario usuario = buscarPorId(id);
         usuario.setActivo(false);
         usuario.setFechaBaja(new Date());
+
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario recuperarClave(String correo, String clave1, String clave2) throws ErrorInputException {
+        if (!clave1.equals(clave2)) {
+            throw new ErrorInputException("Las contraseñas deben ser iguales.");
+        }
+
+        Usuario usuario = buscarPorCorreo(correo);
+        String crypt = encriptacion(clave1);
+        usuario.setClave(crypt);
 
         return usuarioRepository.save(usuario);
     }
@@ -211,7 +222,7 @@ public class UsuarioService implements UserDetailsService {
 
         HttpSession session = attr.getRequest().getSession(true);
         session.setAttribute("usuariosession", u);
-        
+
         return new User(u.getCorreo(), u.getClave(), permisos);
     }
 
@@ -226,20 +237,6 @@ public class UsuarioService implements UserDetailsService {
     private String encriptacion(String clave) {
         String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
         return claveEncriptada;
-    }
-    
-    public void recuperarContraseña(String email, String nuevaContraseña, String contraseñaRepetida) throws ErrorInputException {
-        
-        if (nuevaContraseña.equals(contraseñaRepetida)) {
-            
-            Usuario u = buscarPorCorreo(email);
-            
-            String crypt = encriptacion(nuevaContraseña);
-            
-            u.setClave(crypt);
-            
-        }
-        
     }
 
     /**

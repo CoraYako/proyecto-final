@@ -1,15 +1,13 @@
 package com.notelify.controllers;
 
+import com.notelify.entidades.EspacioTrabajo;
 import com.notelify.entidades.Tarea;
-import com.notelify.enums.Estado;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
+import com.notelify.servicios.EspacioTrabajoService;
 import com.notelify.servicios.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,23 +20,24 @@ public class TareaController {
     @Autowired
     private TareaService tareaService;
 
+    @Autowired
+    private EspacioTrabajoService espacioTrabajoService;
+
     @PostMapping("/crear")
-    public String crearTarea(@RequestParam String titulo, @RequestParam(required = false) String descripcion, @RequestParam(required = false) String idUsuario, RedirectAttributes attr) {
+    public String crearTarea(@RequestParam String idEspacio, @RequestParam String titulo, @RequestParam(required = false) String descripcion, @RequestParam String idUsuario, RedirectAttributes attr) {
+        EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
+        Tarea tarea = new Tarea();
 
         try {
-            
-            tareaService.crearYPersistir(titulo, descripcion);
-                    
-            
+            espacioTrabajo = espacioTrabajoService.buscarPorId(idEspacio);
+            tarea = tareaService.crearYPersistir(titulo, descripcion, idUsuario);
+            espacioTrabajoService.agregarTarea(espacioTrabajo.getId(), tarea.getId());
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
-
             attr.addFlashAttribute("error", e.getMessage());
             return "redirect:/espacioTrabajo";
-
         }
 
-        return "espacioTrabajo.html";
-
+        return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId();
     }
 
     @PostMapping("/editar")

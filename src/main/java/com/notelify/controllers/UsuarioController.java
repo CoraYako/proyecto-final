@@ -78,7 +78,7 @@ public class UsuarioController {
      *
      * @return el objeto buscado.
      */
-    @GetMapping("/editar{id}")
+    @GetMapping("/editar/{id}")
     public String registro(ModelMap modelo, @PathVariable String id) {
         Usuario usuario = new Usuario();
 

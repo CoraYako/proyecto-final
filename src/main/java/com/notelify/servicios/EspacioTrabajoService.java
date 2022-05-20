@@ -44,6 +44,7 @@ public class EspacioTrabajoService {
      * @return el objeto persistido.
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
+     * @throws com.notelify.exceptions.ElementoNoEncontradoException
      * @see ImagenService
      */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
@@ -85,9 +86,9 @@ public class EspacioTrabajoService {
     }
 
     /**
-     * Agrega Usuario al EspacioTarea utilizando el metodo buscarPorId(). 
+     * Agrega Usuario al EspacioTarea utilizando el metodo buscarPorId().
      * Primero buscar el espacio Tarea por id y luego busca el Usuario mediante
-     * el metodo buscarPorId. El Usuario encontrado se agrega a la lista de 
+     * el metodo buscarPorId. El Usuario encontrado se agrega a la lista de
      * Usuarios creada en los atributos de EspacioTrabajo.
      *
      * @param id
@@ -97,7 +98,6 @@ public class EspacioTrabajoService {
      * @throws ElementoNoEncontradoException cuando el elemento solicitado no se
      * encontró.
      */
-
     @Transactional(rollbackFor = {Exception.class})
     public EspacioTrabajo agregarUsuario(String id, String idUsuario) throws ElementoNoEncontradoException, ErrorInputException {
         EspacioTrabajo espacioTrabajo = buscarPorId(id);
