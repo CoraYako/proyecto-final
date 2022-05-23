@@ -36,13 +36,13 @@ public class TareaService {
      * @see UsuarioService.
      */
     @Transactional(rollbackFor = Exception.class)
-    public Tarea crearYPersistir(String titulo, String descripcion, String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
-        validar(titulo, descripcion, idUsuario);
+    public Tarea crearYPersistir(String titulo, String descripcion/*,String idUsuario*/) throws ErrorInputException, ElementoNoEncontradoException {
+        validar(titulo, descripcion/*, idUsuario*/);
 
         Tarea tarea = new Tarea();
 
-        Usuario usuario = usuarioService.buscarPorId(idUsuario);
-        tarea.getListaUsuarios().add(usuario);
+//        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+//        tarea.getListaUsuarios().add(usuario);
 
         tarea.setTitulo(titulo);
         tarea.setDescripcion(descripcion);
@@ -76,7 +76,7 @@ public class TareaService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public Tarea modificar(String id, String titulo, String descripcion) throws ErrorInputException, ElementoNoEncontradoException {
-        validar(titulo, descripcion, id);
+        validar(titulo, descripcion/*, id*/);
 
         Tarea tarea = buscarPorId(id);
         tarea.setTitulo(titulo);
@@ -156,15 +156,15 @@ public class TareaService {
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
      */
-    public void validar(String titulo, String descripcion, String idUsuario) throws ErrorInputException {
+    public void validar(String titulo, String descripcion/*, String idUsuario*/) throws ErrorInputException {
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new ErrorInputException("Debe proporcionar un título.");
         }
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new ErrorInputException("Debe proporcionar una descripción.");
-        }
-        if (idUsuario == null || idUsuario.trim().isEmpty()) {
-            throw new ErrorInputException("Debe proporcionar un id válido.");
-        }
+//        if (descripcion == null || descripcion.trim().isEmpty()) {
+//            throw new ErrorInputException("Debe proporcionar una descripción.");
+//        }
+//        if (idUsuario == null || idUsuario.trim().isEmpty()) {
+//            throw new ErrorInputException("Debe proporcionar un id válido.");
+//        }
     }
 }

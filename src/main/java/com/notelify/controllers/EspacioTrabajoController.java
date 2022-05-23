@@ -42,8 +42,8 @@ public class EspacioTrabajoController {
     }
 
     @PostMapping("/espacioTrabajo")
-    public String crear(RedirectAttributes attr, @RequestParam MultipartFile archivo, @RequestParam String nombre, 
-            @RequestParam String idUsuario, @RequestParam String idTarea) {
+    public String crear(RedirectAttributes attr,@RequestParam(required = false) MultipartFile archivo, @RequestParam String nombre, 
+            @RequestParam String idUsuario) {
 
         try {
             espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
