@@ -52,7 +52,7 @@ public class UsuarioController {
      *
      */
     @PostMapping("/registro")
-    public String registrar(RedirectAttributes att, MultipartFile archivo,@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
+    public String registrar(RedirectAttributes att, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
         try {
             usuarioService.crearYPersistir(correo, clave1, clave2, rol, nombre, apellido, fechaNacimiento, archivo);
             att.addFlashAttribute("exito", "Usuario registrado correctamente.");
@@ -120,6 +120,16 @@ public class UsuarioController {
         }
 
         return "modificarDatos.html";
+    }
+
+    @PostMapping("/recuperar")
+    public String recuperarClave(ModelMap modelo, @RequestParam String correo, @RequestParam String nuevaClave, @RequestParam String repeticionNuevaClave) {
+        try {
+            usuarioService.recuperarClave(correo, nuevaClave, repeticionNuevaClave);
+        } catch (ErrorInputException | ElementoNoEncontradoException e) {
+            modelo.put("error", e.getMessage());
+        }
+        return "index.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

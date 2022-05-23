@@ -141,7 +141,7 @@ public class UsuarioService implements UserDetailsService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario recuperarClave(String correo, String clave1, String clave2) throws ErrorInputException {
+    public Usuario recuperarClave(String correo, String clave1, String clave2) throws ErrorInputException, ElementoNoEncontradoException {
         if (!clave1.equals(clave2)) {
             throw new ErrorInputException("Las contraseñas deben ser iguales.");
         }
@@ -183,13 +183,20 @@ public class UsuarioService implements UserDetailsService {
      * @return un objeto del tipo Usuario.
      * @throws ErrorInputException cuando el parámetro como dato entrante no es
      * el correcto.
+     * @throws com.notelify.exceptions.ElementoNoEncontradoException
      */
     @Transactional(readOnly = true)
-    public Usuario buscarPorCorreo(String correo) throws ErrorInputException {
+    public Usuario buscarPorCorreo(String correo) throws ErrorInputException, ElementoNoEncontradoException {
         if (correo == null || correo.trim().isEmpty()) {
             throw new ErrorInputException("El correo no puede ser nulo.");
         }
-        return usuarioRepository.buscarPorEmail(correo);
+
+        Usuario usuario = usuarioRepository.buscarPorCorreo(correo);
+        if (usuario == null) {
+            throw new ElementoNoEncontradoException("El usuario solicitado con dicho correo no existe.");
+        }
+
+        return usuario;
     }
 
     /**
@@ -206,8 +213,8 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario u = usuarioRepository.buscarPorEmail(email);
+    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+        Usuario u = usuarioRepository.buscarPorCorreo(correo);
 
         if (u == null) {
             return null;

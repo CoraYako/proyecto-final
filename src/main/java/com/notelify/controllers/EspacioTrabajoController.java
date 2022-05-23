@@ -7,9 +7,7 @@ import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.EspacioTrabajoService;
 import com.notelify.servicios.UsuarioService;
-import java.util.ArrayList;
 import java.util.List;
-import org.aspectj.lang.annotation.RequiredTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,9 +25,6 @@ public class EspacioTrabajoController {
 
     @Autowired
     private EspacioTrabajoService espacioTrabajoService;
-
-    @Autowired
-    private UsuarioService usuarioService;
 
     @GetMapping("/mi-espacio/{id}")
     public String espacioTrabajo(RedirectAttributes attr, ModelMap modelo, @PathVariable String id) {
@@ -70,7 +65,6 @@ public class EspacioTrabajoController {
 
         try {
             espacioTrabajo = espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
-
             modelo.put("espacioTrabajo", espacioTrabajo);
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
