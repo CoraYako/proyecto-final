@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -55,7 +56,13 @@ public class UsuarioService implements UserDetailsService {
      * @see ImagenService
      */
     @Transactional(rollbackFor = {Exception.class})
-    public Usuario crearYPersistir(String correo, String clave1, String clave2, Rol rol, String nombre, String apellido, Date fechaNacimiento, MultipartFile archivo) throws ErrorInputException {
+
+    public Usuario crearYPersistir(String correo, String clave1, String clave2,
+            Rol rol, String nombre, String apellido, Date fechaNacimiento,
+            MultipartFile archivo) throws ErrorInputException {
+
+   
+
         validar(nombre, apellido, correo, clave1, clave2, fechaNacimiento);
 
         if (rol == null) {
