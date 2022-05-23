@@ -7,6 +7,7 @@ import com.notelify.entidades.Usuario;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.repositorios.EspacioTrabajoRepository;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -133,6 +134,23 @@ public class EspacioTrabajoService {
         espacioTrabajo.setFondo(imagen);
         espacioTrabajo.setNombre(nombre);
         return espacioTrabajoRepository.save(espacioTrabajo);
+    }
+
+    public List<EspacioTrabajo> espaciosDelUsuario(String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
+        List<EspacioTrabajo> espaciosDelUsuario = new ArrayList<>();
+
+        Usuario usuarioEncontrado = null;
+        usuarioEncontrado = usuarioService.buscarPorId(idUsuario);
+
+        for (EspacioTrabajo espacio : listarTodos()) {
+            for (Usuario usuario : espacio.getListaUsuarios()) {
+                if (usuario.equals(usuarioEncontrado)) {
+                    espaciosDelUsuario.add(espacio);
+                }
+            }
+        }
+
+        return espaciosDelUsuario;
     }
 
     /**

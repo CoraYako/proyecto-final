@@ -8,6 +8,7 @@ import com.notelify.servicios.EspacioTrabajoService;
 import com.notelify.servicios.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,36 +25,33 @@ public class TareaController {
     private EspacioTrabajoService espacioTrabajoService;
 
     @PostMapping("/crear")
-    public String crearTarea(@RequestParam String idEspacio, @RequestParam String titulo, @RequestParam(required = false) String descripcion, @RequestParam String idUsuario, RedirectAttributes attr) {
+    public String crear(ModelMap modelo, @RequestParam String idEspacio, @RequestParam String titulo, @RequestParam(required = false) String descripcion, @RequestParam String idUsuario, RedirectAttributes attr) {
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
         Tarea tarea = new Tarea();
 
         try {
             espacioTrabajo = espacioTrabajoService.buscarPorId(idEspacio);
             tarea = tareaService.crearYPersistir(titulo, descripcion, idUsuario);
+
             espacioTrabajoService.agregarTarea(espacioTrabajo.getId(), tarea.getId());
+
+            modelo.put("espacioTrabajo", espacioTrabajo);
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
             attr.addFlashAttribute("error", e.getMessage());
-            return "redirect:/espacioTrabajo";
         }
 
         return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId();
     }
 
     @PostMapping("/editar")
-    public String modificarTarea(@RequestParam String id, @RequestParam String titulo, @RequestParam String descripcion, RedirectAttributes attr) {
-
+    public String modificarTarea(@RequestParam String idEspacio, @RequestParam String id, @RequestParam String titulo, @RequestParam(required = false) String descripcion, RedirectAttributes attr) {
         try {
-
             tareaService.modificar(id, titulo, descripcion);
-
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
-            return "redirect:/tareas/editar/" + id;
-
         }
 
-        return "redirect:/espacioTrabajo";
+        return "redirect:/espacio-trabajo/mi-espacio/";
 
     }
 

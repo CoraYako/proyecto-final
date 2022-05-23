@@ -6,7 +6,10 @@ import com.notelify.entidades.Usuario;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.EspacioTrabajoService;
+import com.notelify.servicios.UsuarioService;
+import java.util.ArrayList;
 import java.util.List;
+import org.aspectj.lang.annotation.RequiredTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,29 +28,50 @@ public class EspacioTrabajoController {
     @Autowired
     private EspacioTrabajoService espacioTrabajoService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping("/mi-espacio/{id}")
-    public String espacioTrabajo(ModelMap modelo, @PathVariable String id) {
+    public String espacioTrabajo(RedirectAttributes attr, ModelMap modelo, @PathVariable String id) {
+        EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
+
         try {
-            EspacioTrabajo miEspacio = espacioTrabajoService.buscarPorId(id);
+            espacioTrabajo = espacioTrabajoService.buscarPorId(id);
 
-            List<Tarea> listaTareas = miEspacio.getListaTareas();
-            modelo.put("listaTareas", listaTareas);
+            List<Tarea> tareas = espacioTrabajo.getListaTareas();
+            modelo.put("tareas", tareas);
 
-            List<Usuario> listaUsuarios = miEspacio.getListaUsuarios();
-            modelo.put("listaUsuarios", listaUsuarios);
+            List<Usuario> usuarios = espacioTrabajo.getListaUsuarios();
+            modelo.put("usuarios", usuarios);
+
+            modelo.put("espacio", espacioTrabajo);
         } catch (ElementoNoEncontradoException | ErrorInputException ex) {
-            modelo.put("error", ex.getMessage());
+            attr.addFlashAttribute("error", ex.getMessage());
         }
 
         return "espacioTrabajo.html";
     }
 
+    @GetMapping("/lista/{idUsuario}")
+    public String lista(ModelMap modelo, @PathVariable String idUsuario) {
+        try {
+            List<EspacioTrabajo> espaciosDelUsuarioLogeado = espacioTrabajoService.espaciosDelUsuario(idUsuario);
+            modelo.put("espacios", espaciosDelUsuarioLogeado);
+        } catch (ElementoNoEncontradoException | ErrorInputException e) {
+            modelo.put("error", e.getMessage());
+        }
+
+        return "listaEspaciosTrabajo.html";
+    }
+
     @PostMapping("/crear")
-    public String crear(RedirectAttributes attr, @RequestParam(required = false) MultipartFile archivo, @RequestParam String nombre, @RequestParam String idUsuario) {
+    public String crear(RedirectAttributes attr, ModelMap modelo, @RequestParam(required = false) MultipartFile archivo, @RequestParam String nombre, @RequestParam String idUsuario) {
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
+
         try {
             espacioTrabajo = espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
-            attr.addFlashAttribute("exito", "El espacio de trabajo con el nombre '" + nombre + "' se inició exitosamente.");
+
+            modelo.put("espacioTrabajo", espacioTrabajo);
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
