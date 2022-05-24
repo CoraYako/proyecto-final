@@ -1,5 +1,5 @@
 .divMadre {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -24,7 +24,7 @@
 .SignUp {
   padding: 4em 1em;
   width: 100%;
-  font-family: jaf-facitweb,Helvetica Neue,Arial,sans-serif;
+  font-family: jaf-facitweb, Helvetica Neue, Arial, sans-serif;
   color: #4d4d4d;
   font-weight: 300;
   line-height: 1.44em;
@@ -32,7 +32,7 @@
 }
 
 .SignUp-Form {
-  font-family: jaf-facitweb,Helvetica Neue,Arial,sans-serif;
+  font-family: jaf-facitweb, Helvetica Neue, Arial, sans-serif;
   color: #4d4d4d;
   font-weight: 300;
   line-height: 1.44em;
@@ -60,7 +60,12 @@
   flex-direction: column;
 }
 
-.SignUp-Form-Email, .SignUp-Form-Apellido, .SignUp-Form-Rol, .SignUp-Form-Password, .SignUp-Form-Nombre , .SignUp-Form-FechaDeNacimiento{
+.SignUp-Form-Email,
+.SignUp-Form-Apellido,
+.SignUp-Form-Rol,
+.SignUp-Form-Password,
+.SignUp-Form-Nombre,
+.SignUp-Form-FechaDeNacimiento {
   line-height: normal;
   background: #edeff0;
   border-radius: 4px;
@@ -81,10 +86,17 @@
   text-indent: 0;
   text-shadow: none;
 }
-button, input {
+
+button,
+input {
   overflow: visible;
 }
-button, input, optgroup, select, textarea {
+
+button,
+input,
+optgroup,
+select,
+textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
@@ -101,8 +113,8 @@ label {
 }
 
 .SignUp-Form-SubmitButton {
-  background: -webkit-linear-gradient(top,#61bd4f,#5aac44);
-  background: linear-gradient(180deg,#61bd4f 0,#5aac44);
+  background: -webkit-linear-gradient(top, #61bd4f, #5aac44);
+  background: linear-gradient(180deg, #61bd4f 0, #5aac44);
   box-shadow: 0 2px 0 #3f6f21;
   color: #fff;
   margin: 1em 0 0;
@@ -115,8 +127,32 @@ label {
   border-radius: .3em;
 }
 
-.SignUp-Form-SubmitButton:hover{
+.SignUp-Form-SubmitButton:hover {
   background: rgb(10, 245, 45);
   transform: scale(1.2);
   transition: 1000ms;
+}
+
+#barra1 {
+  background-color: rgb(10, 245, 45) !important;
+}
+
+#SecondNavBar {
+  margin-top: -1%;
+  padding-top: 0%;
+}
+
+#collapseWidthExample {
+  background-color: rgb(255, 255, 255, 0.6);
+  color: #212529;
+  text-decoration: none;
+}
+
+#bodyCss {
+  background-image: url("https://res.cloudinary.com/dzyvb836r/image/upload/v1653258560/7270297_ucutrr.jpg");
+}
+
+#navBarVert {
+  color: #212529;
+  text-decoration: none;
 }

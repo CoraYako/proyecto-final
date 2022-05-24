@@ -2,10 +2,10 @@ package com.notelify.controllers;
 
 import com.notelify.entidades.EspacioTrabajo;
 import com.notelify.entidades.Tarea;
-import com.notelify.entidades.Usuario;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.EspacioTrabajoService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,13 +29,32 @@ public class EspacioTrabajoController {
     public String espacioTrabajo(RedirectAttributes attr, ModelMap modelo, @PathVariable String id) {
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
 
+        List<Tarea> pendientes = new ArrayList<>();
+        List<Tarea> realizandose = new ArrayList<>();
+        List<Tarea> finalizadas = new ArrayList<>();
+
         try {
             espacioTrabajo = espacioTrabajoService.buscarPorId(id);
+            modelo.put("espacio", espacioTrabajo);
 
             List<Tarea> tareas = espacioTrabajo.getListaTareas();
-            modelo.put("tareas", tareas);
+            tareas.stream().map((tarea) -> {
+                if (tarea.getEstado().name().equals("TODO")) {
+                    pendientes.add(tarea);
+                }
+                return tarea;
+            }).map((tarea) -> {
+                if (tarea.getEstado().name().equals("IN_PROGRESS")) {
+                    realizandose.add(tarea);
+                }
+                return tarea;
+            }).filter((tarea) -> (tarea.getEstado().name().equals("FINISHED"))).forEachOrdered((tarea) -> {
+                finalizadas.add(tarea);
+            });
 
-            modelo.put("espacio", espacioTrabajo);
+            modelo.put("pendientes", pendientes);
+            modelo.put("realizandose", realizandose);
+            modelo.put("finalizadas", finalizadas);
         } catch (ElementoNoEncontradoException | ErrorInputException ex) {
             attr.addFlashAttribute("error", ex.getMessage());
         }

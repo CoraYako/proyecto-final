@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TareaRepository extends JpaRepository<Tarea, String> {
 
-    @Query("SELECT t FROM Tarea t WHERE t.estado LIKE :estado")
+    @Query("SELECT t FROM Tarea t WHERE t.estado.name() LIKE : estado")
     public List<Tarea> buscarPorEstado(@Param("estado") String estado);
 
 }

@@ -54,17 +54,6 @@ public class TareaService {
     }
 
     /**
-     *
-     * Método que retorna una List con todos los objetos Tarea de la DDBB.
-     *
-     * @return una lista de Tareas.
-     */
-    @Transactional(readOnly = true)
-    public List<Tarea> listarTodas() {
-        return tareaRepository.findAll();
-    }
-
-    /**
      * Modifica al objeto Tarea pidiendo los nuevos datos. Dentro se utiliza el
      * método validar().
      *
@@ -146,6 +135,17 @@ public class TareaService {
         } else {
             throw new ElementoNoEncontradoException("No existe la tarea solicitada.");
         }
+    }
+
+    /**
+     *
+     * Método que retorna una List con todos los objetos Tarea de la DDBB.
+     *
+     * @return una lista de Tareas.
+     */
+    @Transactional(readOnly = true)
+    public List<Tarea> listarTodas() {
+        return tareaRepository.findAll();
     }
 
     /**
