@@ -123,6 +123,15 @@
                                     <div class="card-body">
                                         <p class="fw-bolder" th:text="${pendiente.titulo}"></p>
                                         <p th:text="${pendiente.descripcion}"></p>
+                                        <form th:action="@{/tarea/estado}" method="POST">
+                                            <input type="hidden" name="idEspacio" th:value="${espacio.id}">
+                                            <input type="hidden" name="id" th:value="${pendiente.id}">
+                                            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                <option selected disabled>Estado</option>
+                                                <option th:each="estado : ${estados}" th:text="${estado.valor}" th:value="${estado}"></option>
+                                            </select>
+                                            <button type="submit">Cambiar</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

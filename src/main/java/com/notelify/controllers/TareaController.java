@@ -2,6 +2,7 @@ package com.notelify.controllers;
 
 import com.notelify.entidades.EspacioTrabajo;
 import com.notelify.entidades.Tarea;
+import com.notelify.enums.Estado;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.EspacioTrabajoService;
@@ -28,7 +29,6 @@ public class TareaController {
     public String crear(ModelMap modelo, @RequestParam String idEspacio, @RequestParam String titulo, @RequestParam(required = false) String descripcion, @RequestParam String idUsuario, RedirectAttributes attr) {
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
         Tarea tarea = new Tarea();
-
         try {
             espacioTrabajo = espacioTrabajoService.buscarPorId(idEspacio);
             tarea = tareaService.crearYPersistir(titulo, descripcion, idUsuario);
@@ -39,7 +39,19 @@ public class TareaController {
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
-
+        return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId();
+    }
+    
+    @PostMapping("/estado")
+    public String cambiarEstado(RedirectAttributes attr ,@RequestParam String idEspacio ,@RequestParam String id, Estado estado) {
+        EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
+        
+        try {
+            espacioTrabajoService.buscarPorId(idEspacio);
+            tareaService.moverDeEstado(id, estado);
+        } catch (ElementoNoEncontradoException | ErrorInputException e) {
+            attr.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId();
     }
 

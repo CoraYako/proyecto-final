@@ -2,6 +2,7 @@ package com.notelify.controllers;
 
 import com.notelify.entidades.EspacioTrabajo;
 import com.notelify.entidades.Tarea;
+import com.notelify.enums.Estado;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.EspacioTrabajoService;
@@ -55,6 +56,7 @@ public class EspacioTrabajoController {
             modelo.put("pendientes", pendientes);
             modelo.put("realizandose", realizandose);
             modelo.put("finalizadas", finalizadas);
+            modelo.put("estados", Estado.values());
         } catch (ElementoNoEncontradoException | ErrorInputException ex) {
             attr.addFlashAttribute("error", ex.getMessage());
         }
