@@ -152,3 +152,10 @@ text-decoration: none;
   color: #212529;
 text-decoration: none;
 }
+
+#hover-content {
+  display:none;
+}
+#parent:hover #hover-content {
+  display:block;
+}
