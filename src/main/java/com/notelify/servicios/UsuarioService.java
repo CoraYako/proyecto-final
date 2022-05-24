@@ -228,15 +228,21 @@ public class UsuarioService implements UserDetailsService {
         return claveEncriptada;
     }
     
-    public void recuperarContraseña(String email, String nuevaContraseña, String contraseñaRepetida) throws ErrorInputException {
+    public void recuperarClave(String correo, String clave, String claveRep) throws ErrorInputException {
         
-        if (nuevaContraseña.equals(contraseñaRepetida)) {
+        if (!clave.equals(claveRep)) {
             
-            Usuario u = buscarPorCorreo(email);
+            throw new ErrorInputException("Las contraseñas deben ser idénticas.");
             
-            String crypt = encriptacion(nuevaContraseña);
+        } else {
+            
+            Usuario u = buscarPorCorreo(correo);
+            
+            String crypt = encriptacion(clave);
             
             u.setClave(crypt);
+            
+            usuarioRepository.save(u);
             
         }
         
@@ -276,4 +282,5 @@ public class UsuarioService implements UserDetailsService {
             throw new ErrorInputException("Debe indicar su fecha de nacimiento.");
         }
     }
+    
 }
