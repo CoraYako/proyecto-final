@@ -6,7 +6,6 @@ import com.notelify.entidades.Usuario;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.EspacioTrabajoService;
-import com.notelify.servicios.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,9 +34,6 @@ public class EspacioTrabajoController {
 
             List<Tarea> tareas = espacioTrabajo.getListaTareas();
             modelo.put("tareas", tareas);
-
-            List<Usuario> usuarios = espacioTrabajo.getListaUsuarios();
-            modelo.put("usuarios", usuarios);
 
             modelo.put("espacio", espacioTrabajo);
         } catch (ElementoNoEncontradoException | ErrorInputException ex) {

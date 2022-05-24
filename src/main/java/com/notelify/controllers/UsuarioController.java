@@ -126,10 +126,11 @@ public class UsuarioController {
     public String recuperarClave(ModelMap modelo, @RequestParam String correo, @RequestParam String nuevaClave, @RequestParam String repeticionNuevaClave) {
         try {
             usuarioService.recuperarClave(correo, nuevaClave, repeticionNuevaClave);
+            
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
             modelo.put("error", e.getMessage());
         }
-        return "index.html";
+        return "login.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

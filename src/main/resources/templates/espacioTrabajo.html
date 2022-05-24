@@ -73,8 +73,8 @@
     <section class="lists-container">
         <div class="list">
             <h3 class="list-title">Por Hacer</h3>
-            <ul class="list-items">
-                <li>Barra de navegacion</li>
+            <ul class="list-items" th:each="tarea : ${tareas}">
+                <li th:text="${tarea.titulo}"></li>
             </ul>
             <!-- <a class="add-card-btn btn" th:href="@{/tarea/crear/idUsuario}">Agregar tarea</a> -->
             <!-- Button trigger modal -->
@@ -94,6 +94,7 @@
                         <div class="modal-body">
                             <form th:action="@{/tarea/crear}" method="POST">
                                 <input type="hidden" name="idUsuario" th:value="${session.usuariosession.id}">
+                                <input type="hidden" name="idEspacio" th:value="${espacio.id}">
                                 <div class="mb-3">
                                     <label for="inputTituloTarea" class="form-label">Título</label>
                                     <input type="text" class="form-control" id="inputTituloTarea" name="titulo">
