@@ -26,7 +26,7 @@ public class TareaController {
 
     @Autowired
     private EspacioTrabajoService espacioTrabajoService;
-    
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -35,47 +35,56 @@ public class TareaController {
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
         Tarea tarea = new Tarea();
         Usuario usuario = new Usuario();
-        
+
         try {
             espacioTrabajo = espacioTrabajoService.buscarPorId(idEspacio);
             tarea = tareaService.crearYPersistir(titulo, descripcion, idUsuario);
             usuario = usuarioService.buscarPorId(idUsuario);
-            
+
             espacioTrabajoService.agregarTarea(espacioTrabajo.getId(), tarea.getId());
-            
+
             modelo.put("espacioTrabajo", espacioTrabajo);
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
-        
+
         return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId() + '/' + usuario.getId();
     }
 
     @PostMapping("/estado")
-    public String cambiarEstado(ModelMap modelo, RedirectAttributes attr, @RequestParam String idEspacio, @RequestParam String id, Estado estado) {
+    public String cambiarEstado(ModelMap modelo, RedirectAttributes attr, @RequestParam String idUsuario, @RequestParam String idEspacio, @RequestParam String id, Estado estado) {
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
+        Usuario usuario = new Usuario();
 
         try {
+            usuario = usuarioService.buscarPorId(idUsuario);
             espacioTrabajo = espacioTrabajoService.buscarPorId(idEspacio);
+
             tareaService.moverDeEstado(id, estado);
 
             modelo.put("espacio", espacioTrabajo);
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId();
+
+        return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId() + '/' + usuario.getId();
     }
 
     @PostMapping("/editar")
-    public String modificarTarea(@RequestParam String idEspacio, @RequestParam String id, @RequestParam String titulo, @RequestParam(required = false) String descripcion, RedirectAttributes attr) {
+    public String editar(@RequestParam String idUsuario, @RequestParam String idEspacio, @RequestParam String id, @RequestParam String titulo, @RequestParam(required = false) String descripcion, RedirectAttributes attr) {
+        EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
+        Usuario usuario = new Usuario();
+
         try {
+            usuario = usuarioService.buscarPorId(idUsuario);
+            espacioTrabajo = espacioTrabajoService.buscarPorId(idEspacio);
+
             tareaService.modificar(id, titulo, descripcion);
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
 
-        return "redirect:/espacio-trabajo/mi-espacio/";
-
+        return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId() + '/' + usuario.getId();
     }
 
     @PostMapping("/eliminar")

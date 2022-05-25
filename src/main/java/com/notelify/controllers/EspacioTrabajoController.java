@@ -36,7 +36,7 @@ public class EspacioTrabajoController {
 
         try {
             List<EspacioTrabajo> espaciosDelUsuarioLogeado = espacioTrabajoService.espaciosDelUsuario(idUsuario);
-            
+
             espacioTrabajo = espacioTrabajoService.buscarPorId(id);
             modelo.put("espacio", espacioTrabajo);
 
@@ -81,11 +81,8 @@ public class EspacioTrabajoController {
 
     @PostMapping("/crear")
     public String crear(RedirectAttributes attr, ModelMap modelo, @RequestParam(required = false) MultipartFile archivo, @RequestParam String nombre, @RequestParam String idUsuario) {
-        EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
-
         try {
-            espacioTrabajo = espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
-            modelo.put("espacioTrabajo", espacioTrabajo);
+            espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
             attr.addFlashAttribute("error", e.getMessage());
         }
