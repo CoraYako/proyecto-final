@@ -60,12 +60,7 @@
   flex-direction: column;
 }
 
-.SignUp-Form-Email,
-.SignUp-Form-Apellido,
-.SignUp-Form-Rol,
-.SignUp-Form-Password,
-.SignUp-Form-Nombre,
-.SignUp-Form-FechaDeNacimiento {
+.SignUp-Form-Email, .SignUp-Form-Apellido, .SignUp-Form-Rol, .SignUp-Form-Password, .SignUp-Form-Nombre, .SignUp-Form-FechaDeNacimiento {
   line-height: normal;
   background: #edeff0;
   border-radius: 4px;
@@ -87,16 +82,11 @@
   text-shadow: none;
 }
 
-button,
-input {
+button, input {
   overflow: visible;
 }
 
-button,
-input,
-optgroup,
-select,
-textarea {
+button, input, optgroup, select, textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
@@ -153,6 +143,27 @@ label {
 }
 
 #navBarVert {
+  color: #212529;
+  text-decoration: none;
+}
+
+#hover-content {
+  display: none;
+}
+
+#parent:hover #hover-content {
+  display: block;
+}
+
+#exampleModal {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#moveStatus {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#linkIcon {
   color: #212529;
   text-decoration: none;
 }

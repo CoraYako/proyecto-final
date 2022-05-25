@@ -26,8 +26,8 @@ public class EspacioTrabajoController {
     @Autowired
     private EspacioTrabajoService espacioTrabajoService;
 
-    @GetMapping("/mi-espacio/{id}")
-    public String espacioTrabajo(RedirectAttributes attr, ModelMap modelo, @PathVariable String id) {
+    @GetMapping("/mi-espacio/{id}/{idUsuario}")
+    public String espacioTrabajo(RedirectAttributes attr, ModelMap modelo, @PathVariable String id, @PathVariable String idUsuario) {
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
 
         List<Tarea> pendientes = new ArrayList<>();
@@ -35,6 +35,8 @@ public class EspacioTrabajoController {
         List<Tarea> finalizadas = new ArrayList<>();
 
         try {
+            List<EspacioTrabajo> espaciosDelUsuarioLogeado = espacioTrabajoService.espaciosDelUsuario(idUsuario);
+            
             espacioTrabajo = espacioTrabajoService.buscarPorId(id);
             modelo.put("espacio", espacioTrabajo);
 
@@ -53,6 +55,7 @@ public class EspacioTrabajoController {
                 finalizadas.add(tarea);
             });
 
+            modelo.put("espaciosDelUsuarioLogeado", espaciosDelUsuarioLogeado);
             modelo.put("pendientes", pendientes);
             modelo.put("realizandose", realizandose);
             modelo.put("finalizadas", finalizadas);
@@ -87,6 +90,6 @@ public class EspacioTrabajoController {
             attr.addFlashAttribute("error", e.getMessage());
         }
 
-        return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId();
+        return "redirect:/inicio";
     }
 }

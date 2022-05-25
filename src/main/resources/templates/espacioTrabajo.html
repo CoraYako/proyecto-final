@@ -29,12 +29,9 @@
                             Espacio de trabajo
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Espacio 1</a></li>
-                            <li><a class="dropdown-item" href="#">Espacio 2</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
+                            <li th:each="espacioDelUsuario : ${espaciosDelUsuarioLogeado}">
+                                <a class="dropdown-item" th:href="@{/espacio-trabajo/mi-espacio/} + ${espacioDelUsuario.id} + '/' + ${session.usuariosession.id}" th:text="${espacioDelUsuario.nombre}"></a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Algo extra</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -80,6 +77,9 @@
     </nav>
 
     <div class="container-fluid">
+        <div>
+            <h1 class="text-center text-uppercase text-warning bg-dark" th:text="${espacio.nombre}"></h1>
+        </div>
         <div class="row">
             <div class="collapse collapse-horizontal nav flex-column col-1" id="collapseWidthExample"
                 style="min-height: 900px;">
@@ -126,9 +126,12 @@
                                         <form th:action="@{/tarea/estado}" method="POST">
                                             <input type="hidden" name="idEspacio" th:value="${espacio.id}">
                                             <input type="hidden" name="id" th:value="${pendiente.id}">
-                                            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                                <option selected disabled>Estado</option>
-                                                <option th:each="estado : ${estados}" th:text="${estado.valor}" th:value="${estado}"></option>
+                                            <select class="form-select form-select-sm"
+                                                aria-label=".form-select-sm example" name="estado">
+                                                <option selected disabled th:text="${pendiente.estado.valor}"></option>
+                                                <option th:each="estado : ${estados}" th:value="${estado}"
+                                                    th:if="${estado.valor != 'Para hacer'}" th:text="${estado.valor}">
+                                                </option>
                                             </select>
                                             <button type="submit">Cambiar</button>
                                         </form>
