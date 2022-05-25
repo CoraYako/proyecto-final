@@ -141,6 +141,7 @@ color: #212529;
 text-decoration: none;
 }
 
+
 #bodyCss{
 
   background-image: url("https://res.cloudinary.com/dzyvb836r/image/upload/v1653258560/7270297_ucutrr.jpg");
@@ -158,4 +159,22 @@ text-decoration: none;
 }
 #parent:hover #hover-content {
   display:block;
+}
+
+#exampleModal{
+
+  background-color: rgba(0, 0, 0, 0.8);
+  
+}
+
+#moveStatus{
+
+  background-color: rgba(0, 0, 0, 0.8);
+
+}
+
+#linkIcon{
+  color: #212529;
+  text-decoration: none;
+
 }

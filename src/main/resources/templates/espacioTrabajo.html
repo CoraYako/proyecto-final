@@ -107,25 +107,139 @@
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+  <!-- Modal PARA EDITAR-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Tarea</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <!--    
+       FORM PARA editar
+      -->
+
+          <form th:action="@{/editar/tarea}" method="POST" enctype="multipart/form-data" style="width:100%;margin:0%">
+            <div class="form-control">
+              <label for="nombre">Titulo</label>
+              <input type="text" name="nombre" th:value="${nombre}" class="form-control">
+
+              <label for="apellido">Descripción</label>
+              <input type="text" name="apellido" th:value="${apellido}" class="form-control">
+
+              <label for="fechaDeNacimiento">Estado</label>
+              <select class="form-select" name="active" id="">
+
+                <br>
+                <option selected> Pending...</option>
+
+                <option> En proceso </option>
+                <option> Pendiente </option>
+                <option> Finalizada </option>
+
+              </select>
+              <br>
+
+
+
+              <label for="active">Activo</label>
+
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                  True
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  False
+                </label>
+              </div>
+
+
+
+            </div>
+
+          </form>
+
+
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary"><i class="far fa-save"></i> Save </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+
+  <!-- Modal PARA CAMBIAR DE ESTADO-->
+  <div class="modal fade" id="moveStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Mover tarea</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <!--    
+       FORM PARA UPDATE
+      -->
+          <div class="card">
+            <div class="card-body" id="parent">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Task's description</p>
+              <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                    class='fas fa-pencil-alt'></i> Edit
+
+                </a>
+
+              </div>
+            </div>
+          </div>
+
+          <form th:action="@{/editar/tarea}" method="POST" enctype="multipart/form-data" style="width:100%;margin:0%">
+            <div class="form-control">
+
+              <label for="fechaDeNacimiento">Estado</label>
+              <select class="form-select" name="active" id="">
+
+                <br>
+                <option selected> Pending...</option>
+
+                <option> En proceso </option>
+                <option> Pendiente </option>
+                <option> Finalizada </option>
+
+              </select>
+              <br>
+
+
+
+
+
+
+
+            </div>
+
+          </form>
+
+
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary"><i class="fas fa-rocket"></i>  Move </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="container-fluid">
     <div class="row">
@@ -145,7 +259,7 @@
             </li>
 
             <li class="nav-item m-2">
-              <a class="nav-link" href="#" id="navBarVert"><i class='fas fa-cog'></i> Config  </a>
+              <a class="nav-link" href="#" id="navBarVert"><i class='fas fa-cog'></i> Config </a>
             </li>
 
 
@@ -167,288 +281,365 @@
         <div class="container-fluid">
 
 
+
           <div class="row p-2 m-4">
+            <div class="d-flex flex-column col-12">
 
+              <!-- Lista 1 -->
+              <div class="row p-2 m-4">
+                <div class="flex-column col-2" id="list2">
+                  <div class="card">
 
-            <!-- Lista 1 -->
-
-            <div class="flex-column col-2" id="list2">
-              <div class="card">
-
-                <div class="card-body">
-                  <div class="card-header">
-                    <h4>Pendientes</h4>
+                    <div class="card-body">
+                      <div class="card-header">
+                        <h4>Pendientes</h4>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-
-              
-
-              <div class="card">
-                <div class="card-body" id="parent">
-                  <h5 class="card-title" >Card title</h5>
-                  <p class="card-text">Task's description</p>
-                 <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                     
-                 </a>
-  
-                 <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                     
-                </a></div>
-                </div>
-                </div>
 
 
 
-              <div class="card">
-                <div class="card-body" id="parent">
-                  <h5 class="card-title" >Card title</h5>
-                  <p class="card-text">Task's description</p>
-                 <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                     
-                 </a>
-  
-                 <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                     
-                </a></div>
-                </div>
-                </div>
 
-                <div class="card">
-              <div class="card-body" id="parent">
-                <h5 class="card-title" >Card title</h5>
-                <p class="card-text">Task's description</p>
-               <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                   
-               </a>
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
 
-               <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                   
-              </a></div>
-              </div>
-              </div>
+                        </a>
 
-              <div class="card" id="list">
-                <div class="card-body">
-                  <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
-                </div>
-              </div>
-            </div>
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
 
-
-
-            <!-- Lista 2 -->
-
-
-            <div class="flex-column col-2" id="list2">
-              <div class="card">
-
-                <div class="card-body">
-                  <div class="card-header">
-                    <h4>En proceso</h4>
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              <div class="card">
-                <div class="card-body" id="parent">
-                  <h5 class="card-title" >Card title</h5>
-                  <p class="card-text">Task's description</p>
-                 <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                     
-                 </a>
-  
-                 <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                     
-                </a></div>
-                </div>
-                </div>
 
-                <div class="card">
-                  <div class="card-body" id="parent">
-                    <h5 class="card-title" >Card title</h5>
-                    <p class="card-text">Task's description</p>
-                   <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                       
-                   </a>
-    
-                   <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                       
-                  </a></div>
-                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="card">
                     <div class="card-body" id="parent">
-                      <h5 class="card-title" >Card title</h5>
+                      <h5 class="card-title">Card title</h5>
                       <p class="card-text">Task's description</p>
-                     <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                         
-                     </a>
-      
-                     <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                         
-                    </a></div>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
                     </div>
+                  </div>
+
+                  <div class="card" id="list">
+                    <div class="card-body">
+                      <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
                     </div>
-
-
-              <div class="card" id="list">
-                <div class="card-body">
-                  <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
-                </div>
-              </div>
-
-              
-
-
-            </div>
-
-
-            <!-- Lista 3 -->
-
-
-            <div class="flex-column col-2" id="list2">
-             
-              <div class="card">
-
-                <div class="card-body">
-                  <div class="card-header">
-                    <h4>Realizadas</h4>
                   </div>
                 </div>
-              </div>
 
-              <div class="card">
-                <div class="card-body" id="parent">
-                  <h5 class="card-title" >Card title</h5>
-                  <p class="card-text">Task's description</p>
-                 <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                     
-                 </a>
-  
-                 <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                     
-                </a></div>
+
+
+                <!-- Lista 2 -->
+
+
+                <div class="flex-column col-2" id="list2">
+                  <div class="card">
+
+                    <div class="card-body">
+                      <div class="card-header">
+                        <h4>En proceso</h4>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="card" id="list">
+                    <div class="card-body">
+                      <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
+                    </div>
+                  </div>
+
+
+
+
                 </div>
+
+
+                <!-- Lista 3 -->
+
+
+                <div class="flex-column col-2" id="list2">
+
+                  <div class="card">
+
+                    <div class="card-body">
+                      <div class="card-header">
+                        <h4>Realizadas</h4>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body" id="parent">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Task's description</p>
+                      <div id="hover-content"> <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                            class='fas fa-pencil-alt'></i> Edit
+
+                        </a>
+
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
+                            class='fas fa-rocket'></i> Move
+
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card" id="list">
+                    <div class="card-body">
+                      <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
+                    </div>
+                  </div>
+
+
                 </div>
+
+                <div class="flex-column col-2" id="list2">
+                  <div class="card">
+
+                    <div class="card-body">
+                      <div class="card-header">
+                        <h4>Añadir una lista</h4>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+                  <div class="card" id="list">
+                    <div class="card-body">
+                      <a href="#" class="btn-sm btn-warning">+ </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-column col-2" id="list2">
+                  
+                </div>
+
                 
-                <div class="card">
-                  <div class="card-body" id="parent">
-                    <h5 class="card-title" >Card title</h5>
-                    <p class="card-text">Task's description</p>
-                   <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                       
-                   </a>
-    
-                   <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                       
-                  </a></div>
-                  </div>
-                  </div>
 
-                  <div class="card">
-                    <div class="card-body" id="parent">
-                      <h5 class="card-title" >Card title</h5>
-                      <p class="card-text">Task's description</p>
-                     <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                         
-                     </a>
-      
-                     <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                         
-                    </a></div>
-                    </div>
-                    </div>
+                <!---->
 
-                    <div class="card">
-                      <div class="card-body" id="parent">
-                        <h5 class="card-title" >Card title</h5>
-                        <p class="card-text">Task's description</p>
-                       <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                           
-                       </a>
-        
-                       <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                           
-                      </a></div>
-                      </div>
-                      </div>
+                <div class="flex-column col-2" id="list2">
+                  <h2 class="text-end align-top" style="color:white; text-align: end;float: right; ">
+                    Nombre de espacio de trabajo.
 
-                      <div class="card">
-                        <div class="card-body" id="parent">
-                          <h5 class="card-title" >Card title</h5>
-                          <p class="card-text">Task's description</p>
-                         <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                             
-                         </a>
-          
-                         <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                             
-                        </a></div>
-                        </div>
-                        </div>
+                  </h2>
+                </div>
 
-                        <div class="card">
-                          <div class="card-body" id="parent">
-                            <h5 class="card-title" >Card title</h5>
-                            <p class="card-text">Task's description</p>
-                           <div id="hover-content" > <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i> Edit
-                               
-                           </a>
-            
-                           <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-rocket'></i> Move
-                               
-                          </a></div>
-                          </div>
-                          </div>
-                          <div class="card" id="list">
-                            <div class="card-body">
-                              <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
-                            </div>
-                          </div>
 
-                                
+              </div>
+
+
             </div>
 
-            <div class="flex-column col-2" id="list2">
-              <div class="card">
 
-                <div class="card-body">
-                  <div class="card-header">
-                    <h4>Añadir una lista</h4>
-                  </div>
+
+            <!-- <div class="d-flex flex-column col-1">
+              <div class="row" style="color:white; text-align: end;float: right; ">
+                <div style="color:white; text-align: end;" class="flex-column col" id="list2">
+                  
+
+
                 </div>
+
               </div>
 
 
 
 
-
-
-
-
-
-
-
-              <div class="card" id="list">
-                <div class="card-body">
-                  <a href="#" class="btn-sm btn-warning">+ </a>
-                </div>
-              </div>
-
-            </div>
-
-
+            </div>-->
           </div>
+
+
+
 
 
         </div>
 
 
       </div>
+
+
     </div>
+  </div>
 
   </div>
 
