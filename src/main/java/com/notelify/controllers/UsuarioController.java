@@ -78,6 +78,7 @@ public class UsuarioController {
      *
      * @return el objeto buscado.
      */
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
     @GetMapping("/editar/{id}")
     public String registro(ModelMap modelo, @PathVariable String id) {
         Usuario usuario = new Usuario();
@@ -98,6 +99,7 @@ public class UsuarioController {
         return "modificarDatos.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
     @PostMapping("/editar")
     public String editar(ModelMap modelo, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
         Usuario usuario = new Usuario();
@@ -133,7 +135,7 @@ public class UsuarioController {
         return "login.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
     @GetMapping("/lista")
     public String lista(ModelMap modelo) {
         List<Usuario> usuarios = usuarioService.listarTodos();
