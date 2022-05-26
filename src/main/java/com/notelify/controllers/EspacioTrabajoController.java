@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/espacio-trabajo")
 public class EspacioTrabajoController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class EspacioTrabajoController {
         return "espacioTrabajo.html";
     }
 
-    @PostMapping("/espacioTrabajo")
+    @PostMapping("/crear")
     public String crear(RedirectAttributes attr,@RequestParam(required = false) MultipartFile archivo, @RequestParam String nombre, 
             @RequestParam String idUsuario) {
 
@@ -52,6 +52,6 @@ public class EspacioTrabajoController {
             attr.addFlashAttribute("error", e.getMessage());
         }
 
-        return "espacioTrabajo.html";
+        return "redirect:/inicio"; //Acá el llamado es con redirect porque el método post dirige datos desde el front-end hacia el back-end.
     }
 }
