@@ -9,14 +9,14 @@
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 	<link rel="stylesheet" href="/../styles.css">
-	<title>Notelify</title>
+	<title>Notelify - Espacio de Trabajo</title>
 </head>
 
 <body id="bodyCss">
 	<!-- Navbar superior -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-5">
 		<div class="container-fluid">
-			<a class="navbar-brand" th:href="@{/inicio}"> <i class='far fa-clone me-2'></i>Notelify</a>
+			<a class="navbar-brand" th:href="@{/inicio}"><i class='far fa-clone me-2'></i>Notelify</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation">
@@ -41,7 +41,9 @@
 					<li class="nav-item">
 						<a class="nav-link " aria-current="page" href="#" type="button" data-bs-toggle="collapse"
 							data-bs-target="#collapseWidthExample" aria-expanded="false"
-							aria-controls="collapseWidthExample">Menú</a>
+							aria-controls="collapseWidthExample">
+							Menú
+						</a>
 					</li>
 				</ul>
 				<div class="navbar-nav  mb-2 mb-lg-0">
@@ -58,46 +60,18 @@
 								width="40" height="40" class="rounded-circle">
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" th:href="@{/usuario/editar/} + ${session.usuariosession.id}">Editar
-								Perfil</a>
-							<a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
+							<a class="dropdown-item" th:href="@{/usuario/editar/} + ${session.usuariosession.id}">
+								Editar Perfil
+							</a>
+							<a class="dropdown-item" th:href="@{/logout}">
+								Cerrar sesión
+							</a>
 						</ul>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-
-	<!-- Modal PARA EDITAR-->
-	<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Tarea</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body"> -->
-	<!--FORM PARA editar-->
-	<!-- <form th:action="@{/tarea/editar}" method="POST" style="width:100%;margin:0%">
-                        <div class="mx-3">
-                            <input type="hidden" name="idEspacio" th:value="${espacio.id}">
-                            <input type="hidden" name="idUsuario" th:value="${session.usuariosession.id}">
-
-                            <label for="tituloTarea">Titulo</label>
-                            <input type="text" name="titulo" class="form-control" id="tituloTarea">
-
-                            <label class="mt-2" for="descripcionTarea">Descripción</label>
-                            <textarea name="descripcion" class="form-control" id="descripcionTarea"></textarea>
-                        </div>
-                        <div class="mt-3 d-flex flex-row-reverse">
-                            <button type="submit" class="btn btn-secondary"><i
-                                    class="far fa-save me-2"></i>Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
 	<div class="container-fluid">
 		<!-- Navbar lateral -->
@@ -131,13 +105,13 @@
 					<div class="row p-2 m-4">
 						<div class="d-flex flex-column col-12">
 
-							<!-- Columna PENDIENTES -->
 							<div class="row p-2 m-4">
+								<!-- Columna TODO -->
 								<div class="flex-column col-2" id="list2">
 									<div class="card">
 										<div class="card-body">
 											<div class="card-header">
-												<h4>Pendientes</h4>
+												<h4>Por Hacer</h4>
 											</div>
 										</div>
 									</div>
@@ -150,134 +124,141 @@
 												<div id="hover-content">
 													<!-- Boton trigger modal Editar -->
 													<a type="button" data-bs-toggle="modal"
-														data-bs-target="#exampleModal">
-														<i class='fas fa-pencil-alt me-2'></i>Editar
+														th:data-bs-target="'#' + ${pendiente.id}">
+														<i class='fas fa-pencil-alt me-2'></i>
+														<span class="me-4">Editar</span>
 													</a>
 													<!-- Boton trigger modal Mover Estado -->
-													<a class="me-3" type="button" data-bs-toggle="modal"
-														data-bs-target="#moveStatus">
-														<i class='fas fa-rocket me-2'></i>Mover
+													<a type="button" data-bs-toggle="modal"
+														th:data-bs-target="'#' + ${pendiente.id}">
+														<i class='fas fa-rocket me-2'></i>
+														<span>Mover</span>
 													</a>
 												</div>
 											</div>
-										</div>
 
-										<!-- Modal PARA EDITAR-->
-										<div class="modal fade" id="exampleModal" tabindex="-1"
-											aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog  modal-dialog-centered ">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Editar Tarea</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal"
-															aria-label="Close"></button>
+											<!-- Modal PARA EDITAR-->
+											<div class="modal fade" th:id="${pendiente.id}" tabindex="-1"
+												aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog  modal-dialog-centered ">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">
+																Editar Tarea</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															<!--FORM PARA editar-->
+															<form th:action="@{/tarea/editar}" method="POST"
+																style="width:100%;margin:0%">
+																<div class="mx-3">
+																	<input type="hidden" name="id"
+																		th:value="${pendiente.id}">
+																	<input type="hidden" name="idEspacio"
+																		th:value="${espacio.id}">
+																	<input type="hidden" name="idUsuario"
+																		th:value="${session.usuariosession.id}">
+
+																	<label for="tituloTarea">Titulo</label>
+																	<input type="text" name="titulo"
+																		class="form-control" id="tituloTarea"
+																		th:value="${pendiente.titulo}">
+
+																	<label class="mt-2"
+																		for="descripcionTarea">Descripción</label>
+																	<textarea name="descripcion" class="form-control"
+																		id="descripcionTarea"
+																		th:text="${pendiente.descripcion}"></textarea>
+																</div>
+																<div class="mt-3 d-flex flex-row-reverse">
+																	<button type="submit" class="btn btn-secondary">
+																		<i class="far fa-save me-2"></i>
+																		<span>Guardar</span>
+																	</button>
+																</div>
+															</form>
+														</div>
 													</div>
-													<div class="modal-body">
-														<!--FORM PARA editar-->
-														<form th:action="@{/tarea/editar}" method="POST"
-															style="width:100%;margin:0%">
-															<div class="mx-3">
-																<input type="hidden" name="id"
-																	th:value="${pendiente.id}">
+												</div>
+											</div>
+
+											<!-- Modal PARA CAMBIAR DE ESTADO-->
+											<div class="modal fade" th:id="${pendiente.id}" tabindex="-1"
+												aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog  modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Mover
+																Tarea</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															<!--FORM PARA estado-->
+															<form th:action="@{/tarea/estado}" method="POST"
+																style="width:100%;margin:0%">
 																<input type="hidden" name="idEspacio"
 																	th:value="${espacio.id}">
 																<input type="hidden" name="idUsuario"
 																	th:value="${session.usuariosession.id}">
-
-																<label for="tituloTarea">Titulo</label>
-																<input type="text" name="titulo" class="form-control"
-																	id="tituloTarea" th:value="${pendiente.titulo}">
-
-																<label class="mt-2"
-																	for="descripcionTarea">Descripción</label>
-																<textarea name="descripcion" class="form-control"
-																	id="descripcionTarea"
-																	th:text="${pendiente.descripcion}"></textarea>
-															</div>
-															<div class="mt-3 d-flex flex-row-reverse">
-																<button type="submit" class="btn btn-secondary"><i
-																		class="far fa-save me-2"></i>Guardar</button>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Modal PARA CAMBIAR DE ESTADO-->
-										<div class="modal fade" id="moveStatus" tabindex="-1"
-											aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog  modal-dialog-centered ">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Mover Tarea</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal"
-															aria-label="Close"></button>
-													</div>
-													<div class="modal-body">
-														<!--FORM PARA estado-->
-														<form th:action="@{/tarea/estado}" method="POST"
-															style="width:100%;margin:0%">
-															<input type="hidden" name="idEspacio"
-																th:value="${espacio.id}">
-															<input type="hidden" name="idUsuario"
-																th:value="${session.usuariosession.id}">
-															<input type="hidden" name="id" th:value="${pendiente.id}">
-															<!-- Info de tarea seleccionada -->
-															<div class="card mb-4">
-																<div class="card-body" id="parent">
-																	<h5 class="card-title"
-																		th:text="${pendiente.titulo}"></h5>
-																	<p class="card-text"
-																		th:text="${pendiente.descripcion}"></p>
-																	<div id="hover-content">
-																		<a type="button" data-bs-toggle="modal"
-																			data-bs-target="#exampleModal">
-																			<i class='fas fa-pencil-alt me-2'></i>Editar
-																		</a>
+																<input type="hidden" name="id"
+																	th:value="${pendiente.id}">
+																<!-- Info de tarea seleccionada -->
+																<div class="card mb-4">
+																	<div class="card-body" id="parent">
+																		<h5 class="card-title"
+																			th:text="${pendiente.titulo}"></h5>
+																		<p class="card-text"
+																			th:text="${pendiente.descripcion}">
+																		</p>
+																		<div id="hover-content">
+																			<a type="button" data-bs-toggle="modal"
+																				th:data-bs-target="'#' + ${pendiente.id}">
+																				<i
+																					class='fas fa-pencil-alt me-2'></i>Editar
+																			</a>
+																		</div>
 																	</div>
 																</div>
-															</div>
-															<!-- Cuerpo del cambio de estado -->
-															<div class="form-control">
-																<label class="mt-1"
-																	for="estadoTareaSeleccionada">Estado</label>
-																<select class="form-select form-select-sm mb-2"
-																	aria-label=".form-select-sm example" name="estado">
-																	<option selected disabled
-																		th:text="${pendiente.estado.valor}"></option>
-																	<option th:each="estado : ${estados}"
-																		th:value="${estado}"
-																		th:if="${estado.valor != 'Para hacer'}"
-																		th:text="${estado.valor}">
-																	</option>
-																</select>
-																<!-- <select class="form-select mb-2" name="estado"
-                                                                    id="estadoTareaSeleccionada">
-                                                                    <option selected> Pending...</option>
-                                                                    <option> En proceso </option>
-                                                                    <option> Pendiente </option>
-                                                                    <option> Finalizada </option>
-                                                                </select> -->
-															</div>
-															<div class="mt-3 d-flex flex-row-reverse">
-																<button type="button" class="btn btn-secondary"><i
-																		class="fas fa-rocket me-2"></i>Mover</button>
-															</div>
-														</form>
+																<!-- Body del cambio de estado -->
+																<div class="form-control">
+																	<label class="mt-1"
+																		for="estadoTareaSeleccionada">Estado</label>
+																	<select class="form-select form-select-sm mb-2"
+																		aria-label=".form-select-sm example"
+																		name="estado">
+																		<option selected disabled
+																			th:text="${pendiente.estado.valor}">
+																		</option>
+																		<option th:each="estado : ${estados}"
+																			th:value="${estado}"
+																			th:if="${estado.valor != 'Para hacer'}"
+																			th:text="${estado.valor}"></option>
+																	</select>
+																</div>
+																<div class="mt-3 d-flex flex-row-reverse">
+																	<button type="submit" class="btn btn-secondary">
+																		<i class="fas fa-rocket me-2"></i>
+																		<span>Mover</span>
+																	</button>
+																</div>
+															</form>
+														</div>
 													</div>
 												</div>
-											</div>
+											</div> <!-- fin ultimo modal -->
 										</div>
 									</div>
 
 									<!-- Boton trigger modal CREAR TAREA -->
 									<div class="card" id="list">
 										<div class="card-body">
-											<button type="button" class="btn-sm btn-danger" data-bs-toggle="modal"
+											<a type="button" class="btn-sm btn-danger" data-bs-toggle="modal"
 												data-bs-target="#staticModalCrearTarea">
-												<i class="fas fa-wrench me-2"></i>+ Añadir un tarea
-											</button>
+												<i class="fas fa-wrench me-2"></i>
+												<span>+ Añadir un tarea</span>
+											</a>
 										</div>
 									</div>
 
@@ -324,37 +305,40 @@
 									</div>
 								</div>
 
-								<!-- Columna EN PROCESO -->
+								<!-- Columna IN_PROGRESS -->
 								<div class="flex-column col-2" id="list2">
 									<div class="card">
 										<div class="card-body">
 											<div class="card-header">
-												<h4>En proceso</h4>
+												<h4>En Proceso</h4>
 											</div>
 										</div>
 									</div>
 
-									<div>
-										<div th:each="enProceso : ${realizandose}">
-											<div class="card">
-												<div class="card-body" id="parent">
-													<p class="fw-bolder" th:text="${enProceso.titulo}"></p>
-													<p th:text="${enProceso.descripcion}"></p>
-													<div id="hover-content">
-														<a type="button" data-bs-toggle="modal"
-															data-bs-target="#exampleModal">
-															<i class='fas fa-pencil-alt me-2'></i>Editar
-														</a>
-														<a class="me-3" type="button" data-bs-toggle="modal"
-															data-bs-target="#moveStatus">
-															<i class='fas fa-rocket me-2'></i>Mover
-														</a>
-													</div>
+									<div th:each="enProgreso : ${realizandose}">
+										<div class="card">
+											<div class="card-body" id="parent">
+												<p class="fw-bolder" th:text="${enProgreso.titulo}"></p>
+												<p th:text="${enProgreso.descripcion}"></p>
+												<div id="hover-content">
+													<!-- Boton trigger modal Editar -->
+													<a type="button" data-bs-toggle="modal"
+														th:data-bs-target="'#' + ${enProgreso.id}">
+														<i class='fas fa-pencil-alt me-2'></i>
+														<span class="me-4">Editar</span>
+													</a>
+													<!-- Boton trigger modal Mover Estado -->
+													<a type="button" data-bs-toggle="modal"
+														th:data-bs-target="'#' + ${enProgreso.id}">
+														<i class='fas fa-rocket me-2'></i>
+														<span>Mover</span>
+													</a>
 												</div>
 											</div>
 
+
 											<!-- Modal PARA EDITAR-->
-											<div class="modal fade" id="exampleModal" tabindex="-1"
+											<div class="modal fade" th:id="${enProgreso.id}" tabindex="-1"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-centered ">
 													<div class="modal-content">
@@ -369,6 +353,8 @@
 															<form th:action="@{/tarea/editar}" method="POST"
 																style="width:100%;margin:0%">
 																<div class="mx-3">
+																	<input type="hidden" name="id"
+																		th:value="${enProgreso.id}">
 																	<input type="hidden" name="idEspacio"
 																		th:value="${espacio.id}">
 																	<input type="hidden" name="idUsuario"
@@ -377,17 +363,19 @@
 																	<label for="tituloTarea">Titulo</label>
 																	<input type="text" name="titulo"
 																		class="form-control" id="tituloTarea"
-																		th:value="${enProceso.titulo}">
+																		th:value="${enProgreso.titulo}">
 
 																	<label class="mt-2"
 																		for="descripcionTarea">Descripción</label>
 																	<textarea name="descripcion" class="form-control"
 																		id="descripcionTarea"
-																		th:value="${enProceso.descripcion}"></textarea>
+																		th:text="${enProgreso.descripcion}"></textarea>
 																</div>
 																<div class="mt-3 d-flex flex-row-reverse">
-																	<button type="submit" class="btn btn-secondary"><i
-																			class="far fa-save me-2"></i>Guardar</button>
+																	<button type="submit" class="btn btn-secondary">
+																		<i class="far fa-save me-2"></i>
+																		<span>Guardar</span>
+																	</button>
 																</div>
 															</form>
 														</div>
@@ -396,9 +384,9 @@
 											</div>
 
 											<!-- Modal PARA CAMBIAR DE ESTADO-->
-											<div class="modal fade" id="moveStatus" tabindex="-1"
+											<div class="modal fade" th:id="${enProgreso.id}" tabindex="-1"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog  modal-dialog-centered ">
+												<div class="modal-dialog  modal-dialog-centered">
 													<div class="modal-content">
 														<div class="modal-header">
 															<h5 class="modal-title" id="exampleModalLabel">Mover Tarea
@@ -415,24 +403,24 @@
 																<input type="hidden" name="idUsuario"
 																	th:value="${session.usuariosession.id}">
 																<input type="hidden" name="id"
-																	th:value="${enProceso.id}">
+																	th:value="${enProgreso.id}">
 																<!-- Info de tarea seleccionada -->
 																<div class="card mb-4">
 																	<div class="card-body" id="parent">
 																		<h5 class="card-title"
-																			th:text="${enProceso.titulo}"></h5>
+																			th:text="${enProgreso.titulo}"></h5>
 																		<p class="card-text"
-																			th:text="${enProceso.descripcion}"></p>
+																			th:text="${enProgreso.descripcion}"></p>
 																		<div id="hover-content">
 																			<a type="button" data-bs-toggle="modal"
-																				data-bs-target="#exampleModal">
+																				th:data-bs-target="'#' + ${enProgreso.id}">
 																				<i
 																					class='fas fa-pencil-alt me-2'></i>Editar
 																			</a>
 																		</div>
 																	</div>
 																</div>
-																<!-- Cuerpo del cambio de estado -->
+																<!-- Body del cambio de estado -->
 																<div class="form-control">
 																	<label class="mt-1"
 																		for="estadoTareaSeleccionada">Estado</label>
@@ -440,31 +428,25 @@
 																		aria-label=".form-select-sm example"
 																		name="estado">
 																		<option selected disabled
-																			th:text="${enProceso.estado.valor}">
+																			th:text="${enProgreso.estado.valor}">
 																		</option>
 																		<option th:each="estado : ${estados}"
 																			th:value="${estado}"
-																			th:if="${estado.valor != 'Para hacer'}"
-																			th:text="${estado.valor}">
-																		</option>
+																			th:if="${estado.valor != 'En progreso'}"
+																			th:text="${estado.valor}"></option>
 																	</select>
-																	<!-- <select class="form-select mb-2" name="estado"
-                                                                    id="estadoTareaSeleccionada">
-                                                                    <option selected> Pending...</option>
-                                                                    <option> En proceso </option>
-                                                                    <option> Pendiente </option>
-                                                                    <option> Finalizada </option>
-                                                                </select> -->
 																</div>
 																<div class="mt-3 d-flex flex-row-reverse">
-																	<button type="button" class="btn btn-secondary"><i
-																			class="fas fa-rocket me-2"></i>Mover</button>
+																	<button type="submit" class="btn btn-secondary">
+																		<i class="fas fa-rocket me-2"></i>
+																		<span>Mover</span>
+																	</button>
 																</div>
 															</form>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> <!-- fin ultimo modal -->
 										</div>
 									</div>
 								</div>
@@ -474,101 +456,139 @@
 									<div class="card">
 										<div class="card-body">
 											<div class="card-header">
-												<h4>Realizadas</h4>
+												<h4>Finalizadas</h4>
 											</div>
 										</div>
 									</div>
-									<div class="card">
-										<div class="card-body" id="parent">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">Task's description</p>
-											<div id="hover-content"> <a type="button" data-bs-toggle="modal"
-													data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i>
-													Edit
-												</a>
-												<a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
-														class='fas fa-rocket'></i> Move
-												</a>
+
+									<div th:each="finalizada : ${finalizadas}">
+										<div class="card">
+											<div class="card-body" id="parent">
+												<p class="fw-bolder" th:text="${finalizada.titulo}"></p>
+												<p th:text="${finalizada.descripcion}"></p>
+												<div id="hover-content">
+													<!-- Boton trigger modal Editar -->
+													<a type="button" data-bs-toggle="modal"
+														th:data-bs-target="'#' + ${finalizada.id}">
+														<i class='fas fa-pencil-alt me-2'></i>
+														<span class="me-4">Editar</span>
+													</a>
+													<!-- Boton trigger modal Mover Estado -->
+													<a type="button" data-bs-toggle="modal"
+														th:data-bs-target="'#' + ${finalizada.id}">
+														<i class='fas fa-rocket me-2'></i>
+														<span>Mover</span>
+													</a>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="card">
-										<div class="card-body" id="parent">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">Task's description</p>
-											<div id="hover-content"> <a type="button" data-bs-toggle="modal"
-													data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i>
-													Edit
-												</a>
-												<a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
-														class='fas fa-rocket'></i> Move
-												</a>
+
+										<!-- Modal PARA EDITAR-->
+										<div class="modal fade" th:id="${finalizada.id}" tabindex="-1"
+											aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog  modal-dialog-centered ">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Editar Tarea</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<!--FORM PARA editar-->
+														<form th:action="@{/tarea/editar}" method="POST"
+															style="width:100%;margin:0%">
+															<div class="mx-3">
+																<input type="hidden" name="id"
+																	th:value="${finalizada.id}">
+																<input type="hidden" name="idEspacio"
+																	th:value="${espacio.id}">
+																<input type="hidden" name="idUsuario"
+																	th:value="${session.usuariosession.id}">
+
+																<label for="tituloTarea">Titulo</label>
+																<input type="text" name="titulo" class="form-control"
+																	id="tituloTarea" th:value="${finalizada.titulo}">
+
+																<label class="mt-2"
+																	for="descripcionTarea">Descripción</label>
+																<textarea name="descripcion" class="form-control"
+																	id="descripcionTarea"
+																	th:text="${finalizada.descripcion}"></textarea>
+															</div>
+															<div class="mt-3 d-flex flex-row-reverse">
+																<button type="submit" class="btn btn-secondary">
+																	<i class="far fa-save me-2"></i>
+																	<span>Guardar</span>
+																</button>
+															</div>
+														</form>
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="card">
-										<div class="card-body" id="parent">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">Task's description</p>
-											<div id="hover-content"> <a type="button" data-bs-toggle="modal"
-													data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i>
-													Edit
-												</a>
-												<a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
-														class='fas fa-rocket'></i> Move
-												</a>
+
+										<!-- Modal PARA CAMBIAR DE ESTADO-->
+										<div class="modal fade" th:id="${finalizada.id}" tabindex="-1"
+											aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog  modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Mover Tarea</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<!--FORM PARA estado-->
+														<form th:action="@{/tarea/estado}" method="POST"
+															style="width:100%;margin:0%">
+															<input type="hidden" name="idEspacio"
+																th:value="${espacio.id}">
+															<input type="hidden" name="idUsuario"
+																th:value="${session.usuariosession.id}">
+															<input type="hidden" name="id" th:value="${finalizada.id}">
+															<!-- Info de tarea seleccionada -->
+															<div class="card mb-4">
+																<div class="card-body" id="parent">
+																	<h5 class="card-title"
+																		th:text="${finalizada.titulo}"></h5>
+																	<p class="card-text"
+																		th:text="${finalizada.descripcion}"></p>
+																	<div id="hover-content">
+																		<a type="button" data-bs-toggle="modal"
+																			th:data-bs-target="'#' + ${finalizada.id}">
+																			<i class='fas fa-pencil-alt me-2'></i>Editar
+																		</a>
+																	</div>
+																</div>
+															</div>
+															<!-- Body del cambio de estado -->
+															<div class="form-control">
+																<label class="mt-1"
+																	for="estadoTareaSeleccionada">Estado</label>
+																<select class="form-select form-select-sm mb-2"
+																	aria-label=".form-select-sm example" name="estado">
+																	<option selected disabled
+																		th:text="${finalizada.estado.valor}"></option>
+																	<option th:each="estado : ${estados}"
+																		th:value="${estado}"
+																		th:if="${estado.valor != 'Finalizada'}"
+																		th:text="${estado.valor}"></option>
+																</select>
+															</div>
+															<div class="mt-3 d-flex flex-row-reverse">
+																<button type="submit" class="btn btn-secondary">
+																	<i class="fas fa-rocket me-2"></i>
+																	<span>Mover</span>
+																</button>
+															</div>
+														</form>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body" id="parent">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">Task's description</p>
-											<div id="hover-content"> <a type="button" data-bs-toggle="modal"
-													data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i>
-													Edit
-												</a>
-												<a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
-														class='fas fa-rocket'></i> Move
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body" id="parent">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">Task's description</p>
-											<div id="hover-content"> <a type="button" data-bs-toggle="modal"
-													data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i>
-													Edit
-												</a>
-												<a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
-														class='fas fa-rocket'></i> Move
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body" id="parent">
-											<h5 class="card-title">Card title</h5>
-											<p class="card-text">Task's description</p>
-											<div id="hover-content"> <a type="button" data-bs-toggle="modal"
-													data-bs-target="#exampleModal"><i class='fas fa-pencil-alt'></i>
-													Edit
-												</a>
-												<a type="button" data-bs-toggle="modal" data-bs-target="#moveStatus"><i
-														class='fas fa-rocket'></i> Move
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="card" id="list">
-										<div class="card-body">
-											<a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir
-												un tarea</a>
 										</div>
 									</div>
 								</div>
+
 								<div class="flex-column col-2" id="list2">
 									<div class="card">
 										<div class="card-body">
@@ -587,8 +607,9 @@
 								<div class="flex-column col-2" id="list2">
 								</div>
 
+								<!-- se muestra el nombre del espacio actual -->
 								<div class="flex-column col-2" id="list2">
-									<h2 class="text-end align-top" style="color:white; text-align: end;float: right; "
+									<h2 class="text-end align-top" style="color:white; text-align: end;float: right;"
 										th:text="${espacio.nombre}"></h2>
 								</div>
 							</div>
