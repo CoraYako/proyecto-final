@@ -90,21 +90,20 @@ public class TareaController {
     }
 
     @PostMapping("/eliminar")
-    public String deshabilitarTarea(@RequestParam String id, RedirectAttributes attr) {
-
+    public String deshabilitarTarea(RedirectAttributes attr, @RequestParam String id, @RequestParam String idUsuario, @RequestParam String idEspacio) {
+        EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
+        Usuario usuario = new Usuario();
+        
         try {
-
+            espacioTrabajo = espacioTrabajoService.buscarPorId(idEspacio);
+            usuario = usuarioService.buscarPorId(idUsuario);
+            
             tareaService.deshabilitar(id);
-
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
-
             attr.addFlashAttribute("error", e.getMessage());
-            return "redirect:/tareas/eliminar/" + id;
-
         }
 
-        return "redirect:/espacioTrabajo";
-
+        return "redirect:/espacio-trabajo/mi-espacio/" + espacioTrabajo.getId() + '/' + usuario.getId();
     }
 
 }
