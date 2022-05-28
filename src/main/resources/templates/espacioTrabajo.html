@@ -124,13 +124,13 @@
 												<div id="hover-content">
 													<!-- Boton trigger modal Editar -->
 													<a type="button" data-bs-toggle="modal"
-														th:data-bs-target="'#' + ${pendiente.id}">
+														th:data-bs-target="'#TodoEdit' + ${pendiente.id}">
 														<i class='fas fa-pencil-alt me-2'></i>
 														<span class="me-4">Editar</span>
 													</a>
 													<!-- Boton trigger modal Mover Estado -->
 													<a type="button" data-bs-toggle="modal"
-														th:data-bs-target="'#' + ${pendiente.id}">
+														th:data-bs-target="'#TodoMove' + ${pendiente.id}">
 														<i class='fas fa-rocket me-2'></i>
 														<span>Mover</span>
 													</a>
@@ -138,7 +138,7 @@
 											</div>
 
 											<!-- Modal PARA EDITAR-->
-											<div class="modal fade" th:id="${pendiente.id}" tabindex="-1"
+											<div class="modal fade" th:id="'TodoEdit' + ${pendiente.id}" tabindex="-1"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-centered ">
 													<div class="modal-content">
@@ -184,7 +184,7 @@
 											</div>
 
 											<!-- Modal PARA CAMBIAR DE ESTADO-->
-											<div class="modal fade" th:id="${pendiente.id}" tabindex="-1"
+											<div class="modal fade" th:id="'TodoMove' + ${pendiente.id}" tabindex="-1"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-centered">
 													<div class="modal-content">
@@ -214,9 +214,8 @@
 																		</p>
 																		<div id="hover-content">
 																			<a type="button" data-bs-toggle="modal"
-																				th:data-bs-target="'#' + ${pendiente.id}">
-																				<i
-																					class='fas fa-pencil-alt me-2'></i>Editar
+																				th:data-bs-target="'#TodoEdit' + ${pendiente.id}">
+																				<i class='fas fa-pencil-alt me-2'></i>Editar
 																			</a>
 																		</div>
 																	</div>
@@ -302,7 +301,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> <!-- fin ultimo modal -->
 								</div>
 
 								<!-- Columna IN_PROGRESS -->
@@ -323,13 +322,13 @@
 												<div id="hover-content">
 													<!-- Boton trigger modal Editar -->
 													<a type="button" data-bs-toggle="modal"
-														th:data-bs-target="'#' + ${enProgreso.id}">
+														th:data-bs-target="'#InProgressEdit' + ${enProgreso.id}">
 														<i class='fas fa-pencil-alt me-2'></i>
 														<span class="me-4">Editar</span>
 													</a>
 													<!-- Boton trigger modal Mover Estado -->
 													<a type="button" data-bs-toggle="modal"
-														th:data-bs-target="'#' + ${enProgreso.id}">
+														th:data-bs-target="'#InProgressMove' + ${enProgreso.id}">
 														<i class='fas fa-rocket me-2'></i>
 														<span>Mover</span>
 													</a>
@@ -338,7 +337,7 @@
 
 
 											<!-- Modal PARA EDITAR-->
-											<div class="modal fade" th:id="${enProgreso.id}" tabindex="-1"
+											<div class="modal fade" th:id="'InProgressEdit' + ${enProgreso.id}" tabindex="-1"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-centered ">
 													<div class="modal-content">
@@ -384,7 +383,7 @@
 											</div>
 
 											<!-- Modal PARA CAMBIAR DE ESTADO-->
-											<div class="modal fade" th:id="${enProgreso.id}" tabindex="-1"
+											<div class="modal fade" th:id="'InProgressMove' + ${enProgreso.id}" tabindex="-1"
 												aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-centered">
 													<div class="modal-content">
@@ -413,7 +412,7 @@
 																			th:text="${enProgreso.descripcion}"></p>
 																		<div id="hover-content">
 																			<a type="button" data-bs-toggle="modal"
-																				th:data-bs-target="'#' + ${enProgreso.id}">
+																				th:data-bs-target="'#InProgressEdit' + ${enProgreso.id}">
 																				<i
 																					class='fas fa-pencil-alt me-2'></i>Editar
 																			</a>
@@ -469,13 +468,13 @@
 												<div id="hover-content">
 													<!-- Boton trigger modal Editar -->
 													<a type="button" data-bs-toggle="modal"
-														th:data-bs-target="'#' + ${finalizada.id}">
+														th:data-bs-target="'#FinishedEdit' + ${finalizada.id}">
 														<i class='fas fa-pencil-alt me-2'></i>
 														<span class="me-4">Editar</span>
 													</a>
 													<!-- Boton trigger modal Mover Estado -->
 													<a type="button" data-bs-toggle="modal"
-														th:data-bs-target="'#' + ${finalizada.id}">
+														th:data-bs-target="'#FinishedMove' + ${finalizada.id}">
 														<i class='fas fa-rocket me-2'></i>
 														<span>Mover</span>
 													</a>
@@ -484,7 +483,7 @@
 										</div>
 
 										<!-- Modal PARA EDITAR-->
-										<div class="modal fade" th:id="${finalizada.id}" tabindex="-1"
+										<div class="modal fade" th:id="'FinishedEdit' + ${finalizada.id}" tabindex="-1"
 											aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog  modal-dialog-centered ">
 												<div class="modal-content">
@@ -528,7 +527,7 @@
 										</div>
 
 										<!-- Modal PARA CAMBIAR DE ESTADO-->
-										<div class="modal fade" th:id="${finalizada.id}" tabindex="-1"
+										<div class="modal fade" th:id="'FinishedMove' + ${finalizada.id}" tabindex="-1"
 											aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog  modal-dialog-centered">
 												<div class="modal-content">
@@ -555,7 +554,7 @@
 																		th:text="${finalizada.descripcion}"></p>
 																	<div id="hover-content">
 																		<a type="button" data-bs-toggle="modal"
-																			th:data-bs-target="'#' + ${finalizada.id}">
+																			th:data-bs-target="'#FinishedEdit' + ${finalizada.id}">
 																			<i class='fas fa-pencil-alt me-2'></i>Editar
 																		</a>
 																	</div>
