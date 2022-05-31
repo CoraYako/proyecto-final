@@ -87,11 +87,9 @@
   </nav>
 
 
-  <p>
 
-  </p>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" id="SecondNavBar">
+  <!--<nav class="navbar navbar-expand-lg navbar-light bg-light" id="SecondNavBar">
     <div class="container-fluid">
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -100,7 +98,7 @@
       </button>
 
     </div>
-  </nav>
+  </nav>-->
   </div>
   </div>
 
@@ -114,6 +112,8 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Editar Tarea</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
         </div>
         <div class="modal-body">
 
@@ -129,6 +129,8 @@
               <label for="apellido">Descripción</label>
               <input type="text" name="apellido" th:value="${apellido}" class="form-control">
 
+
+              <!--
               <label for="fechaDeNacimiento">Estado</label>
               <select class="form-select" name="active" id="">
 
@@ -147,19 +149,21 @@
               <label for="active">Activo</label>
 
 
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                <label class="form-check-label" for="flexRadioDefault1">
-                  True
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  False
-                </label>
-              </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      True
+                    </label>
+                  </div>
 
+                  
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      False
+                    </label>
+                  </div>
+                -->
 
 
             </div>
@@ -171,11 +175,43 @@
         </div>
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-secondary"><i class="far fa-save"></i> Save </button>
+          <a type="button" class="btn btn-secondary"><i class="far fa-save"></i> Guardar </a>
+
+
+
+          <a class="btn btn-warning" data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i
+              class="far fa-trash-alt"></i> Borrar</a>
+
+
         </div>
       </div>
     </div>
   </div>
+
+
+  <!-- Modal Para confirmar borrado      modal-dialog-centered -->
+
+
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalToggleLabel">Confirmar borrado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Éstas seguro que deseas eliminar la tarea?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" data-bs-target="#close" data-bs-toggle="modal" data-bs-dismiss="modal"><i
+              class="far fa-trash-alt"></i> Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 
   <!-- Modal PARA CAMBIAR DE ESTADO-->
@@ -235,7 +271,7 @@
         </div>
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-secondary"><i class="fas fa-rocket"></i>  Move </button>
+          <button type="button" class="btn btn-secondary"><i class="fas fa-rocket"></i> Move </button>
         </div>
       </div>
     </div>
@@ -244,6 +280,11 @@
   <div class="container-fluid">
     <div class="row">
 
+
+      <
+
+
+      
       <div class="collapse collapse-horizontal nav flex-column col-1" id="collapseWidthExample"
         style="min-height: 900px;">
 
@@ -281,18 +322,38 @@
         <div class="container-fluid">
 
 
+          <div class="row p-4  d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none">
+  
 
-          <div class="row p-2 m-4">
+          <div class="card " id="cardNameWorkSpace">
+            <div class="card-body">
+              <h4 class="text-center align-center " id="tittleList">
+                Nombre de espacio de trabajo
+      
+              </h4>
+            </div>
+          </div>
+      
+        
+              
+            
+            </div>
+
+          
+
+          <div class="row p-1">
             <div class="d-flex flex-column col-12">
 
-              <!-- Lista 1 -->
-              <div class="row p-2 m-4">
-                <div class="flex-column col-2" id="list2">
+              <!-- Row 1 -->
+              <div class="row d-flex justify-content-start">
+
+                <!-- Lista 1 -->
+                <div class="flex-column col-xxl-2  col-xl-3 col-lg-3 col-lg-2 col-md-4 p-4" id="list2">
                   <div class="card">
 
                     <div class="card-body">
                       <div class="card-header">
-                        <h4>Pendientes</h4>
+                        <h4 id="tittleList">Pendientes</h4>
                       </div>
                     </div>
                   </div>
@@ -359,18 +420,15 @@
                     </div>
                   </div>
                 </div>
-
-
 
                 <!-- Lista 2 -->
 
-
-                <div class="flex-column col-2" id="list2">
+                <div class="flex-column col-xxl-2    col-xl-3 col-lg-3 col-lg-2 col-md-4 p-4 " id="list2">
                   <div class="card">
 
                     <div class="card-body">
                       <div class="card-header">
-                        <h4>En proceso</h4>
+                        <h4 id="tittleList">En proceso</h4>
                       </div>
                     </div>
                   </div>
@@ -437,18 +495,16 @@
 
 
                 </div>
-
 
                 <!-- Lista 3 -->
 
-
-                <div class="flex-column col-2" id="list2">
-
+                
+                <div class="flex-column  col-xxl-2  col-xl-3 col-lg-3 col-lg-2 col-md-4 p-4" id="list2">
                   <div class="card">
 
                     <div class="card-body">
                       <div class="card-header">
-                        <h4>Realizadas</h4>
+                        <h4 id="tittleList">Realizadas</h4>
                       </div>
                     </div>
                   </div>
@@ -563,69 +619,56 @@
 
                 </div>
 
-                <div class="flex-column col-2" id="list2">
-                  <div class="card">
 
-                    <div class="card-body">
-                      <div class="card-header">
-                        <h4>Añadir una lista</h4>
+                <!-- LISTA VACIA
+                <div class="flex-column d-lg-none d-xl-block" id="list2">
+                </div>
+                -->
+
+                <!--NOMBRE ESPACIO DE TRABAJO-->
+                <div class="flex-column  col-xxl-6 col-xl-3 col-lg-3 p-4  d-flex align-items-end" id="">
+                  
+                    <div class="card bd-highlight d-md-none d-lg-block d-none d-sm-block" id="cardNameWorkSpace">
+                      <div class="card-body">
+                        <h4 class="text-center align-top " id="tittleList">
+                          Nombre de espacio de trabajo
+
+                        </h4>
                       </div>
                     </div>
-                  </div>
 
 
 
 
 
+              <!-- Añadir una lista-->
 
+                    <div class="flex-column  mt-auto bd-highlight" id="">
+                        <div class="card mt-auto p-2 bd-highlight">
 
+                          <div class="card-body">
+                            <div class="card-header">
+                              <h4 id="tittleList">Añadir una lista</h4>
+                            </div>
+                          </div>
+                        </div>
 
-
-
-
-                  <div class="card" id="list">
-                    <div class="card-body">
-                      <a href="#" class="btn-sm btn-warning">+ </a>
+                        <div class="card mt-auto p-2 bd-highlight" id="list">
+                          <div class="card-body">
+                            <a href="#" class="btn-sm btn-warning">+ </a>
+                          </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-                <div class="flex-column col-2" id="list2">
-                  
-                </div>
-
-                
-
-                <!---->
-
-                <div class="flex-column col-2" id="list2">
-                  <h2 class="text-end align-top" style="color:white; text-align: end;float: right; ">
-                    Nombre de espacio de trabajo.
-
-                  </h2>
                 </div>
 
 
-              </div>
-
-
-            </div>
-
-
-
-            <!-- <div class="d-flex flex-column col-1">
-              <div class="row" style="color:white; text-align: end;float: right; ">
-                <div style="color:white; text-align: end;" class="flex-column col" id="list2">
-                  
-
-
-                </div>
 
               </div>
 
 
 
 
-            </div>-->
+         
           </div>
 
 
