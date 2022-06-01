@@ -103,6 +103,45 @@
   </div>
 
 
+ <!---->
+
+ <!-- Modal CREAR TAREA -->
+    <div class="modal fade" id="staticModalCrearTarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticModalCrearTareaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticModalCrearTareaLabel">Nueva Tarea
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/tarea/crear}" method="POST">
+                        <!--<input type="hidden" name="idEspacio" th:value="${espacio.id}">
+                        <input type="hidden" name="idUsuario" th:value="${session.usuariosession.id}">-->
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" name="titulo"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Descripción (Opcional)</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                name="descripcion"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!---->
+
+
 
 
   <!-- Modal PARA EDITAR-->
@@ -281,8 +320,6 @@
     <div class="row">
 
 
-      <
-
 
       
       <div class="collapse collapse-horizontal nav flex-column col-1" id="collapseWidthExample"
@@ -416,7 +453,11 @@
 
                   <div class="card" id="list">
                     <div class="card-body">
-                      <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
+                      <a type="button" class="btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#staticModalCrearTarea">
+                      <i class="fas fa-wrench me-2"></i>
+                       + Añadir un tarea
+                  </a>
+                      
                     </div>
                   </div>
                 </div>
@@ -487,7 +528,13 @@
 
                   <div class="card" id="list">
                     <div class="card-body">
-                      <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
+                      
+                      <a type="button" class="btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#staticModalCrearTarea">
+                        <i class="fas fa-wrench me-2"></i>
+                         + Añadir un tarea
+                         </a>
+
+
                     </div>
                   </div>
 
@@ -612,7 +659,10 @@
                   </div>
                   <div class="card" id="list">
                     <div class="card-body">
-                      <a href="#" class="btn-sm btn-danger"><i class="fas fa-wrench"></i>+ Añadir un tarea</a>
+                      <a type="button" class="btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#staticModalCrearTarea">
+                        <i class="fas fa-wrench me-2"></i>
+                         + Añadir un tarea
+                         </a>
                     </div>
                   </div>
 
