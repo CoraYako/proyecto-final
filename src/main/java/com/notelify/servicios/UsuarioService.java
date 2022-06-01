@@ -90,6 +90,8 @@ public class UsuarioService implements UserDetailsService {
     public Usuario modificar(MultipartFile archivo, String id, String nombre, String apellido, String username, String correo, String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException, ElementoNoEncontradoException {
         validacionCompleta(nombre, apellido, username, clave1, clave2, correo);
 
+        Imagen imagen = new Imagen();
+
         Usuario usuario = buscarPorId(id);
 
         usuario.setNombre(nombre);
@@ -101,14 +103,11 @@ public class UsuarioService implements UserDetailsService {
         String claveEncriptada = encriptacion(clave1);
         usuario.setClave(claveEncriptada);
 
-//        String idFotoPerfil = null;
-//        if (usuario.getFotoPerfil().getId() != null) {
-//            idFotoPerfil = usuario.getFotoPerfil().getId();
-//        }
-//
-//        Imagen imagen = imagenService.actualizar(idFotoPerfil, archivo);
-
-        Imagen imagen = imagenService.guardar(archivo);
+        if (usuario.getFotoPerfil() == null) {
+            imagen = imagenService.guardar(archivo);
+        } else {
+            imagen = imagenService.actualizar(usuario.getFotoPerfil().getId(), archivo);
+        }
 
         usuario.setFotoPerfil(imagen);
 

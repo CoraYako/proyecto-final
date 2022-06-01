@@ -58,7 +58,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img th:if="${session.usuariosession.fotoPerfil != null}"
-                                th:src="@{/foto/usuario/ + ${session.usuariosession.id}}"
+                                th:src="${'/imagen/usuario/' + session.usuariosession.id}"
                                 alt="Foto del perfil del usuario" width="40" height="40" class="rounded-circle">
                             <img th:if="${session.usuariosession.fotoPerfil == null}"
                                 src="https://res.cloudinary.com/dzyvb836r/image/upload/v1653263323/icon-guybrush3_yfuapy.ico"
@@ -81,7 +81,7 @@
     <!-- Modal CREAR TAREA -->
     <div class="modal fade" id="staticModalCrearTarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticModalCrearTareaLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticModalCrearTareaLabel">Nueva Tarea
@@ -351,7 +351,7 @@
                                 </div>
 
                                 <!-- Columna IN_PROGRESS -->
-                                <div class="flex-column col-xxl-2    col-xl-3 col-lg-3 col-lg-2 col-md-4 p-4 "
+                                <div class="flex-column col-xxl-2 col-xl-3 col-lg-3 col-lg-2 col-md-4 p-4 "
                                     id="list2">
                                     <div class="card">
                                         <div class="card-body">
@@ -532,7 +532,7 @@
                                 </div>
 
                                 <!-- Columna FRINISHED -->
-                                <div class="flex-column  col-xxl-2  col-xl-3 col-lg-3 col-lg-2 col-md-4 p-4" id="list2">
+                                <div class="flex-column col-xxl-2  col-xl-3 col-lg-3 col-lg-2 col-md-4 p-4" id="list2">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="card-header">
@@ -721,14 +721,12 @@
                                     <!-- Añadir una lista-->
                                     <div class="flex-column  mt-auto bd-highlight" id="">
                                         <div class="card mt-auto p-2 bd-highlight">
-
                                             <div class="card-body">
                                                 <div class="card-header">
                                                     <h4 id="tittleList">Añadir una lista</h4>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="card mt-auto p-2 bd-highlight" id="list">
                                             <div class="card-body">
                                                 <a href="#" class="btn-sm btn-warning">+ </a>

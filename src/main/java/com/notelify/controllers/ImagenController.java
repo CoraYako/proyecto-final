@@ -43,6 +43,7 @@ public class ImagenController {
             return new ResponseEntity<>(fotoPerfil, headers, HttpStatus.OK);
         } catch (ElementoNoEncontradoException | ErrorInputException e) {
             modelo.put("error", e.getMessage());
+            System.out.println(e.getMessage());
 
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

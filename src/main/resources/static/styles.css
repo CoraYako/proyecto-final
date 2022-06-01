@@ -60,7 +60,12 @@
   flex-direction: column;
 }
 
-.SignUp-Form-Email, .SignUp-Form-Apellido, .SignUp-Form-Rol, .SignUp-Form-Password, .SignUp-Form-Nombre, .SignUp-Form-FechaDeNacimiento {
+.SignUp-Form-Email,
+.SignUp-Form-Apellido,
+.SignUp-Form-Rol,
+.SignUp-Form-Password,
+.SignUp-Form-Nombre,
+.SignUp-Form-FechaDeNacimiento {
   line-height: normal;
   background: #edeff0;
   border-radius: 4px;
@@ -82,11 +87,16 @@
   text-shadow: none;
 }
 
-button, input {
+button,
+input {
   overflow: visible;
 }
 
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
@@ -156,11 +166,11 @@ label {
 }
 
 #exampleModal {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 #moveStatus {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 #linkIcon {
@@ -173,14 +183,28 @@ label {
   position: cover;
 }
 
+#staticModalCrearTarea {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 #cardNameWorkSpace {
-  font-size: 15px;
+  font-size: 10px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: rgba(10, 3, 3, 0.829);
 }
 
 
+/* Home */
+#verticalHome {
+  background-color: #cdd2d4c9;
+}
+
+#dashboardHome {
+  width: 80%;
+  background-color: #cdd2d4c9;
+  border-radius: 20px;
+}
 
 /*-------------------------------------------------------------------
                         10. RESPONSIVE
@@ -193,7 +217,6 @@ label {
 }
 
 @media (min-width:1440px) {
-
   #tittleList {
     font-size: 15px;
   }
@@ -259,6 +282,5 @@ label {
 @media (max-width:360px) {}
 
 @media (max-width:320px) {}
-
 
 @media (max-width: 1024px) {}

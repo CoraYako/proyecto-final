@@ -41,11 +41,11 @@
 
                             <div class="SignUp-Form-Fiels">
                                 <label for="nombreUsuario">Nombre</label>
-                                <input type="text" name="nombre" th:placeholder="${session.usuariosession.nombre}"
+                                <input type="text" name="nombre" th:value="${session.usuariosession.nombre}"
                                     class="SignUp-Form-Nombre" id="nombreUsuario">
 
                                 <label for="apellidoUsuario">Apellido</label>
-                                <input type="text" name="apellido" th:text="${session.usuariosession.apellido}"
+                                <input type="text" name="apellido" th:value="${session.usuariosession.apellido}"
                                     class="SignUp-Form-Nombre" id="apellidoUsuario">
 
                                 <label for="usuarioUsuario">Usuario</label>
@@ -53,10 +53,10 @@
                                     class="SignUp-Form-Nombre" id="usernameUsuario">
 
                                 <label for="fechaDeNacimiento">Fecha de nacimiento</label>
-                                <input type="date" name="fechaNacimiento" class="SignUp-Form-FechaDeNacimiento" id="fechaDeNacimiento">
+                                <input type="date" name="fechaNacimiento" th:value="${session.usuariosession.fechaNacimiento}" class="SignUp-Form-FechaDeNacimiento" id="fechaDeNacimiento">
 
                                 <label for="fotoPerfil">Foto</label>
-                                <input type="file" name="archivo" class="SignUp-Form-Email" id="fotoPerfil">
+                                <input type="file" name="archivo" th:value="${session.usuariosession.fotoPerfil}" class="SignUp-Form-Email" id="fotoPerfil" accept="image/png, image/jpeg">
 
                                 <label for="correoUsuario">Correo</label>
                                 <input type="email" name="correo" th:value="${session.usuariosession.correo}"

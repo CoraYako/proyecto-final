@@ -1,7 +1,6 @@
 package com.notelify.controllers;
 
 import com.notelify.entidades.Usuario;
-import com.notelify.enums.Rol;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.UsuarioService;
@@ -106,7 +105,7 @@ public class UsuarioController {
             attr.addFlashAttribute("correo", correo);
         }
 
-        return "redirect:/usuario/editar/" + id;
+        return "redirect:/usuario/editar/" + usuario.getId();
     }
 
     @PostMapping("/recuperar")
