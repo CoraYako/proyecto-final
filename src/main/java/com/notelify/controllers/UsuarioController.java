@@ -121,6 +121,27 @@ public class UsuarioController {
 
         return "modificarDatos.html";
     }
+    
+    @PostMapping("/login")
+    public String recuperarContraseña(ModelMap modelo, @RequestParam String correo, @RequestParam String clave, @RequestParam String claveRep) {
+        
+        try {
+            
+            usuarioService.recuperarClave(correo, clave, claveRep);
+            
+            modelo.put("exito", "La contraseña se modificó exitosamente");
+            
+            return "login.html";
+            
+        } catch (ErrorInputException e) {
+            
+            modelo.put("errorClave", e.getMessage());
+            
+            return "login.html";
+            
+        }
+
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/lista")
