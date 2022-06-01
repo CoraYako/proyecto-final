@@ -23,26 +23,27 @@ public class TareaService {
 
     /**
      *
-     * Método que crea y persiste un objeto Tarea en la DDBB. Dentro se utiliza el
-     * método validar(). Se hace uso del método
+     * Método que crea y persiste un objeto Tarea en la DDBB. Dentro se utiliza
+     * el método validar(). Se hace uso del método
      * {@link UsuarioService#buscarPorId(java.lang.String)}
-     * 
+     *
      * @param titulo
      * @param descripcion
      * @param idUsuario
      * @return el objeto persistido.
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
+     * @throws com.notelify.exceptions.ElementoNoEncontradoException
      * @see UsuarioService.
      */
     @Transactional(rollbackFor = Exception.class)
-    public Tarea crearYPersistir(String titulo, String descripcion/*,String idUsuario*/) throws ErrorInputException, ElementoNoEncontradoException {
-        validar(titulo, descripcion/*, idUsuario*/);
+    public Tarea crearYPersistir(String titulo, String descripcion, String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
+        validar(titulo, idUsuario);
 
         Tarea tarea = new Tarea();
 
-//        Usuario usuario = usuarioService.buscarPorId(idUsuario);
-//        tarea.getListaUsuarios().add(usuario);
+        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+        tarea.getListaUsuarios().add(usuario);
 
         tarea.setTitulo(titulo);
         tarea.setDescripcion(descripcion);
@@ -51,20 +52,10 @@ public class TareaService {
 
         return tareaRepository.save(tarea);
     }
-    
+
     /**
-     * 
-     * Método que retorna una List con todos los objetos Tarea de la DDBB.
-     * @return una lista de Tareas.
-    */
-    @Transactional(readOnly = true)
-    public List<Tarea> listarTodas() {
-        return tareaRepository.findAll();
-    }
-    
-    /**
-     * Modifica al objeto Tarea pidiendo los nuevos datos. Dentro se utiliza
-     * el método validar().
+     * Modifica al objeto Tarea pidiendo los nuevos datos. Dentro se utiliza el
+     * método validar().
      *
      * @param id
      * @param titulo
@@ -76,7 +67,7 @@ public class TareaService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public Tarea modificar(String id, String titulo, String descripcion) throws ErrorInputException, ElementoNoEncontradoException {
-        validar(titulo, descripcion/*, id*/);
+        validar(titulo, id);
 
         Tarea tarea = buscarPorId(id);
         tarea.setTitulo(titulo);
@@ -84,7 +75,7 @@ public class TareaService {
 
         return tareaRepository.save(tarea);
     }
-    
+
     /**
      * Modifica el atributo estado del objeto Tarea.
      *
@@ -108,7 +99,8 @@ public class TareaService {
 
     /**
      *
-     * Deshabilita la Tarea estableciendo el atributo boolean a falso. Este método no elimina el objeto Tarea.
+     * Deshabilita la Tarea estableciendo el atributo boolean a falso. Este
+     * método no elimina el objeto Tarea.
      *
      * @param id para buscar la Tarea en la DDBB.
      * @return la Tarea deshabilitada.
@@ -144,27 +136,34 @@ public class TareaService {
             throw new ElementoNoEncontradoException("No existe la tarea solicitada.");
         }
     }
-    
+
+    /**
+     *
+     * Método que retorna una List con todos los objetos Tarea de la DDBB.
+     *
+     * @return una lista de Tareas.
+     */
+    @Transactional(readOnly = true)
+    public List<Tarea> listarTodas() {
+        return tareaRepository.findAll();
+    }
+
     /**
      *
      * Verifica que los argumentos no lleguen nulos o vacíos. En caso de ser
      * cierto alguno de estos, arroja la respectiva excepción.
      *
      * @param titulo
-     * @param descripcion
-     * @param idUsuario
+     * @param id
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
      */
-    public void validar(String titulo, String descripcion/*, String idUsuario*/) throws ErrorInputException {
+    public void validar(String titulo, String id) throws ErrorInputException {
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new ErrorInputException("Debe proporcionar un título.");
         }
-//        if (descripcion == null || descripcion.trim().isEmpty()) {
-//            throw new ErrorInputException("Debe proporcionar una descripción.");
-//        }
-//        if (idUsuario == null || idUsuario.trim().isEmpty()) {
-//            throw new ErrorInputException("Debe proporcionar un id válido.");
-//        }
+        if (id == null || id.trim().isEmpty()) {
+            throw new ErrorInputException("Debe proporcionar un id válido.");
+        }
     }
 }

@@ -95,14 +95,11 @@ public class ImagenService {
      */
     @Transactional(readOnly = true)
     public Imagen buscarPorId(String id) throws ElementoNoEncontradoException, ErrorInputException {
-        if (id == null || id.trim().isEmpty()) {
-            throw new ErrorInputException("El id del archivo no puede ser nulo.");
-        }
         Optional<Imagen> respuesta = imagenRepository.findById(id);
         if (respuesta.isPresent()) {
             return respuesta.get();
         } else {
-            throw new ElementoNoEncontradoException("No se encontró el archivo solicitado.");
+            return new Imagen();
         }
     }
 

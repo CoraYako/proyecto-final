@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -35,7 +35,7 @@ public class Tarea implements Serializable {
     @JoinColumn(name = "estado")
     private Estado estado;
 
-    @OneToMany
+    @ManyToMany
     private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")
