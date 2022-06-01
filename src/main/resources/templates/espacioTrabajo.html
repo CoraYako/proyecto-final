@@ -17,7 +17,7 @@
     <!-- Navbar principal -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <i class='far fa-clone me-2'></i>Notelify</a>
+            <a class="navbar-brand" th:href="@{/inicio}"> <i class='far fa-clone me-2'></i>Notelify</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li th:each="espacioDelUsuario : ${espaciosDelUsuarioLogeado}">
-                                <a class="dropdown-item py-2"
+                                <a class="dropdown-item py-2" th:if="${espacioDelUsuario.activo}"
                                     th:href="@{/espacio-trabajo/mi-espacio/} + ${espacioDelUsuario.id} + '/' + ${session.usuariosession.id}"
                                     th:text="${espacioDelUsuario.nombre}"></a>
                             </li>
@@ -57,8 +57,12 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://res.cloudinary.com/dzyvb836r/image/upload/v1653263323/icon-guybrush3_yfuapy.ico"
-                                alt="" width="40" height="40" class="rounded-circle">
+                            <img th:if="${session.usuariosession.fotoPerfil != null}"
+                                th:src="@{/foto/usuario/ + ${session.usuariosession.id}}"
+                                alt="Foto del perfil del usuario" width="40" height="40" class="rounded-circle">
+                            <img th:if="${session.usuariosession.fotoPerfil == null}"
+                                src="https://res.cloudinary.com/dzyvb836r/image/upload/v1653263323/icon-guybrush3_yfuapy.ico"
+                                alt="Foto de perfil por defecto" width="40" height="40" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" th:href="@{/usuario/editar/} + ${session.usuariosession.id}">
