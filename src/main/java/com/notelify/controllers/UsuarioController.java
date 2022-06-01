@@ -78,7 +78,7 @@ public class UsuarioController {
             if (id != null && !id.trim().isEmpty()) {
                 usuario = usuarioService.buscarPorId(id);
             }
-            
+
             modelo.put("perfil", usuario);
         } catch (ElementoNoEncontradoException | ErrorInputException ex) {
             modelo.put("error", ex.getMessage());
@@ -94,7 +94,7 @@ public class UsuarioController {
 
         try {
             usuario = usuarioService.modificar(archivo, id, nombre, apellido, username, correo, clave1, clave2, fechaNacimiento);
-            
+
             attr.addFlashAttribute("exito", "¡Perfecto!");
             attr.addFlashAttribute("descripcion", "El perfil fue modificado exitosamente");
         } catch (ErrorInputException | ElementoNoEncontradoException ex) {
@@ -107,33 +107,11 @@ public class UsuarioController {
 
         return "redirect:/usuario/editar/" + usuario.getId();
     }
-    
-    @PostMapping("/login")
-    public String recuperarContraseña(ModelMap modelo, @RequestParam String correo, @RequestParam String clave, @RequestParam String claveRep) {
-        
-        try {
-            
-            usuarioService.recuperarClave(correo, clave, claveRep);
-            
-            modelo.put("exito", "La contraseña se modificó exitosamente");
-            
-            return "login.html";
-            
-        } catch (ErrorInputException e) {
-            
-            modelo.put("errorClave", e.getMessage());
-            
-            return "login.html";
-            
-        }
-
-    }
 
     @PostMapping("/recuperar")
     public String recuperarClave(ModelMap modelo, @RequestParam String correo, @RequestParam String nuevaClave, @RequestParam String repeticionNuevaClave) {
         try {
             usuarioService.recuperarClave(correo, nuevaClave, repeticionNuevaClave);
-
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
             modelo.put("error", e.getMessage());
         }
