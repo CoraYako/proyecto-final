@@ -162,13 +162,15 @@ text-decoration: none;
 
 #exampleModal{
 
-  background-color: rgba(0, 0, 0, 0.8);
+
+  background-color: rgba(0, 0, 0, 0.7);
+
   
 }
 
 #moveStatus{
 
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
 
 }
 
@@ -184,13 +186,36 @@ position: cover;
 
 }
 
-#cardNameWorkSpace{
-font-size: 15px;
-border-radius: 10px;;
-background-color: rgba(0, 0, 0, 0.5);
-color: white;
+#staticModalCrearTarea{
+  background-color: rgba(0, 0, 0, 0.7);
 
 }
+
+#cardNameWorkSpace{
+font-size: 10px;
+border-radius: 10px;;
+background-color: rgba(255, 255, 255, 0.9);
+color: rgba(10, 3, 3, 0.829);
+
+}
+
+
+/* Home */
+
+#verticalHome{
+
+background-color: #cdd2d4c9;
+
+
+}
+
+#dashboardHome{
+ width: 80%;
+  background-color: #cdd2d4c9;
+ border-radius: 20px;
+}
+
+
 
 
 
@@ -322,4 +347,5 @@ display: none;
 @media (max-width: 1024px){
  
 }
+
 
