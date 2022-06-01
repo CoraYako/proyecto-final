@@ -21,11 +21,82 @@
                 </tr>
             </thead>
             <tbody th:each="espacio : ${espacios}">
-                <tr>
+                <tr th:if="${espacio.activo}">
                     <td th:text="${espacio.nombre}"></td>
-                    <td th:each="usuario : ${espacio.listaUsuarios}"
-                        th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></td>
-                    <td><a class="btn btn-primary" th:href="@{/espacio-trabajo/mi-espacio/} + ${espacio.id} + '/' + ${session.usuariosession.id}">Ver</a>
+                    <td th:each="usuario : ${espacio.listaUsuarios}" th:text="${usuario.username}"></td>
+                    <td>
+                        <a class="btn btn-primary"
+                            th:href="@{/espacio-trabajo/mi-espacio/} + ${espacio.id} + '/' + ${session.usuariosession.id}">Ver</a>
+                        <!-- Button trigger modal deshabilitar -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            th:data-bs-target="'#modalDeshabilitar' + ${espacio.id}">
+                            Deshabilitar
+                        </button>
+                        <!-- Button trigger modal editar -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            th:data-bs-target="'#modalEditar' + ${espacio.id}">
+                            Editar
+                        </button>
+
+                        <!-- Modal editar -->
+                        <div class="modal fade" th:id="'modalEditar' + ${espacio.id}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Editar Espacio Trabajo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form th:action="@{/espacio-trabajo/editar}" method="POST">
+                                            <input type="hidden" name="id" th:value="${espacio.id}">
+                                            <div class="mb-3">
+                                                <label for="nombreEspacio" class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" id="nombreEspacio" name="nombre"
+                                                    th:placeholder="${espacio.nombre}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Volver</button>
+                                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal deshabilitar -->
+                        <div class="modal fade" th:id="'modalDeshabilitar' + ${espacio.id}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Deshabilitar Espacio Trabajo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form th:action="@{/espacio-trabajo/deshabilitar}" method="POST">
+                                            <input type="hidden" name="id" th:value="${espacio.id}">
+                                            <fieldset disabled>
+                                                <div class="mb-3">
+                                                    <label for="nombreEspacio" class="form-label">Nombre</label>
+                                                    <input type="text" class="form-control" id="nombreEspacio"
+                                                        th:placeholder="${espacio.nombre}">
+                                                </div>
+                                            </fieldset>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Volver</button>
+                                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>

@@ -9,6 +9,7 @@ import com.notelify.servicios.EspacioTrabajoService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
 @RequestMapping("/espacio-trabajo")
 public class EspacioTrabajoController {
 
@@ -36,22 +38,22 @@ public class EspacioTrabajoController {
 
         try {
             List<EspacioTrabajo> espaciosDelUsuarioLogeado = espacioTrabajoService.espaciosDelUsuario(idUsuario);
-            
+
             espacioTrabajo = espacioTrabajoService.buscarPorId(id);
             modelo.put("espacio", espacioTrabajo);
 
             List<Tarea> tareas = espacioTrabajo.getListaTareas();
             tareas.stream().map((tarea) -> {
-                if (tarea.getEstado().name().equals("TODO")) {
+                if (tarea.getEstado().name().equals("TODO") && tarea.getActivo()) {
                     pendientes.add(tarea);
                 }
                 return tarea;
             }).map((tarea) -> {
-                if (tarea.getEstado().name().equals("IN_PROGRESS")) {
+                if (tarea.getEstado().name().equals("IN_PROGRESS") && tarea.getActivo()) {
                     realizandose.add(tarea);
                 }
                 return tarea;
-            }).filter((tarea) -> (tarea.getEstado().name().equals("FINISHED"))).forEachOrdered((tarea) -> {
+            }).filter((tarea) -> (tarea.getEstado().name().equals("FINISHED") && tarea.getActivo())).forEachOrdered((tarea) -> {
                 finalizadas.add(tarea);
             });
 
@@ -67,6 +69,39 @@ public class EspacioTrabajoController {
         return "espacioTrabajo.html";
     }
 
+    @PostMapping("/crear")
+    public String crear(RedirectAttributes attr, ModelMap modelo, @RequestParam(required = false) MultipartFile archivo, @RequestParam String nombre, @RequestParam String idUsuario) {
+        try {
+            espacioTrabajoService.crear(archivo, nombre, idUsuario);
+        } catch (ElementoNoEncontradoException | ErrorInputException e) {
+            attr.addFlashAttribute("error", e.getMessage());
+        }
+
+        return "redirect:/inicio";
+    }
+
+    @PostMapping("/editar")
+    public String editar(RedirectAttributes attr, @RequestParam String id, @RequestParam String nombre, @RequestParam(required = false) MultipartFile archivo) {
+        try {
+            espacioTrabajoService.modificar(id, archivo, nombre);
+        } catch (ElementoNoEncontradoException | ErrorInputException e) {
+            attr.addFlashAttribute("error", e.getMessage());
+        }
+
+        return "redirect:/inicio";
+    }
+
+    @PostMapping("/deshabilitar")
+    public String deshabilitar(RedirectAttributes attr, @RequestParam String id) {
+        try {
+            espacioTrabajoService.deshabilitar(id);
+        } catch (ElementoNoEncontradoException | ErrorInputException e) {
+            attr.addFlashAttribute("error", e.getMessage());
+        }
+
+        return "redirect:/inicio";
+    }
+
     @GetMapping("/lista/{idUsuario}")
     public String lista(ModelMap modelo, @PathVariable String idUsuario) {
         try {
@@ -79,17 +114,4 @@ public class EspacioTrabajoController {
         return "listaEspaciosTrabajo.html";
     }
 
-    @PostMapping("/crear")
-    public String crear(RedirectAttributes attr, ModelMap modelo, @RequestParam(required = false) MultipartFile archivo, @RequestParam String nombre, @RequestParam String idUsuario) {
-        EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
-
-        try {
-            espacioTrabajo = espacioTrabajoService.crearYPersistir(archivo, nombre, idUsuario);
-            modelo.put("espacioTrabajo", espacioTrabajo);
-        } catch (ElementoNoEncontradoException | ErrorInputException e) {
-            attr.addFlashAttribute("error", e.getMessage());
-        }
-
-        return "redirect:/inicio";
-    }
 }

@@ -67,7 +67,7 @@ public class TareaService {
      */
     @Transactional(rollbackFor = {Exception.class})
     public Tarea modificar(String id, String titulo, String descripcion) throws ErrorInputException, ElementoNoEncontradoException {
-        validar(titulo, descripcion/*, id*/);
+        validar(titulo, id);
 
         Tarea tarea = buscarPorId(id);
         tarea.setTitulo(titulo);
@@ -154,15 +154,15 @@ public class TareaService {
      * cierto alguno de estos, arroja la respectiva excepción.
      *
      * @param titulo
-     * @param idUsuario
+     * @param id
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
      */
-    public void validar(String titulo, String idUsuario) throws ErrorInputException {
+    public void validar(String titulo, String id) throws ErrorInputException {
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new ErrorInputException("Debe proporcionar un título.");
         }
-        if (idUsuario == null || idUsuario.trim().isEmpty()) {
+        if (id == null || id.trim().isEmpty()) {
             throw new ErrorInputException("Debe proporcionar un id válido.");
         }
     }

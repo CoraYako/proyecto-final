@@ -1,6 +1,5 @@
 package com.notelify.entidades;
 
-
 import com.notelify.enums.Rol;
 import java.io.Serializable;
 import java.util.Date;
@@ -32,6 +31,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "clave", nullable = false)
     private String clave;
+    
+    @Column(name = "username")
+    private String username;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
@@ -42,7 +44,7 @@ public class Usuario implements Serializable {
 
     @Column(name = "apellido")
     private String apellido;
-
+ 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
@@ -62,10 +64,11 @@ public class Usuario implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
-    public Usuario(String id, String correo, String clave, Rol rol, String nombre, String apellido, Date fechaNacimiento, Imagen fotoPerfil, Date fechaAlta, Date fechaBaja, Boolean activo) {
+    public Usuario(String id, String correo, String clave, String username, Rol rol, String nombre, String apellido, Date fechaNacimiento, Imagen fotoPerfil, Date fechaAlta, Date fechaBaja, Boolean activo) {
         this.id = id;
         this.correo = correo;
         this.clave = clave;
+        this.username = username;
         this.rol = rol;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -119,6 +122,20 @@ public class Usuario implements Serializable {
      */
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -235,7 +252,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + getId() + ", correo=" + getCorreo() + ", clave=" + getClave() + ", rol=" + getRol() + ", nombre=" + getNombre() + ", apellido=" + getApellido() + ", fechaNacimiento=" + getFechaNacimiento() + ", fotoPerfil=" + getFotoPerfil() + ", fechaAlta=" + getFechaAlta() + ", fechaBaja=" + getFechaBaja() + ", activo=" + getActivo() + '}';
+        return "Usuario{" + "id=" + id + ", correo=" + correo + ", clave=" + clave + ", username=" + username + ", rol=" + rol + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", fotoPerfil=" + fotoPerfil + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", activo=" + activo + '}';
     }
 
 }

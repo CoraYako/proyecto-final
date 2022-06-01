@@ -31,7 +31,7 @@ public class EspacioTrabajo implements Serializable {
     private String nombre;
 
     @OneToMany
-    @JoinColumn(name = "tareas")
+    @JoinColumn(name = "id_espacio_trabajo")
     private List<Tarea> listaTareas;
 
     @OneToOne
