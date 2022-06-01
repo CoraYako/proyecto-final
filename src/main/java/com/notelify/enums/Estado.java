@@ -4,7 +4,7 @@ package com.notelify.enums;
     Definición de estados por los que pasarán las tareas.
 **/
 public enum Estado {
-    TODO("Para hacer"), IN_PROGRESS("En progreso"), FINISHED("Finalizada"), PAUSED("En pausa");
+    TODO("Pendientes"), IN_PROGRESS("En proceso"), FINISHED("Realizadas"), PAUSED("En pausa");
 
     private final String valor;
 

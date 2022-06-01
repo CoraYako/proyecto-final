@@ -42,37 +42,25 @@ public class UsuarioService implements UserDetailsService {
      * {@link ImagenService#guardar(org.springframework.web.multipart.MultipartFile)}.
      *
      * @param correo
-     * @param clave1
-     * @param clave2
-     * @param rol
-     * @param nombre
-     * @param apellido
-     * @param fechaNacimiento
-     * @param archivo
+     * @param clave
+     * @param username
      * @return el objeto persistido.
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
      * @see ImagenService
      */
     @Transactional(rollbackFor = {Exception.class})
-    public Usuario crearYPersistir(String correo, String clave1, String clave2, Rol rol, String nombre, String apellido, Date fechaNacimiento, MultipartFile archivo) throws ErrorInputException {
-        validar(nombre, apellido, correo, clave1, clave2, fechaNacimiento);
-
-        if (rol == null) {
-            throw new ErrorInputException("Debe seleccionar un rol.");
-        }
+    public Usuario creacionRapida(String correo, String clave, String username) throws ErrorInputException {
+        validacionRapida(correo, clave, username);
 
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenService.guardar(archivo);
 
-        String claveEncriptada = encriptacion(clave1);
+        String claveEncriptada = encriptacion(clave);
+
         usuario.setClave(claveEncriptada);
         usuario.setCorreo(correo);
-        usuario.setFechaNacimiento(fechaNacimiento);
-        usuario.setApellido(apellido);
-        usuario.setNombre(nombre);
-        usuario.setRol(rol);
-        usuario.setFotoPerfil(imagen);
+        usuario.setUsername(username);
+        usuario.setRol(Rol.USER);
         usuario.setFechaAlta(new Date());
         usuario.setActivo(true);
 
@@ -83,11 +71,12 @@ public class UsuarioService implements UserDetailsService {
      * Modifica al objeto Usuario pidiendo los nuevos datos. Dentro se utiliza
      * el método validar() y el método actualizar() de ImagenService.
      *
+     * @param nombre
+     * @param apellido
+     * @param username
      * @see ImagenService
      * @param archivo
      * @param id
-     * @param nombre
-     * @param apellido
      * @param correo
      * @param clave1
      * @param clave2
@@ -98,11 +87,19 @@ public class UsuarioService implements UserDetailsService {
      * encontró.
      */
     @Transactional(rollbackFor = Exception.class)
-    public Usuario modificarYPersistir(MultipartFile archivo, String id, String nombre, String apellido, String correo,
-            String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException, ElementoNoEncontradoException {
-        validar(nombre, apellido, correo, clave1, clave2, fechaNacimiento);
+    public Usuario modificar(MultipartFile archivo, String id, String nombre, String apellido, String username, String correo, String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException, ElementoNoEncontradoException {
+        validacionCompleta(nombre, apellido, username, clave1, clave2, correo);
 
         Usuario usuario = buscarPorId(id);
+
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setUsername(username);
+        usuario.setCorreo(correo);
+        usuario.setFechaNacimiento(fechaNacimiento);
+
+        String claveEncriptada = encriptacion(clave1);
+        usuario.setClave(claveEncriptada);
 
 //        String idFotoPerfil = null;
 //        if (usuario.getFotoPerfil().getId() != null) {
@@ -110,14 +107,10 @@ public class UsuarioService implements UserDetailsService {
 //        }
 //
 //        Imagen imagen = imagenService.actualizar(idFotoPerfil, archivo);
-        String claveEncriptada = encriptacion(clave1);
-        usuario.setClave(claveEncriptada);
 
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setCorreo(correo);
-        usuario.setFechaNacimiento(fechaNacimiento);
-//        usuario.setFotoPerfil(imagen);
+        Imagen imagen = imagenService.guardar(archivo);
+
+        usuario.setFotoPerfil(imagen);
 
         return usuarioRepository.save(usuario);
     }
@@ -252,32 +245,42 @@ public class UsuarioService implements UserDetailsService {
      * cierto alguno de estos, arroja la respectiva excepción.
      *
      * @param correo
-     * @param clave1
-     * @param clave2
-     * @param nombre
-     * @param apellido
-     * @param fechaNacimiento
+     * @param clave
+     * @param nombreCompleto
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
      */
-    private void validar(String nombre, String apellido, String correo, String clave1, String clave2, Date fechaNacimiento) throws ErrorInputException {
+    private void validacionRapida(String correo, String clave, String username) throws ErrorInputException {
+        if (username == null || username.trim().isEmpty()) {
+            throw new ErrorInputException("El nombre de usuario no puede ser nulo.");
+        }
+        if (correo == null || correo.trim().isEmpty()) {
+            throw new ErrorInputException("El correo no puede ser nulo.");
+        }
+        if (clave == null || clave.trim().isEmpty() || clave.length() < 6) {
+            throw new ErrorInputException("La contraseña no puede ser nula y debe tener al menos 6 caracteres.");
+        }
+    }
+
+    private void validacionCompleta(String nombre, String apellido, String username, String clave1, String clave2, String correo) throws ErrorInputException {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new ErrorInputException("El nombre no puede ser nulo.");
         }
         if (apellido == null || apellido.trim().isEmpty()) {
             throw new ErrorInputException("El apellido no puede ser nulo.");
         }
+        if (username == null || username.trim().isEmpty()) {
+            throw new ErrorInputException("El nombre de usuario no puede ser nulo.");
+        }
         if (correo == null || correo.trim().isEmpty()) {
             throw new ErrorInputException("El correo no puede ser nulo.");
         }
-        if (clave1 == null || clave1.trim().isEmpty()) {
-            throw new ErrorInputException("La contraseña no puede ser nula.");
+        if (clave1 == null || clave1.trim().isEmpty() || clave1.length() < 6) {
+            throw new ErrorInputException("La contraseña no puede ser nula y debe tener al menos 6 caracteres.");
         }
-        if (!clave1.equals(clave2)) {
-            throw new ErrorInputException("Las contraseñas deben ser idénticas.");
-        }
-        if (fechaNacimiento == null) {
-            throw new ErrorInputException("Debe indicar su fecha de nacimiento.");
+        if (!clave2.equals(clave1)) {
+            throw new ErrorInputException("Las claves deben ser iguales.");
         }
     }
+
 }

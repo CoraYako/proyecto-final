@@ -49,7 +49,7 @@ public class EspacioTrabajoService {
      * @see ImagenService
      */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public EspacioTrabajo crearYPersistir(MultipartFile archivo, String nombre, String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
+    public EspacioTrabajo crear(MultipartFile archivo, String nombre, String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
         validar(nombre, idUsuario);
 
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
@@ -124,15 +124,16 @@ public class EspacioTrabajoService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     public EspacioTrabajo modificar(String id, MultipartFile archivo, String nombre) throws ElementoNoEncontradoException, ErrorInputException {
         EspacioTrabajo espacioTrabajo = buscarPorId(id);
-
-        String idImagen = null;
-        if (espacioTrabajo.getFondo().getId() != null) {
-            idImagen = espacioTrabajo.getFondo().getId();
-        }
-        Imagen imagen = imagenService.actualizar(idImagen, archivo);
-
-        espacioTrabajo.setFondo(imagen);
         espacioTrabajo.setNombre(nombre);
+
+//        String idImagen = null;
+//        if (espacioTrabajo.getFondo().getId() != null) {
+//            idImagen = espacioTrabajo.getFondo().getId();
+//        }
+//        Imagen imagen = imagenService.actualizar(idImagen, archivo);
+//
+//        espacioTrabajo.setFondo(imagen);
+
         return espacioTrabajoRepository.save(espacioTrabajo);
     }
 

@@ -6,7 +6,6 @@ import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.UsuarioService;
 import java.util.Date;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +28,6 @@ public class UsuarioController {
 
     @GetMapping("/registro")
     public String form(ModelMap modelo) {
-        modelo.put("roles", Rol.values());
         return "registro.html";
     }
 
@@ -39,28 +37,22 @@ public class UsuarioController {
      * abajo y llama al metodo crear y persistir del usuarioService.
      *
      * @param att
+     * @param username
      * @param correo
-     * @param clave1
-     * @param clave2
-     * @param rol
-     * @param nombre
-     * @param apellido
-     * @param fechaNacimiento
-     * @param archivo
+     * @param clave
      *
      * @return Template: index.html
      *
      */
     @PostMapping("/registro")
-    public String registrar(RedirectAttributes att, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
+    public String registrar(RedirectAttributes att, @RequestParam String username, @RequestParam String correo, @RequestParam String clave) {
         try {
-            usuarioService.crearYPersistir(correo, clave1, clave2, rol, nombre, apellido, fechaNacimiento, archivo);
+            usuarioService.creacionRapida(correo, clave, username);
+
             att.addFlashAttribute("exito", "Usuario registrado correctamente.");
         } catch (ErrorInputException ex) {
             att.addFlashAttribute("error", ex.getMessage());
-            att.addFlashAttribute("roles", Rol.values());
-            att.addFlashAttribute("nombre", nombre);
-            att.addFlashAttribute("apellido", apellido);
+            att.addFlashAttribute("username", username);
             att.addFlashAttribute("correo", correo);
         }
 
@@ -80,20 +72,17 @@ public class UsuarioController {
      */
     @PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
     @GetMapping("/editar/{id}")
-    public String registro(ModelMap modelo, @PathVariable String id) {
+    public String editarGet(ModelMap modelo, @PathVariable String id) {
         Usuario usuario = new Usuario();
-
-        modelo.put("roles", Rol.values());
 
         try {
             if (id != null && !id.trim().isEmpty()) {
                 usuario = usuarioService.buscarPorId(id);
             }
+            
             modelo.put("perfil", usuario);
         } catch (ElementoNoEncontradoException | ErrorInputException ex) {
             modelo.put("error", ex.getMessage());
-
-            return "registro.html";
         }
 
         return "modificarDatos.html";
@@ -101,46 +90,34 @@ public class UsuarioController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
     @PostMapping("/editar")
-    public String editar(ModelMap modelo, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, Rol rol, @RequestParam String clave1, @RequestParam String clave2) {
+    public String editarPost(RedirectAttributes attr, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String username, @RequestParam String correo, @RequestParam String clave1, @RequestParam String clave2) {
         Usuario usuario = new Usuario();
 
         try {
-            if (id != null && !id.trim().isEmpty()) {
-                usuario = usuarioService.modificarYPersistir(archivo, id, nombre, apellido, correo, clave1, clave2, fechaNacimiento);
-
-            }
-            modelo.put("perfil", usuario);
-            modelo.put("exito", "Perfecto!!!!");
-            modelo.put("descripcion", "El perfil fue modificado exitosamente");
+            usuario = usuarioService.modificar(archivo, id, nombre, apellido, username, correo, clave1, clave2, fechaNacimiento);
+            
+            attr.addFlashAttribute("exito", "¡Perfecto!");
+            attr.addFlashAttribute("descripcion", "El perfil fue modificado exitosamente");
         } catch (ErrorInputException | ElementoNoEncontradoException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("roles", Rol.values());
-            modelo.put("nombre", nombre);
-            modelo.put("apellido", apellido);
-            modelo.put("correo", correo);
-            return "modificarDatos.html";
+            attr.addFlashAttribute("error", ex.getMessage());
+            attr.addFlashAttribute("nombre", nombre);
+            attr.addFlashAttribute("apellido", apellido);
+            attr.addFlashAttribute("username", username);
+            attr.addFlashAttribute("correo", correo);
         }
 
-        return "modificarDatos.html";
+        return "redirect:/usuario/editar/" + id;
     }
 
     @PostMapping("/recuperar")
     public String recuperarClave(ModelMap modelo, @RequestParam String correo, @RequestParam String nuevaClave, @RequestParam String repeticionNuevaClave) {
         try {
             usuarioService.recuperarClave(correo, nuevaClave, repeticionNuevaClave);
-            
+
         } catch (ErrorInputException | ElementoNoEncontradoException e) {
             modelo.put("error", e.getMessage());
         }
         return "login.html";
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
-    @GetMapping("/lista")
-    public String lista(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioService.listarTodos();
-        modelo.put("usuarios", usuarios);
-        return "list-usuarios.html";
     }
 
 }

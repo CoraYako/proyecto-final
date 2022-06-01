@@ -49,8 +49,7 @@
                 <!-- Nombre del usuario -->
                 <div class="navbar-nav mb-2 mb-lg-0">
                     <div class="nav-item">
-                        <span aria-current="page"
-                            th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></span>
+                        <span aria-current="page" th:text="${session.usuariosession.username}"></span>
                     </div>
                 </div>
                 <!-- Foto y menu del usuario -->
@@ -58,8 +57,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img th:src="${session.usuariosession.fotoPerfil} ?: 'https://res.cloudinary.com/dzyvb836r/image/upload/v1653263323/icon-guybrush3_yfuapy.ico'"
-                                width="40" height="40" class="rounded-circle">
+                            <img src="https://res.cloudinary.com/dzyvb836r/image/upload/v1653263323/icon-guybrush3_yfuapy.ico"
+                                alt="" width="40" height="40" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" th:href="@{/usuario/editar/} + ${session.usuariosession.id}">
@@ -286,7 +285,7 @@
                                                                     </option>
                                                                     <option th:each="estado : ${estados}"
                                                                         th:value="${estado}"
-                                                                        th:if="${estado.valor != 'Para hacer'}"
+                                                                        th:if="${estado.valor != 'Pendientes'}"
                                                                         th:text="${estado.valor}"></option>
                                                                 </select>
                                                             </div>
@@ -478,7 +477,7 @@
                                                                     </option>
                                                                     <option th:each="estado : ${estados}"
                                                                         th:value="${estado}"
-                                                                        th:if="${estado.valor != 'En progreso'}"
+                                                                        th:if="${estado.valor != 'En proceso'}"
                                                                         th:text="${estado.valor}"></option>
                                                                 </select>
                                                             </div>
@@ -655,7 +654,7 @@
                                                                         th:text="${finalizada.estado.valor}"></option>
                                                                     <option th:each="estado : ${estados}"
                                                                         th:value="${estado}"
-                                                                        th:if="${estado.valor != 'Finalizada'}"
+                                                                        th:if="${estado.valor != 'Realizadas'}"
                                                                         th:text="${estado.valor}"></option>
                                                                 </select>
                                                             </div>
