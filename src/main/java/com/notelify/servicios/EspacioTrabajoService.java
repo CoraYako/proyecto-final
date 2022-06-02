@@ -7,6 +7,7 @@ import com.notelify.entidades.Usuario;
 import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.repositorios.EspacioTrabajoRepository;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -44,10 +45,11 @@ public class EspacioTrabajoService {
      * @return el objeto persistido.
      * @throws ErrorInputException cuando los argumentos son nulos o vienen
      * vacíos.
+     * @throws com.notelify.exceptions.ElementoNoEncontradoException
      * @see ImagenService
      */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public EspacioTrabajo crearYPersistir(MultipartFile archivo, String nombre, String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
+    public EspacioTrabajo crear(MultipartFile archivo, String nombre, String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
         validar(nombre, idUsuario);
 
         EspacioTrabajo espacioTrabajo = new EspacioTrabajo();
@@ -85,9 +87,9 @@ public class EspacioTrabajoService {
     }
 
     /**
-     * Agrega Usuario al EspacioTarea utilizando el metodo buscarPorId(). 
+     * Agrega Usuario al EspacioTarea utilizando el metodo buscarPorId().
      * Primero buscar el espacio Tarea por id y luego busca el Usuario mediante
-     * el metodo buscarPorId. El Usuario encontrado se agrega a la lista de 
+     * el metodo buscarPorId. El Usuario encontrado se agrega a la lista de
      * Usuarios creada en los atributos de EspacioTrabajo.
      *
      * @param id
@@ -97,7 +99,6 @@ public class EspacioTrabajoService {
      * @throws ElementoNoEncontradoException cuando el elemento solicitado no se
      * encontró.
      */
-
     @Transactional(rollbackFor = {Exception.class})
     public EspacioTrabajo agregarUsuario(String id, String idUsuario) throws ElementoNoEncontradoException, ErrorInputException {
         EspacioTrabajo espacioTrabajo = buscarPorId(id);
@@ -123,16 +124,34 @@ public class EspacioTrabajoService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     public EspacioTrabajo modificar(String id, MultipartFile archivo, String nombre) throws ElementoNoEncontradoException, ErrorInputException {
         EspacioTrabajo espacioTrabajo = buscarPorId(id);
-
-        String idImagen = null;
-        if (espacioTrabajo.getFondo().getId() != null) {
-            idImagen = espacioTrabajo.getFondo().getId();
-        }
-        Imagen imagen = imagenService.actualizar(idImagen, archivo);
-
-        espacioTrabajo.setFondo(imagen);
         espacioTrabajo.setNombre(nombre);
+
+//        String idImagen = null;
+//        if (espacioTrabajo.getFondo().getId() != null) {
+//            idImagen = espacioTrabajo.getFondo().getId();
+//        }
+//        Imagen imagen = imagenService.actualizar(idImagen, archivo);
+//
+//        espacioTrabajo.setFondo(imagen);
+
         return espacioTrabajoRepository.save(espacioTrabajo);
+    }
+
+    public List<EspacioTrabajo> espaciosDelUsuario(String idUsuario) throws ErrorInputException, ElementoNoEncontradoException {
+        List<EspacioTrabajo> espaciosDelUsuario = new ArrayList<>();
+
+        Usuario usuarioEncontrado = null;
+        usuarioEncontrado = usuarioService.buscarPorId(idUsuario);
+
+        for (EspacioTrabajo espacio : listarTodos()) {
+            for (Usuario usuario : espacio.getListaUsuarios()) {
+                if (usuario.equals(usuarioEncontrado)) {
+                    espaciosDelUsuario.add(espacio);
+                }
+            }
+        }
+
+        return espaciosDelUsuario;
     }
 
     /**

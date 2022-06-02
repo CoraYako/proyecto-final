@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,7 +31,7 @@ public class EspacioTrabajo implements Serializable {
     private String nombre;
 
     @OneToMany
-    @JoinColumn(name = "tareas")
+    @JoinColumn(name = "id_espacio_trabajo")
     private List<Tarea> listaTareas;
 
     @OneToOne
@@ -45,7 +46,7 @@ public class EspacioTrabajo implements Serializable {
     @Column(name = "fecha_finalizacion")
     private Date fechaFinalizacion;
 
-    @OneToMany
+    @ManyToMany
     private List<Usuario> listaUsuarios;
 
     @Column(name = "activo")

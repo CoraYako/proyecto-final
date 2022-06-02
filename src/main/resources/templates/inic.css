@@ -79,3 +79,13 @@ width: 18rem;
 .bbt{
     background-color: #0d0d13;
 }
+
+#staticBackdrop{
+
+position:absolute;
+bottom:55px;
+
+
+}
+
+

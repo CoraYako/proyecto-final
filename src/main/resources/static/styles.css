@@ -1,5 +1,5 @@
 .divMadre {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -24,7 +24,7 @@
 .SignUp {
   padding: 4em 1em;
   width: 100%;
-  font-family: jaf-facitweb,Helvetica Neue,Arial,sans-serif;
+  font-family: jaf-facitweb, Helvetica Neue, Arial, sans-serif;
   color: #4d4d4d;
   font-weight: 300;
   line-height: 1.44em;
@@ -32,7 +32,7 @@
 }
 
 .SignUp-Form {
-  font-family: jaf-facitweb,Helvetica Neue,Arial,sans-serif;
+  font-family: jaf-facitweb, Helvetica Neue, Arial, sans-serif;
   color: #4d4d4d;
   font-weight: 300;
   line-height: 1.44em;
@@ -60,7 +60,12 @@
   flex-direction: column;
 }
 
-.SignUp-Form-Email, .SignUp-Form-Apellido, .SignUp-Form-Rol, .SignUp-Form-Password, .SignUp-Form-Nombre , .SignUp-Form-FechaDeNacimiento{
+.SignUp-Form-Email,
+.SignUp-Form-Apellido,
+.SignUp-Form-Rol,
+.SignUp-Form-Password,
+.SignUp-Form-Nombre,
+.SignUp-Form-FechaDeNacimiento {
   line-height: normal;
   background: #edeff0;
   border-radius: 4px;
@@ -81,10 +86,17 @@
   text-indent: 0;
   text-shadow: none;
 }
-button, input {
+
+button,
+input {
   overflow: visible;
 }
-button, input, optgroup, select, textarea {
+
+button,
+input,
+optgroup,
+select,
+textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
@@ -101,8 +113,8 @@ label {
 }
 
 .SignUp-Form-SubmitButton {
-  background: -webkit-linear-gradient(top,#61bd4f,#5aac44);
-  background: linear-gradient(180deg,#61bd4f 0,#5aac44);
+  background: -webkit-linear-gradient(top, #61bd4f, #5aac44);
+  background: linear-gradient(180deg, #61bd4f 0, #5aac44);
   box-shadow: 0 2px 0 #3f6f21;
   color: #fff;
   margin: 1em 0 0;
@@ -115,66 +127,160 @@ label {
   border-radius: .3em;
 }
 
-.SignUp-Form-SubmitButton:hover{
+.SignUp-Form-SubmitButton:hover {
   background: rgb(10, 245, 45);
   transform: scale(1.2);
   transition: 1000ms;
 }
 
-#barra1{
-     background-color: rgb(10, 245, 45) !important; 
-
-    
-    
+#barra1 {
+  background-color: rgb(10, 245, 45) !important;
 }
 
-#SecondNavBar{
-margin-top: -1% ;
-padding-top: 0%;
-
+#SecondNavBar {
+  margin-top: -1%;
+  padding-top: 0%;
 }
 
-#collapseWidthExample{
-
-  background-color: rgb(255, 255, 255 ,0.6);
-color: #212529;
-text-decoration: none;
-}
-
-
-#bodyCss{
-
-  background-image: url("https://res.cloudinary.com/dzyvb836r/image/upload/v1653258560/7270297_ucutrr.jpg");
-  
-
-}
-
-#navBarVert{
+#collapseWidthExample {
+  background-color: rgb(255, 255, 255, 0.6);
   color: #212529;
-text-decoration: none;
+  text-decoration: none;
+}
+
+#bodyCss {
+  background-image: url("https://res.cloudinary.com/dzyvb836r/image/upload/v1653258560/7270297_ucutrr.jpg");
+}
+
+#navBarVert {
+  color: #212529;
+  text-decoration: none;
 }
 
 #hover-content {
-  display:none;
+  display: none;
 }
+
 #parent:hover #hover-content {
-  display:block;
+  display: block;
 }
 
-#exampleModal{
-
-  background-color: rgba(0, 0, 0, 0.8);
-  
+#exampleModal {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-#moveStatus{
-
-  background-color: rgba(0, 0, 0, 0.8);
-
+#moveStatus {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-#linkIcon{
+#linkIcon {
   color: #212529;
   text-decoration: none;
-
 }
+
+.bg-chucky {
+  background-image: url("https://res.cloudinary.com/dzyvb836r/image/upload/v1653495021/wallpaperbetter_3_wgnbfb.jpg");
+  position: cover;
+}
+
+#staticModalCrearTarea {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#cardNameWorkSpace {
+  font-size: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: rgba(10, 3, 3, 0.829);
+}
+
+
+/* Home */
+#verticalHome {
+  background-color: #cdd2d4c9;
+}
+
+#dashboardHome {
+  width: 80%;
+  background-color: #cdd2d4c9;
+  border-radius: 20px;
+}
+
+/*-------------------------------------------------------------------
+                        10. RESPONSIVE
+-------------------------------------------------------------------*/
+
+@media (min-width:1920px) {
+  #list2 {
+    padding-left: 0% !important;
+  }
+}
+
+@media (min-width:1440px) {
+  #tittleList {
+    font-size: 15px;
+  }
+
+  #cardNameWorkSpace {
+    font-size: 20px;
+  }
+
+  .card {
+    font-size: 13px;
+  }
+
+  #list2 {
+    padding: 0.5% !important;
+  }
+}
+
+@media (max-width:1280px) {
+  /*Controlo el tamaño de las cards*/
+  #list2 {
+    font-size: 15px;
+  }
+
+  #tittleList {
+    font-size: 15px;
+  }
+}
+
+@media (min-width:1025px) and (max-width:1280px) {
+  #list2 {
+    font-size: 10px;
+  }
+
+  #tittleList {
+    font-size: 10px;
+  }
+
+  #cardNameWorkSpace {
+    display: none;
+  }
+}
+
+@media (min-width:981px) and (max-width:1024px) {}
+
+@media (max-width:1024px) {}
+
+@media (min-width:768px) and (max-width:980px) {}
+
+@media (max-width:980px) {}
+
+@media (max-width:800px) and (orientation:landscape) {}
+
+@media (max-width:800px) {}
+
+@media (max-width:767px) {}
+
+@media (max-width:640px) {}
+
+@media (max-width:576px) {}
+
+@media (max-width:375px) {}
+
+@media (max-width:360px) {}
+
+@media (max-width:320px) {}
+
+@media (max-width: 1024px) {}
