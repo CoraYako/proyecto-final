@@ -5,6 +5,7 @@ import com.notelify.exceptions.ElementoNoEncontradoException;
 import com.notelify.exceptions.ErrorInputException;
 import com.notelify.servicios.UsuarioService;
 import java.util.Date;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -89,12 +90,14 @@ public class UsuarioController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN') || hasAnyRole('ROLE_USER')")
     @PostMapping("/editar")
-    public String editarPost(RedirectAttributes attr, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String username, @RequestParam String correo, @RequestParam String clave1, @RequestParam String clave2) {
+    public String editarPost(HttpSession session, RedirectAttributes attr, MultipartFile archivo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaNacimiento, @RequestParam String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String username, @RequestParam String correo, @RequestParam String clave1, @RequestParam String clave2) {
         Usuario usuario = new Usuario();
 
         try {
             usuario = usuarioService.modificar(archivo, id, nombre, apellido, username, correo, clave1, clave2, fechaNacimiento);
-
+            
+            session.setAttribute("usuariosession", usuario);
+            
             attr.addFlashAttribute("exito", "¡Perfecto!");
             attr.addFlashAttribute("descripcion", "El perfil fue modificado exitosamente");
         } catch (ErrorInputException | ElementoNoEncontradoException ex) {
