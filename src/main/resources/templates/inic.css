@@ -4,11 +4,12 @@
 --grey:#efefef;
 }
 
+
+
 body{
-    overflow:hidden;
-    font-weight: 300;
-    color: var(--primary)
-    
+    background-repeat: no-repeat;
+   background-size: cover;
+    background-attachment: fixed;
 }
 
 #notel{
@@ -36,7 +37,8 @@ a:hover{
 
 
 #sidebar-container{
-    min-height: 100vh;
+    position:absolute;
+
 }
 
 
@@ -66,6 +68,22 @@ width: 18rem;
     
 }
 
+
+.btn-dos{
+    background-color:blueviolet !important;
+    position:absolute;
+    top:1px;
+    right:1px;
+    margin-top:125px;
+     
+}
+
+.btn-tres{
+    background-color:blueviolet !important;
+    
+}
+    
+
 #carouselExampleSlidesOnly{
     height: 400px;
     width: 900px;
@@ -88,4 +106,18 @@ bottom:55px;
 
 }
 
+#tablas{
+    background-color: rgba(138, 43, 226,53%);
+    margin-bottom:100px;
 
+}
+ .tra{
+     background-color:rgba(35, 132, 170,35%);
+ }
+
+
+ .td{
+     background-color:rgba(249, 249, 250, 0.53);
+ }
+
+ 
